@@ -19,53 +19,41 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void initState() {
-    Future.delayed(
-      const Duration(milliseconds: 400),
-      () {
-        final bool onBoardingVisited =
-            sl<Cache>().getBoolData(AppConstants.onBoardingVisited) ?? false;
-        carPosititon = 0;
+    Future.delayed(const Duration(milliseconds: 400), () {
+      final bool onBoardingVisited =
+          sl<Cache>().getBoolData(AppConstants.onBoardingVisited) ?? false;
+      carPosititon = 0;
+      setState(() {});
+      Future.delayed(const Duration(seconds: 2), () {
+        showLogo = true;
         setState(() {});
-        Future.delayed(
-          const Duration(seconds: 2),
-          () {
-            showLogo = true;
+        Future.delayed(const Duration(seconds: 1), () {
+          logoPosition = 176;
+          setState(() {});
+          Future.delayed(const Duration(milliseconds: 300), () {
+            showTitle = true;
             setState(() {});
-            Future.delayed(
-              const Duration(seconds: 1),
-              () {
-                logoPosition = 176;
-                setState(() {});
-                Future.delayed(
-                  const Duration(milliseconds: 300),
-                  () {
-                    showTitle = true;
-                    setState(() {});
-                    Future.delayed(
-                      const Duration(milliseconds: 1500),
-                      () {
-                        navigateReplacement(
-                          // ignore: use_build_context_synchronously
-                          context,
-                          onBoardingVisited
-                              ? sl<Cache>().getStringData(AppConstants.token) ==
-                                      null
-                                  ? const ChooseRoleView()
-                                  : context.read<GlobalCubit>().isRider
-                                      ? const BaseView()
-                                      : const HomeView()
-                              : const OnboardingView(),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            );
-          },
-        );
-      },
-    );
+            Future.delayed(const Duration(milliseconds: 1500), () {
+              context
+                          .read<GlobalCubit>()
+                          .selectRole(AppConstants.rider);
+                      // navigate(context, const LoginView());
+              navigateReplacement(
+                // ignore: use_build_context_synchronously
+                context,
+                onBoardingVisited
+                    ? sl<Cache>().getStringData(AppConstants.token) == null
+                          ? const LoginView()
+                          : context.read<GlobalCubit>().isRider
+                          ? const BaseView()
+                          : const HomeView()
+                    : const OnboardingView(),
+              );
+            });
+          });
+        });
+      });
+    });
     super.initState();
   }
 
@@ -89,9 +77,7 @@ class _SplashViewState extends State<SplashView> {
             duration: const Duration(milliseconds: 1000),
             left: carPosititon,
             bottom: 88.rH(context),
-            child: Image.asset(
-              Assets.imagesSplashCar,
-            ),
+            child: Image.asset(Assets.imagesSplashCar),
           ),
           //! Logo
           AnimatedPositioned(
@@ -102,9 +88,7 @@ class _SplashViewState extends State<SplashView> {
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
               opacity: showLogo ? 1 : 0,
-              child: Image.asset(
-                Assets.imagesLogo,
-              ),
+              child: Image.asset(Assets.imagesLogo),
             ),
           ),
           //! Title

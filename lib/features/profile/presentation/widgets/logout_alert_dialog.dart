@@ -112,9 +112,13 @@ class LogoutAlertDialog extends StatelessWidget {
                           sl<Cache>().removeKey(AppConstants.role);
                           sl<Cache>().removeKey(AppConstants.user);
                           context.read<GlobalCubit>().getUserData();
+                          context
+                          .read<GlobalCubit>()
+                          .selectRole(AppConstants.rider);
+                      // navigateReplacement(context, const LoginView());
                           navigateAndRemoveUntil(
                             context,
-                            const ChooseRoleView(),
+                            const LoginView(),
                           );
                         },
                         title: AppStrings.yes.tr(context),

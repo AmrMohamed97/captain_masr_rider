@@ -1,5 +1,5 @@
 import '../../../../core/imports/imports.dart';
-import '../views/choose_role_view.dart';
+// import '../views/choose_role_view.dart';
 
 class OnboardingBottomStepper extends StatelessWidget {
   const OnboardingBottomStepper({
@@ -64,7 +64,11 @@ class OnboardingBottomStepper extends StatelessWidget {
                       cubit.changePageIndex();
                     } else {
                       sl<Cache>().setData(AppConstants.onBoardingVisited, true);
-                      navigateReplacement(context, const ChooseRoleView());
+                      // navigateReplacement(context, const ChooseRoleView());
+                      context
+                          .read<GlobalCubit>()
+                          .selectRole(AppConstants.rider);
+                      navigateReplacement(context, const LoginView());
                     }
                   },
                   child: Container(
