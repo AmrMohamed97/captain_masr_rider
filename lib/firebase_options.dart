@@ -50,21 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD2LrCe11GeFZC2d1fTjok8yTAX14S5ByM',
-    appId: '1:514044255637:android:627e19a22f59525836ea9c',
-    messagingSenderId: '514044255637',
-    projectId: 'captain-masr-4acb2',
-    databaseURL: 'https://captain-masr-4acb2-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'captain-masr-4acb2.firebasestorage.app',
+    apiKey: 'AIzaSyC-p71XXsahlFMAGsZyP2Rgo9x-Oi1Xy7I',
+    appId: '1:989501248660:android:da06bd42379e9fbe805081',
+    messagingSenderId: '989501248660',
+    projectId: 'ma3ak-6992f',
+    databaseURL: 'https://ma3ak-6992f-default-rtdb.firebaseio.com',
+    storageBucket: 'ma3ak-6992f.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyApPb9lRZL8DktrTu6Wekh17K_RFsSar18',
-    appId: '1:514044255637:ios:aafe0e6acaf7a35e36ea9c',
-    messagingSenderId: '514044255637',
-    projectId: 'captain-masr-4acb2',
-    databaseURL: 'https://captain-masr-4acb2-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'captain-masr-4acb2.firebasestorage.app',
-    iosBundleId: 'com.evyx.captainMasrRider',
+    apiKey: 'AIzaSyCmGubm7bMM-rSFi712ZGRGXGikVubmfPk',
+    appId: '1:989501248660:ios:a68f592b1c35e561805081',
+    messagingSenderId: '989501248660',
+    projectId: 'ma3ak-6992f',
+    databaseURL: 'https://ma3ak-6992f-default-rtdb.firebaseio.com',
+    storageBucket: 'ma3ak-6992f.firebasestorage.app',
+    iosBundleId: 'com.evyx.maak',
   );
 }
