@@ -117,6 +117,7 @@
     "seeMore": "See More",
     "ongoing": "Ongoing",
     "completed": "Completed",
+    "completedGroup": "Completed Group",
     "scheduled": "Scheduled",
     "canceled": "Canceled",
     "classicRide": "Classic Ride",
@@ -334,7 +335,7 @@
     "orangeCash": "Orange Cash",
     "etisalatCash": "Etisalat Cash",
     "wePay": "WE Pay",
-    "maakWallet": "CAPTAIN MASR Wallet",
+    "maakWallet": "Ma'ak Wallet",
     "dailyRides": "Daily Rides",
     "onMyWay": "On My Way",
     "enterPickupLocation": "Enter pickup location",
@@ -431,7 +432,7 @@
     "errorCalculatingCost": "An error occurred while calculating cost",
     "checkInternetAndTryAgain": "Check your internet connection and try again",
     "retry": "Retry",
-        "estimatedTripDetails": "Estimated Trip Details",
+    "estimatedTripDetails": "Estimated Trip Details",
     "unreadNotifications": "Unread Notifications",
     "tapToReadAll": "Tap to view and mark all as read"
 }
