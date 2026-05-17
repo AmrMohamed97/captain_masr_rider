@@ -1,6 +1,5 @@
 import '../../../../core/imports/imports.dart';
 import '../../../home/presentation/views/home_view.dart';
-import 'choose_role_view.dart';
 import 'onboarding_view.dart';
 
 class SplashView extends StatefulWidget {
