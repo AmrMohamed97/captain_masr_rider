@@ -51,7 +51,7 @@ class CostRow extends StatelessWidget {
           //! Price Before
           if (costBeforeDiscount != null)
             Text(
-              " $costBeforeDiscount ${AppStrings.egp.tr(context)}",
+              " ${costBeforeDiscount?.toStringAsFixed(2)} ${AppStrings.egp.tr(context)}",
               style: Styles.regular16(context).copyWith(
                 color: AppColors.greyText,
                 decoration: TextDecoration.lineThrough,

@@ -81,6 +81,14 @@ class StartTripCubit extends Cubit<StartTripState> {
 
   //! Calculate Estimated
   Future<void> calculateEstimated() async {
+    print('===============calculateEstimated onMyWay data=================');
+    print(startLocation?.lat);
+    print(startLocation?.lon);
+    print(endLocation?.lat);
+    print(endLocation?.lon);
+    print(selectedSeatsIds.length);
+    print('[${DateTime.now().toString()}]');
+    print('===============calculateEstimated data end=====================');
     emit(StartTripLoadingState());
     final result = await sl<RiderTripRepo>().calculateEstimated(
       tripTypeId: isDelivery

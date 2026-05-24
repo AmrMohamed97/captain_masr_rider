@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -12,7 +13,6 @@ import '../../../driver_trip/presentation/widgets/up_time_timer.dart';
 import '../../../preferences/presentation/widgets/preferences_alert_dialog.dart';
 import '../../../trips/presentation/widgets/cancel_trip_alert_dialog.dart';
 import '../../../trips/presentation/widgets/reason_of_cancel_trip_alert_dialog.dart';
-import 'package:firebase_database/firebase_database.dart';
 import '../cubit/rider_trip_cubit.dart';
 
 class RiderTripBottomContainer extends StatelessWidget {
@@ -120,7 +120,7 @@ class RiderTripBottomContainer extends StatelessWidget {
                                         SizedBox(width: 5.rW(context)),
                                         Text(
                                           cubit.tripDetails!.driverRating
-                                                  ?.toString() ??
+                                                  ?.toStringAsFixed(1) ??
                                               "0.0",
                                           style: Styles.regular12(context)
                                               .copyWith(
@@ -143,9 +143,13 @@ class RiderTripBottomContainer extends StatelessWidget {
                                       senderId: cubit.tripDetails!.riderId!,
                                       receiverId: cubit.tripDetails!.driverId!,
                                       senderName: cubit.tripDetails!.riderName!,
-                                      receiverName: cubit.tripDetails!.driverName!,
-                                      receiverImage: cubit.tripDetails!.driverImage??'',
-                                      resolvedRequestType: cubit.tripDetails!.tripType ?? 'classic',
+                                      receiverName:
+                                          cubit.tripDetails!.driverName!,
+                                      receiverImage:
+                                          cubit.tripDetails!.driverImage ?? '',
+                                      resolvedRequestType:
+                                          cubit.tripDetails!.tripType ??
+                                              'classic',
                                     ),
                                   );
                                 },
@@ -213,9 +217,10 @@ class RiderTripBottomContainer extends StatelessWidget {
                                   ],
                                 ),
                               ),
+                              const SizedBox(width: 6),
                               //! Cost
                               Text(
-                                "${cubit.tripDetails!.price ?? "??"} ${AppStrings.egp.tr(context)}",
+                                "${cubit.tripDetails!.price?.toStringAsFixed(2) ?? "??"} ${AppStrings.egp.tr(context)}",
                                 style:
                                     Styles.semibold20Primary(context).copyWith(
                                   color: AppColors.red,

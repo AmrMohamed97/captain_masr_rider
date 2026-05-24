@@ -275,7 +275,7 @@ class RiderTripRepo {
           "dropoff_latitude": dropoffLatitude,
           "dropoff_longitude": dropoffLongitude,
           "vehicle_category_id": vehicleCategoryId,
-          "trip_type_id": 3
+          "trip_type_id": 2,//share trip
         },
       );
       return Right(response.data["message"]);

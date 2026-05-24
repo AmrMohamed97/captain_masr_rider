@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:ui' as ui;
 
-import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../core/databases/api/dio_consumer.dart';
 import '../../../../core/imports/imports.dart';
@@ -15,9 +15,9 @@ import '../../../my_vehicle/data/models/vehicle_category_model.dart';
 import '../../../my_vehicle/data/repo/vehicle_repo.dart';
 import '../../../pick_location/data/models/selected_location_model.dart';
 import '../../../rider_trip/data/models/trip_details_model.dart';
+import '../../data/models/trip_estimation_model.dart';
 // import '../../../rider_trip/data/repo/rider_trip_repo.dart';
 import '../../data/repo/schedule_trip_repo.dart';
-import '../../data/models/trip_estimation_model.dart';
 
 part 'schedule_trip_state.dart';
 
@@ -110,7 +110,6 @@ class ScheduleTripCubit extends Cubit<ScheduleTripState> {
   //! Today Status Realtime Listener
   void initTodayStatusRealTime(bool isRider) {
     if (postedTrip?.id == null) return;
-    
 
     // if (!isRider) {
     dbTodayStatus = FirebaseDatabase.instance.ref(
@@ -125,36 +124,40 @@ class ScheduleTripCubit extends Cubit<ScheduleTripState> {
     // print("postedTrip!.id: ${postedTrip!.id}");
     if (isRider) {
       dbTodayStatusSubscription = dbTodayStatus?.onValue.listen((event) {
-      try {
-        final data = event.snapshot.value;
-        // if (!kReleaseMode) log("Today Status: $data");
+        try {
+          final data = event.snapshot.value;
+          // if (!kReleaseMode) log("Today Status: $data");
 
-        if (data != null) {
-          print('data=================#######===============================');
-          print(data);
-          driverStatus = data.toString();
-          emit(TodayStatusChangedState());
+          if (data != null) {
+            print(
+                'data=================#######===============================');
+            print(data);
+            driverStatus = data.toString();
+            emit(TodayStatusChangedState());
+          }
+        } catch (e) {
+          if (!kReleaseMode) log("Error on Today Status listener: $e");
         }
-      } catch (e) {
-        if (!kReleaseMode) log("Error on Today Status listener: $e");
-      }
-    });
+      });
+    } else {
+      dbTodayStatusSubscription =
+          dbTodayStatus?.onValue.skip(1).listen((event) {
+        try {
+          final data = event.snapshot.value;
+          // if (!kReleaseMode) log("Today Status: $data");
+
+          if (data != null) {
+            print(
+                'data=================#######===============================');
+            print(data);
+            realtimeTodayStatus = data.toString();
+            emit(TodayStatusChangedState());
+          }
+        } catch (e) {
+          if (!kReleaseMode) log("Error on Today Status listener: $e");
+        }
+      });
     }
-    else{dbTodayStatusSubscription = dbTodayStatus?.onValue.skip(1).listen((event) {
-      try {
-        final data = event.snapshot.value;
-        // if (!kReleaseMode) log("Today Status: $data");
-
-        if (data != null) {
-          print('data=================#######===============================');
-          print(data);
-          realtimeTodayStatus = data.toString();
-          emit(TodayStatusChangedState());
-        }
-      } catch (e) {
-        if (!kReleaseMode) log("Error on Today Status listener: $e");
-      }
-    });}
   }
 
   void initTodayRiderStatusRealTime({bool isRider = false, int? riderId}) {
@@ -687,14 +690,20 @@ class ScheduleTripCubit extends Cubit<ScheduleTripState> {
   TripEstimationModel? estimatedTripDetails;
 
   Future<void> calculateEstimated() async {
-    print('================================');
-    print(
-      selectedSeatsIds.length,
-    );
+    print('===============calculateEstimated data=================');
+    print(startLocation?.lat);
+    print(startLocation?.lon);
+    print(endLocation?.lat);
+    print(endLocation?.lon);
+    print(selectedSeatsIds.length);
+    print(selectedDaysFromTo);
+    print('===============calculateEstimated data end=================');
+
     emit(CalculateShareEstimatedLoadingState());
     final result = await sl<ScheduleTripRepo>().calculateEstimated(
-      tripTypeId: 2,
-      vehilceCategoryId: 2,
+      //daily
+      tripTypeId: 3,
+      vehilceCategoryId: 2, //selectedVehicleCategoryId?? 2,
       pickupAddress: startLocation?.address ?? '',
       pickupLatitude: startLocation?.lat ?? 0,
       pickupLongitude: startLocation?.lon ?? 0,

@@ -97,7 +97,7 @@ class ScheduleTripRepo {
           "vehicle_category_id": vehicleCategoryId,
           "dates[]": dates,
           "time": time,
-          "trip_type_id": 1,
+          "trip_type_id": 3, //daily
         },
       );
       return Right(response.data["message"]);

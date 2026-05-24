@@ -75,6 +75,7 @@ class StartTripBottomSection extends StatelessWidget {
                         ),
                         SizedBox(height: 18.rH(context)),
                         //! Estimated Cost
+                        // if (!cubit.isShareRide)
                         Row(
                           children: [
                             CustomSvgPicture(
@@ -99,7 +100,8 @@ class StartTripBottomSection extends StatelessWidget {
                               ),
                             if (cubit.isShareRide)
                               Text(
-                                cubit.details?.totalPrice.toString() ?? '',
+                                cubit.details?.totalPrice?.toStringAsFixed(2) ??
+                                    '',
                                 style:
                                     Styles.semibold16Primary(context).copyWith(
                                   color: AppColors.red,
