@@ -181,6 +181,7 @@ class AvailableShareTripsCubit extends Cubit<AvailableShareTripsState> {
             dropoffLatitude: shareTripData.dropoffLatitude,
             dropoffLongitude: shareTripData.dropoffLongitude,
             vehicleCategoryId: shareTripData.vehicleCategoryId,
+            promoCode: shareTripData.promoCode,
           );
     result.fold(
       (error) => emit(AvailableShareTripsErrorState(error: error)),
