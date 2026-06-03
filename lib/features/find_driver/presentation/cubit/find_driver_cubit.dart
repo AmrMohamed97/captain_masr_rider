@@ -116,11 +116,12 @@ class FindDriverCubit extends Cubit<FindDriverState> {
   }
 
   //! Accept Ride
-  void acceptDriver({required int driverId}) async {
+  void acceptDriver({required int driverId,required int driverRequestId}) async {
     emit(AcceptDriverLoadingState());
     final result = await sl<RiderTripRepo>().acceptDriver(
       tripId: tripDetails?.id ?? 0,
       driverId: driverId,
+      driverRequestId: driverRequestId,
     );
     result.fold(
       (error) => emit(AcceptDriverErrorState(error: error)),

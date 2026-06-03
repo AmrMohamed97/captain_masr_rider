@@ -167,11 +167,11 @@ class RiderTripRepo {
 
   //! Accept Driver
   Future<Either<String, String>> acceptDriver(
-      {required int tripId, required int driverId}) async {
+      {required int tripId, required int driverId,required int driverRequestId}) async {
     try {
       //status of trip changed from pending to accepted in assign_trip
       final Response response = await api.post(
-        "${EndPoints.userAcceptDriver}/$tripId/$driverId",
+        "${EndPoints.userAcceptDriver}/$tripId/$driverId/$driverRequestId",
       );
       return Right(response.data["message"]);
     } on ServerException catch (e) {

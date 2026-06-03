@@ -326,8 +326,11 @@ class FindDriverBody extends StatelessWidget {
                                               cubit.acceptDriver(
                                                   driverId: cubit
                                                           .requests[index]
-                                                          .driverId ??
-                                                      0);
+                                                          .driverId !,
+                                                  driverRequestId:    cubit
+                                                          .requests[index]
+                                                          .requestId! 
+                                                      );
                                             }
                                           },
                                           title: state
