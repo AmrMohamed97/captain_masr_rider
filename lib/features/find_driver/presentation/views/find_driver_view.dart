@@ -65,12 +65,28 @@ class FindDriverView extends StatelessWidget {
               state: ToastStates.error,
             );
           }
+          if (state is NegotiationSuccessState) {
+            showToast(
+              context,
+              message: state.message,
+              state: ToastStates.success,
+            );
+          }
+          if (state is NegotiationErrorState) {
+            showToast(
+              context,
+              message: state.error,
+              state: ToastStates.error,
+            );
+          }
         },
         builder: (context, state) {
           return Scaffold(
             body: CustomModalProgressIndicator(
               inAsyncCall: state is FindDriverCancelTripLoadingState ||
-                  state is AcceptRequestLoadingState,
+                  state is AcceptRequestLoadingState ||
+                  state is AcceptDriverLoadingState ||
+                  state is NegotiationLoadingState,
               child: const FindDriverBody(),
             ),
           );

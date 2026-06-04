@@ -435,5 +435,12 @@
     "retry": "إعادة المحاولة",
     "estimatedTripDetails": "تفاصيل الرحلة المقدرة",
     "unreadNotifications": "إشعار غير مقروء",
-    "tapToReadAll": "اضغط لعرضها وتحديدها كمقروءة"
+    "tapToReadAll": "اضغط لعرضها وتحديدها كمقروءة",
+    "negotiate": "تفاوض",
+    "negotiationOffer": "عرض تفاوض",
+    "offerPrice": "سعر العرض",
+    "messageToDriver": "رسالة للسائق (اختياري)",
+    "sendOffer": "إرسال العرض",
+    "priceRequired": "يجب أن يكون السعر 1 على الأقل",
+    "negotiationSuccess": "تم إرسال عرض التفاوض بنجاح"
 }

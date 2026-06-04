@@ -181,6 +181,29 @@ class RiderTripRepo {
     }
   }
 
+  //! Negotiate Driver
+  Future<Either<String, String>> negotiateDriver({
+    required int driverRequestId,
+    required double price,
+    String? message,
+  }) async {
+    try {
+      final Response response = await api.post(
+        "${EndPoints.userNegotiation}/$driverRequestId",
+        data: {
+          "action": "counter_offer",
+          "price": price,
+          "message": message,
+        },
+      );
+      return Right(response.data["message"] ?? "Success");
+    } on ServerException catch (e) {
+      return Left(e.errorModel.detail);
+    } catch (e) {
+      return Left(AppStrings.anErrorOccured());
+    }
+  }
+
   //! Cancel Trip
   Future<Either<String, String>> cancelTrip({
     required int tripId,

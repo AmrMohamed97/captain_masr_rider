@@ -64,6 +64,7 @@ class EndPoints {
   static const String userAcceptDriver = "${baseUrl}user/request/accept-driver";
   static const String userTripEstimate =
       "${baseUrl}user/request/estimate-classic";
+  static const String userNegotiation = "${baseUrl}user/request/negotiation";
   static const String cancelTrip = "${baseUrl}rides/tripId/cancel";
   static const String riderRateTrip = "${baseUrl}user/request/ID/rate";
   static const String deliverItems = "${baseUrl}deliver-items";

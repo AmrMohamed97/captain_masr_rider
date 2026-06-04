@@ -164,7 +164,7 @@ class TripDetailsModel {
       userId: json["user_id"],
       rideId: int.tryParse(json["ride_id"]?.toString() ?? "0"),
       riderId: json["rider_id"],
-      requestId: json["request_id"],
+      requestId: json["request_id"] ?? json['driver_request_id'],
       // tripId: json["trip_id"],
       smallCount: json["small_count"],
       mediumCount: json["medium_count"],

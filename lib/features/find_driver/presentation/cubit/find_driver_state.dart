@@ -42,3 +42,17 @@ final class AcceptDriverSuccessState extends FindDriverState {
     required this.driverId,
   });
 }
+
+final class NegotiationLoadingState extends FindDriverState {}
+
+final class NegotiationErrorState extends FindDriverState {
+  final String error;
+
+  NegotiationErrorState({required this.error});
+}
+
+final class NegotiationSuccessState extends FindDriverState {
+  final String message;
+
+  NegotiationSuccessState({required this.message});
+}

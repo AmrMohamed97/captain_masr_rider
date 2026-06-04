@@ -132,6 +132,30 @@ class FindDriverCubit extends Cubit<FindDriverState> {
     );
   }
 
+  //! Negotiate Driver
+  Future<void> negotiateDriver({
+    required int driverRequestId,
+    required double price,
+    String? message,
+  }) async {
+    emit(NegotiationLoadingState());
+    final result = await sl<RiderTripRepo>().negotiateDriver(
+      driverRequestId: driverRequestId,
+      price: price,
+      message: message,
+    );
+    result.fold(
+      (error) => emit(NegotiationErrorState(error: error)),
+      (successMessage) {
+        try {
+          final request = requests.firstWhere((e) => e.requestId == driverRequestId);
+          removeRequest(request.id);
+        } catch (_) {}
+        emit(NegotiationSuccessState(message: successMessage));
+      },
+    );
+  }
+
   //! Cancel Trip
   Future<void> cancelTrip() async {
     emit(FindDriverCancelTripLoadingState());

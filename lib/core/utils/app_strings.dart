@@ -474,6 +474,15 @@ abstract class AppStrings {
   static const String delete = "delete";
   static const String start = "start";
 
+  //! Negotiation
+  static const String negotiate = "negotiate";
+  static const String negotiationOffer = "negotiationOffer";
+  static const String offerPrice = "offerPrice";
+  static const String messageToDriver = "messageToDriver";
+  static const String sendOffer = "sendOffer";
+  static const String priceRequired = "priceRequired";
+  static const String negotiationSuccess = "negotiationSuccess";
+
   //! Error
   static String noInternetException() {
     return sl<Cache>().getLanguage() == "en"

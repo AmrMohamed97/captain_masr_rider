@@ -8,6 +8,7 @@ import '../../../../core/widgets/rounded_border_timer.dart';
 import 'find_driver_bottom_container.dart';
 import 'find_driver_my_location_pin.dart';
 import 'looking_for_drivers_card.dart';
+import 'negotiate_bottom_sheet.dart';
 
 class FindDriverBody extends StatelessWidget {
   const FindDriverBody({super.key});
@@ -316,7 +317,43 @@ class FindDriverBody extends StatelessWidget {
                                           borderColor: AppColors.primary,
                                         ),
                                       ),
-                                      SizedBox(width: 22.rW(context)),
+                                      SizedBox(width: 8.rW(context)),
+                                      //! Negotiate Button
+                                      Expanded(
+                                        child: CustomButton(
+                                          onPressed: () {
+                                            showModalBottomSheet(
+                                              context: context,
+                                              isScrollControlled: true,
+                                              backgroundColor: Colors.transparent,
+                                              builder: (_) => NegotiateBottomSheet(
+                                                driverRequestId: cubit
+                                                    .requests[index]
+                                                    .requestId!,
+                                                initialPrice: cubit
+                                                        .requests[index]
+                                                        .price
+                                                        ?.toDouble() ??
+                                                    0.0,
+                                                onSubmit: (price, message) {
+                                                  cubit.negotiateDriver(
+                                                    driverRequestId: cubit
+                                                        .requests[index]
+                                                        .requestId!,
+                                                    price: price,
+                                                    message: message,
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          title: AppStrings.negotiate.tr(context),
+                                          color: AppColors.transparent,
+                                          textColor: AppColors.primary,
+                                          borderColor: AppColors.primary,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8.rW(context)),
                                       //! Accept Button
                                       Expanded(
                                         child: CustomButton(

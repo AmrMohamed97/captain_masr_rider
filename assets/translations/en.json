@@ -435,5 +435,12 @@
     "retry": "Retry",
     "estimatedTripDetails": "Estimated Trip Details",
     "unreadNotifications": "Unread Notifications",
-    "tapToReadAll": "Tap to view and mark all as read"
+    "tapToReadAll": "Tap to view and mark all as read",
+    "negotiate": "Negotiate",
+    "negotiationOffer": "Negotiation Offer",
+    "offerPrice": "Offer Price",
+    "messageToDriver": "Message to driver (optional)",
+    "sendOffer": "Send Offer",
+    "priceRequired": "Price must be at least 1",
+    "negotiationSuccess": "Negotiation offer sent successfully"
 }
