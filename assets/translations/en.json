@@ -442,5 +442,7 @@
     "messageToDriver": "Message to driver (optional)",
     "sendOffer": "Send Offer",
     "priceRequired": "Price must be at least 1",
-    "negotiationSuccess": "Negotiation offer sent successfully"
+    "negotiationSuccess": "Negotiation offer sent successfully",
+    "originalDriverOfferSub": "Original driver's offer price. Negotiate to reach a suitable price for you:",
+    "quickDiscountFromOffer": "Quick discount from the offer price:"
 }

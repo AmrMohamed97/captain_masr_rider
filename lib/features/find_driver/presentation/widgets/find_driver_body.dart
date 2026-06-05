@@ -68,9 +68,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                 top: 96.rH(context),
                 left: 0,
                 right: 0,
-                child: LookingForDriversCard(
-                  seconds: cubit.timerSeconds,
-                ),
+                child: LookingForDriversCard(seconds: cubit.timerSeconds),
               ),
 
               //! My Location Pin
@@ -97,9 +95,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                           child: RoundedBorderTimer(
                             isPaused: requestId == pausedRequestId,
                             onComplete: () {
-                              cubit.declineDriver(
-                                driverId: driverId,
-                              );
+                              cubit.declineDriver(driverId: driverId);
                               cubit.removeRequest(requestIdVal);
                             },
                             child: AnimatedContainer(
@@ -134,13 +130,14 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                           errorBuilder:
                                               (context, error, stackTrace) =>
                                                   CircleAvatar(
-                                            radius: 23.rH(context),
-                                            backgroundColor: AppColors.grey3,
-                                            child: const Icon(
-                                              Icons.person,
-                                              color: AppColors.greyText,
-                                            ),
-                                          ),
+                                                    radius: 23.rH(context),
+                                                    backgroundColor:
+                                                        AppColors.grey3,
+                                                    child: const Icon(
+                                                      Icons.person,
+                                                      color: AppColors.greyText,
+                                                    ),
+                                                  ),
                                         ),
                                       ),
                                       SizedBox(width: 9.rW(context)),
@@ -156,21 +153,23 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                             //! Name
                                             Text(
                                               request.driverName ?? "",
-                                              style: Styles.semibold16Primary(
-                                                      context)
-                                                  .copyWith(
-                                                color: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.color,
-                                              ),
+                                              style:
+                                                  Styles.semibold16Primary(
+                                                    context,
+                                                  ).copyWith(
+                                                    color: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyLarge
+                                                        ?.color,
+                                                  ),
                                             ),
                                             SizedBox(height: 2.rH(context)),
                                             //! Rating
                                             Row(
                                               children: [
                                                 SinglePartialStar(
-                                                  value: request.driverRating
+                                                  value:
+                                                      request.driverRating
                                                           ?.toDouble() ??
                                                       0.0,
                                                   starSize: 18.rH(context),
@@ -179,10 +178,12 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                                 Text(
                                                   "${num.parse((request.driverRating ?? 0.0).toStringAsFixed(2))}",
                                                   style:
-                                                      Styles.regular14(context)
-                                                          .copyWith(
-                                                    color: AppColors.greyText,
-                                                  ),
+                                                      Styles.regular14(
+                                                        context,
+                                                      ).copyWith(
+                                                        color:
+                                                            AppColors.greyText,
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -199,51 +200,56 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                         children: [
                                           Text(
                                             AppStrings.arrivesIn.tr(context),
-                                            style: Styles.regular12(context)
-                                                .copyWith(
-                                              color: AppColors.grey,
-                                            ),
+                                            style: Styles.regular12(
+                                              context,
+                                            ).copyWith(color: AppColors.grey),
                                           ),
                                           SizedBox(height: 2.rH(context)),
                                           RichText(
                                             text: TextSpan(
                                               style: Styles.regular12(context)
                                                   .copyWith(
-                                                color: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.color,
-                                              ),
+                                                    color: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyLarge
+                                                        ?.color,
+                                                  ),
                                               children: [
                                                 TextSpan(
-                                                  text: request
+                                                  text:
+                                                      request
                                                           .timeBetRiderAndDriver
                                                           ?.toString() ??
                                                       "?",
                                                 ),
                                                 TextSpan(
-                                                    text:
-                                                        " ${AppStrings.min.tr(context)}"),
+                                                  text:
+                                                      " ${AppStrings.min.tr(context)}",
+                                                ),
                                                 WidgetSpan(
                                                   child: Container(
                                                     margin:
                                                         EdgeInsets.symmetric(
-                                                      horizontal: 4.rW(context),
-                                                    ),
+                                                          horizontal: 4.rW(
+                                                            context,
+                                                          ),
+                                                        ),
                                                     width: 1,
                                                     height: 14.rH(context),
                                                     color: AppColors.grey,
                                                   ),
                                                 ),
                                                 TextSpan(
-                                                  text: request
+                                                  text:
+                                                      request
                                                           .distanceBetRiderAndDriver
                                                           ?.toString() ??
                                                       "?",
                                                 ),
                                                 TextSpan(
-                                                    text:
-                                                        " ${AppStrings.km.tr(context)}"),
+                                                  text:
+                                                      " ${AppStrings.km.tr(context)}",
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -277,11 +283,11 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                               "${request.vehicleBrand ?? ""} ${request.vehicleModel ?? ""}",
                                               style: Styles.semibold12(context)
                                                   .copyWith(
-                                                color: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.color,
-                                              ),
+                                                    color: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyLarge
+                                                        ?.color,
+                                                  ),
                                             ),
                                             SizedBox(height: 1.rH(context)),
                                             //! Color & Plate
@@ -289,8 +295,8 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                               "${request.vehicleColor ?? ""} - ${request.vehiclePlats ?? ""}",
                                               style: Styles.regular12(context)
                                                   .copyWith(
-                                                color: AppColors.greyText,
-                                              ),
+                                                    color: AppColors.greyText,
+                                                  ),
                                             ),
                                           ],
                                         ),
@@ -298,10 +304,9 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                       const SizedBox(width: 8),
                                       Text(
                                         "${request.price?.toStringAsFixed(2) ?? ""} ${AppStrings.egp.tr(context)}",
-                                        style: Styles.semibold20Primary(context)
-                                            .copyWith(
-                                          color: AppColors.red,
-                                        ),
+                                        style: Styles.semibold20Primary(
+                                          context,
+                                        ).copyWith(color: AppColors.red),
                                       ),
                                     ],
                                   ),
@@ -315,9 +320,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                             cubit.declineDriver(
                                               driverId: driverId,
                                             );
-                                            cubit.removeRequest(
-                                              requestIdVal,
-                                            );
+                                            cubit.removeRequest(requestIdVal);
                                           },
                                           title: AppStrings.decline.tr(context),
                                           color: AppColors.transparent,
@@ -327,40 +330,49 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                       ),
                                       SizedBox(width: 8.rW(context)),
                                       //! Negotiate Button
-                                      Expanded(
-                                        child: CustomButton(
-                                          onPressed: () async {
-                                            setState(() {
-                                              pausedRequestId = requestId;
-                                            });
-                                            await showModalBottomSheet(
-                                              context: context,
-                                              isScrollControlled: true,
-                                              backgroundColor: Colors.transparent,
-                                              builder: (_) => NegotiateBottomSheet(
-                                                driverRequestId: requestId,
-                                                initialPrice: requestPrice,
-                                                onSubmit: (price, message) {
-                                                  cubit.negotiateDriver(
-                                                    driverRequestId: requestId,
-                                                    price: price,
-                                                    message: message,
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                            if (mounted) {
+                                      if (request.negotiation?.riderPrice ==
+                                          null)
+                                        Expanded(
+                                          child: CustomButton(
+                                            onPressed: () async {
                                               setState(() {
-                                                pausedRequestId = null;
+                                                pausedRequestId = requestId;
                                               });
-                                            }
-                                          },
-                                          title: AppStrings.negotiate.tr(context),
-                                          color: AppColors.transparent,
-                                          textColor: AppColors.primary,
-                                          borderColor: AppColors.primary,
+                                              await showModalBottomSheet(
+                                                context: context,
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                builder: (_) =>
+                                                    NegotiateBottomSheet(
+                                                      driverRequestId:
+                                                          requestId,
+                                                      initialPrice:
+                                                          requestPrice,
+                                                      onSubmit: (price, message) {
+                                                        cubit.negotiateDriver(
+                                                          driverRequestId:
+                                                              requestId,
+                                                          price: price,
+                                                          message: message,
+                                                        );
+                                                      },
+                                                    ),
+                                              );
+                                              if (mounted) {
+                                                setState(() {
+                                                  pausedRequestId = null;
+                                                });
+                                              }
+                                            },
+                                            title: AppStrings.negotiate.tr(
+                                              context,
+                                            ),
+                                            color: AppColors.transparent,
+                                            textColor: AppColors.primary,
+                                            borderColor: AppColors.primary,
+                                          ),
                                         ),
-                                      ),
                                       SizedBox(width: 8.rW(context)),
                                       //! Accept Button
                                       Expanded(
@@ -374,8 +386,8 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                               );
                                             }
                                           },
-                                          title: state
-                                                  is AcceptDriverLoadingState
+                                          title:
+                                              state is AcceptDriverLoadingState
                                               ? 'loading...'
                                               : AppStrings.accept.tr(context),
                                         ),

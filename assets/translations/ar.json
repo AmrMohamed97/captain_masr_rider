@@ -442,5 +442,7 @@
     "messageToDriver": "رسالة للسائق (اختياري)",
     "sendOffer": "إرسال العرض",
     "priceRequired": "يجب أن يكون السعر 1 على الأقل",
-    "negotiationSuccess": "تم إرسال عرض التفاوض بنجاح"
+    "negotiationSuccess": "تم إرسال عرض التفاوض بنجاح",
+    "originalDriverOfferSub": "سعر عرض السائق الأصلي. تفاوض للوصول لسعر مناسب لك:",
+    "quickDiscountFromOffer": "خصم سريع من سعر العرض:"
 }

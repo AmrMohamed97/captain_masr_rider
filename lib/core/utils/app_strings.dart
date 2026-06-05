@@ -482,6 +482,8 @@ abstract class AppStrings {
   static const String sendOffer = "sendOffer";
   static const String priceRequired = "priceRequired";
   static const String negotiationSuccess = "negotiationSuccess";
+  static const String originalDriverOfferSub = "originalDriverOfferSub";
+  static const String quickDiscountFromOffer = "quickDiscountFromOffer";
 
   //! Error
   static String noInternetException() {
