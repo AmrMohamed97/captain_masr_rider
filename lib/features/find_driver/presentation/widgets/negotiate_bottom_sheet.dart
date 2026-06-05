@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import '../../../../core/imports/imports.dart';
 
 class NegotiateBottomSheet extends StatefulWidget {
@@ -20,7 +19,7 @@ class NegotiateBottomSheet extends StatefulWidget {
 class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _priceController;
-  final TextEditingController _messageController = TextEditingController();
+  // final TextEditingController _messageController = TextEditingController();
 
   @override
   void initState() {
@@ -32,7 +31,7 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
   @override
   void dispose() {
     _priceController.dispose();
-    _messageController.dispose();
+    // _messageController.dispose();
     super.dispose();
   }
 
@@ -92,20 +91,20 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
                 ),
               ),
               SizedBox(height: 8.rH(context)),
-              CustomTextField(
-                controller: _messageController,
-                hintText: "مثال: نزلها شوية علشان خاطري",
-                maxLines: 3,
-              ),
+              // CustomTextField(
+              //   controller: _messageController,
+              //   hintText: "مثال: نزلها شوية علشان خاطري",
+              //   maxLines: 3,
+              // ),
               SizedBox(height: 24.rH(context)),
               CustomButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final price = double.parse(_priceController.text);
-                    final message = _messageController.text.trim().isEmpty
-                        ? null
-                        : _messageController.text.trim();
-                    widget.onSubmit(price, message);
+                    // final message = _messageController.text.trim().isEmpty
+                    //     ? null
+                    //     : _messageController.text.trim();
+                    widget.onSubmit(price, null);
                     Navigator.pop(context);
                   }
                 },
