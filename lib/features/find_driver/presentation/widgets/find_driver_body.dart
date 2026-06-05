@@ -10,8 +10,15 @@ import 'find_driver_my_location_pin.dart';
 import 'looking_for_drivers_card.dart';
 import 'negotiate_bottom_sheet.dart';
 
-class FindDriverBody extends StatelessWidget {
+class FindDriverBody extends StatefulWidget {
   const FindDriverBody({super.key});
+
+  @override
+  State<FindDriverBody> createState() => _FindDriverBodyState();
+}
+
+class _FindDriverBodyState extends State<FindDriverBody> {
+  int? pausedRequestId;
 
   @override
   Widget build(BuildContext context) {
@@ -78,15 +85,22 @@ class FindDriverBody extends StatelessWidget {
                   children: List.generate(
                     cubit.requests.length > 2 ? 2 : cubit.requests.length,
                     (index) {
+                      final request = cubit.requests[index];
+                      final requestId = request.requestId ?? 0;
+                      final driverId = request.driverId ?? 0;
+                      final requestPrice = request.price?.toDouble() ?? 0.0;
+                      final requestIdVal = request.id;
+
                       return Padding(
                         padding: EdgeInsets.only(bottom: 16.rH(context)),
                         child: SlideFromLeft(
                           child: RoundedBorderTimer(
+                            isPaused: requestId == pausedRequestId,
                             onComplete: () {
                               cubit.declineDriver(
-                                driverId: cubit.requests[index].driverId ?? 0,
+                                driverId: driverId,
                               );
-                              cubit.removeRequest(cubit.requests[index].id);
+                              cubit.removeRequest(requestIdVal);
                             },
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
@@ -113,8 +127,7 @@ class FindDriverBody extends StatelessWidget {
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(50),
                                         child: Image.network(
-                                          cubit.requests[index].driverImage ??
-                                              "",
+                                          request.driverImage ?? "",
                                           height: 46.rH(context),
                                           width: 46.rH(context),
                                           fit: BoxFit.cover,
@@ -142,9 +155,7 @@ class FindDriverBody extends StatelessWidget {
                                           children: [
                                             //! Name
                                             Text(
-                                              cubit.requests[index]
-                                                      .driverName ??
-                                                  "",
+                                              request.driverName ?? "",
                                               style: Styles.semibold16Primary(
                                                       context)
                                                   .copyWith(
@@ -159,15 +170,14 @@ class FindDriverBody extends StatelessWidget {
                                             Row(
                                               children: [
                                                 SinglePartialStar(
-                                                  value: cubit.requests[index]
-                                                          .driverRating
+                                                  value: request.driverRating
                                                           ?.toDouble() ??
                                                       0.0,
                                                   starSize: 18.rH(context),
                                                 ),
                                                 SizedBox(width: 7.rW(context)),
                                                 Text(
-                                                  "${num.parse((cubit.requests[index].driverRating ?? 0.0).toStringAsFixed(2))}",
+                                                  "${num.parse((request.driverRating ?? 0.0).toStringAsFixed(2))}",
                                                   style:
                                                       Styles.regular14(context)
                                                           .copyWith(
@@ -206,7 +216,7 @@ class FindDriverBody extends StatelessWidget {
                                               ),
                                               children: [
                                                 TextSpan(
-                                                  text: cubit.requests[index]
+                                                  text: request
                                                           .timeBetRiderAndDriver
                                                           ?.toString() ??
                                                       "?",
@@ -226,7 +236,7 @@ class FindDriverBody extends StatelessWidget {
                                                   ),
                                                 ),
                                                 TextSpan(
-                                                  text: cubit.requests[index]
+                                                  text: request
                                                           .distanceBetRiderAndDriver
                                                           ?.toString() ??
                                                       "?",
@@ -264,7 +274,7 @@ class FindDriverBody extends StatelessWidget {
                                           children: [
                                             //! Brand & Model
                                             Text(
-                                              "${cubit.requests[index].vehicleBrand ?? ""} ${cubit.requests[index].vehicleModel ?? ""}",
+                                              "${request.vehicleBrand ?? ""} ${request.vehicleModel ?? ""}",
                                               style: Styles.semibold12(context)
                                                   .copyWith(
                                                 color: Theme.of(context)
@@ -276,7 +286,7 @@ class FindDriverBody extends StatelessWidget {
                                             SizedBox(height: 1.rH(context)),
                                             //! Color & Plate
                                             Text(
-                                              "${cubit.requests[index].vehicleColor ?? ""} - ${cubit.requests[index].vehiclePlats ?? ""}",
+                                              "${request.vehicleColor ?? ""} - ${request.vehiclePlats ?? ""}",
                                               style: Styles.regular12(context)
                                                   .copyWith(
                                                 color: AppColors.greyText,
@@ -287,7 +297,7 @@ class FindDriverBody extends StatelessWidget {
                                       ),
                                       const SizedBox(width: 8),
                                       Text(
-                                        "${cubit.requests[index].price?.toStringAsFixed(2) ?? ""} ${AppStrings.egp.tr(context)}",
+                                        "${request.price?.toStringAsFixed(2) ?? ""} ${AppStrings.egp.tr(context)}",
                                         style: Styles.semibold20Primary(context)
                                             .copyWith(
                                           color: AppColors.red,
@@ -303,12 +313,10 @@ class FindDriverBody extends StatelessWidget {
                                         child: CustomButton(
                                           onPressed: () {
                                             cubit.declineDriver(
-                                              driverId: cubit.requests[index]
-                                                      .driverId ??
-                                                  0,
+                                              driverId: driverId,
                                             );
                                             cubit.removeRequest(
-                                              cubit.requests[index].id,
+                                              requestIdVal,
                                             );
                                           },
                                           title: AppStrings.decline.tr(context),
@@ -321,31 +329,31 @@ class FindDriverBody extends StatelessWidget {
                                       //! Negotiate Button
                                       Expanded(
                                         child: CustomButton(
-                                          onPressed: () {
-                                            showModalBottomSheet(
+                                          onPressed: () async {
+                                            setState(() {
+                                              pausedRequestId = requestId;
+                                            });
+                                            await showModalBottomSheet(
                                               context: context,
                                               isScrollControlled: true,
                                               backgroundColor: Colors.transparent,
                                               builder: (_) => NegotiateBottomSheet(
-                                                driverRequestId: cubit
-                                                    .requests[index]
-                                                    .requestId!,
-                                                initialPrice: cubit
-                                                        .requests[index]
-                                                        .price
-                                                        ?.toDouble() ??
-                                                    0.0,
+                                                driverRequestId: requestId,
+                                                initialPrice: requestPrice,
                                                 onSubmit: (price, message) {
                                                   cubit.negotiateDriver(
-                                                    driverRequestId: cubit
-                                                        .requests[index]
-                                                        .requestId!,
+                                                    driverRequestId: requestId,
                                                     price: price,
                                                     message: message,
                                                   );
                                                 },
                                               ),
                                             );
+                                            if (mounted) {
+                                              setState(() {
+                                                pausedRequestId = null;
+                                              });
+                                            }
                                           },
                                           title: AppStrings.negotiate.tr(context),
                                           color: AppColors.transparent,
@@ -361,13 +369,9 @@ class FindDriverBody extends StatelessWidget {
                                             if (state
                                                 is! AcceptDriverLoadingState) {
                                               cubit.acceptDriver(
-                                                  driverId: cubit
-                                                          .requests[index]
-                                                          .driverId !,
-                                                  driverRequestId:    cubit
-                                                          .requests[index]
-                                                          .requestId! 
-                                                      );
+                                                driverId: driverId,
+                                                driverRequestId: requestId,
+                                              );
                                             }
                                           },
                                           title: state

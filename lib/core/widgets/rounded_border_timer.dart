@@ -7,10 +7,12 @@ class RoundedBorderTimer extends StatefulWidget {
     super.key,
     required this.child,
     required this.onComplete,
+    this.isPaused = false,
   });
 
   final Widget child;
   final Function() onComplete;
+  final bool isPaused;
 
   @override
   State<RoundedBorderTimer> createState() => _RoundedBorderTimerState();
@@ -47,11 +49,29 @@ class _RoundedBorderTimerState extends State<RoundedBorderTimer>
             completed[currentSide] = true;
             currentSide = (currentSide + 1) % sides;
           });
-          _controller.forward(from: 0);
+          if (!widget.isPaused) {
+            _controller.forward(from: 0);
+          }
         }
       });
 
-    _controller.forward();
+    if (!widget.isPaused) {
+      _controller.forward();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant RoundedBorderTimer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isPaused != oldWidget.isPaused) {
+      if (widget.isPaused) {
+        _controller.stop();
+      } else {
+        if (!_controller.isAnimating && completed[3] == false) {
+          _controller.forward();
+        }
+      }
+    }
   }
 
   @override
