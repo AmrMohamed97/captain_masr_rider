@@ -78,14 +78,16 @@ class _SplashViewState extends State<SplashView> {
           //   child: Image.asset(Assets.imagesSplashCar),
           // ),
           //! Logo
-          AnimatedScale(
-            scale: showLogo ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 1600),
-            curve: Curves.easeOutBack,
-            child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 1200),
-              opacity: showLogo ? 1 : 0,
-              child: Image.asset(Assets.imagesLogo),
+          RepaintBoundary(
+            child: AnimatedScale(
+              scale: showLogo ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 1600),
+              curve: Curves.easeOutBack,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 1200),
+                opacity: showLogo ? 1 : 0,
+                child: Image.asset(Assets.imagesLogo),
+              ),
             ),
           ),
           //! Title
