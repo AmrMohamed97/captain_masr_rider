@@ -19,8 +19,8 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 400), () {
-      final bool onBoardingVisited =
-          sl<Cache>().getBoolData(AppConstants.onBoardingVisited) ?? false;
+      // final bool onBoardingVisited =
+      //     sl<Cache>().getBoolData(AppConstants.onBoardingVisited) ?? false;
       carPosititon = 0;
       setState(() {});
       Future.delayed(const Duration(seconds: 2), () {
@@ -40,13 +40,15 @@ class _SplashViewState extends State<SplashView> {
               navigateReplacement(
                 // ignore: use_build_context_synchronously
                 context,
-                onBoardingVisited
-                    ? sl<Cache>().getStringData(AppConstants.token) == null
+                // onBoardingVisited
+                    // ?
+                     sl<Cache>().getStringData(AppConstants.token) == null
                           ? const LoginView()
-                          : context.read<GlobalCubit>().isRider
-                          ? const BaseView()
-                          : const HomeView()
-                    : const OnboardingView(),
+                          // : context.read<GlobalCubit>().isRider
+                          // ?
+                          : const BaseView()
+                          // : const HomeView()
+                    // : const OnboardingView(),
               );
             });
           });
