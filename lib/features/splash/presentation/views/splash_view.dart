@@ -1,6 +1,4 @@
 import '../../../../core/imports/imports.dart';
-import '../../../home/presentation/views/home_view.dart';
-import 'onboarding_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
