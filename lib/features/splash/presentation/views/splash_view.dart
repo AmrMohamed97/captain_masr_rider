@@ -30,24 +30,24 @@ class _SplashViewState extends State<SplashView> {
           Future.delayed(const Duration(milliseconds: 300), () {
             showTitle = true;
             setState(() {});
-            Future.delayed(const Duration(milliseconds: 1500), () {
-              // context
-              //             .read<GlobalCubit>()
-              //             .selectRole(AppConstants.rider);
+            Future.delayed(const Duration(milliseconds: 1300), () {
+              context
+                          .read<GlobalCubit>()
+                          .selectRole(AppConstants.rider);
               // navigate(context, const LoginView());
-              // navigateReplacement(
-              //   // ignore: use_build_context_synchronously
-              //   context,
-              //   // onBoardingVisited
-              //       // ?
-              //        sl<Cache>().getStringData(AppConstants.token) == null
-              //             ? const LoginView()
-              //             // : context.read<GlobalCubit>().isRider
-              //             // ?
-              //             : const BaseView()
-              //             // : const HomeView()
-              //       // : const OnboardingView(),
-              // );
+              navigateReplacement(
+                // ignore: use_build_context_synchronously
+                context,
+                // onBoardingVisited
+                    // ?
+                     sl<Cache>().getStringData(AppConstants.token) == null
+                          ? const LoginView()
+                          // : context.read<GlobalCubit>().isRider
+                          // ?
+                          : const BaseView()
+                          // : const HomeView()
+                    // : const OnboardingView(),
+              );
             });
           });
         });
@@ -80,10 +80,10 @@ class _SplashViewState extends State<SplashView> {
           //! Logo
           AnimatedScale(
             scale: showLogo ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 800),
+            duration: const Duration(milliseconds: 1600),
             curve: Curves.easeOutBack,
             child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 600),
+              duration: const Duration(milliseconds: 1200),
               opacity: showLogo ? 1 : 0,
               child: Image.asset(Assets.imagesLogo),
             ),
