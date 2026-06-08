@@ -67,6 +67,7 @@ class CustomImageField extends StatelessWidget {
                         child: SvgPicture.asset(
                           prefixSvg!,
                           height: 18.rH(context),
+                          color: AppColors.primary,
                         ),
                       ),
                     //! Hint
