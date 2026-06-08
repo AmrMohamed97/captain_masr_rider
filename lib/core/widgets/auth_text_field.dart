@@ -76,6 +76,7 @@ class AuthTextField extends StatelessWidget {
                       width: 20.rW(context),
                       child: SvgPicture.asset(
                         svgIcon!,
+                        color: AppColors.primary,
                         fit: BoxFit.contain,
                       ),
                     ),
