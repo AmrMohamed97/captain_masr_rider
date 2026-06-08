@@ -13,6 +13,7 @@ export 'package:captain_masr_rider/core/utils/app_strings.dart';
 export 'package:captain_masr_rider/core/utils/app_text_styles.dart';
 export 'package:captain_masr_rider/core/utils/maps_helper.dart';
 export 'package:captain_masr_rider/core/widgets/auth_header.dart';
+export 'package:captain_masr_rider/core/widgets/auth_header_red.dart';
 export 'package:captain_masr_rider/core/widgets/auth_text_field.dart';
 export 'package:captain_masr_rider/core/widgets/choose_image_source_bottom_sheet.dart';
 export 'package:captain_masr_rider/core/widgets/cost_row.dart';
