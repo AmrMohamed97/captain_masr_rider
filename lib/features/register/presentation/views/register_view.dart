@@ -27,20 +27,17 @@ class RegisterView extends StatelessWidget {
                 phone: context.read<RegisterCubit>().phoneController.text,
                 countryCode:
                     context.read<RegisterCubit>().selectedCountry?.dialCode ??
-                        "20",
+                    "20",
               ),
             );
           }
           if (state is RegisterErrorState) {
-            showToast(
-              context,
-              message: state.error,
-              state: ToastStates.error,
-            );
+            showToast(context, message: state.error, state: ToastStates.error);
           }
         },
         builder: (context, state) {
           return Scaffold(
+            backgroundColor: const Color(0xff800005),
             body: CustomModalProgressIndicator(
               inAsyncCall: state is RegisterLoadingState,
               child: const RegisterBody(),
