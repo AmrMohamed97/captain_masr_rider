@@ -3,10 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import '../imports/imports.dart';
 
 class CustomLoadingIndicator extends StatefulWidget {
-  const CustomLoadingIndicator({
-    super.key,
-    this.color,
-  });
+  const CustomLoadingIndicator({super.key, this.color});
 
   final Color? color;
 
@@ -39,7 +36,7 @@ class _CustomLoadingIndicatorState extends State<CustomLoadingIndicator>
       turns: _controller,
       child: SvgPicture.asset(
         Assets.imagesLoading,
-        color: widget.color,
+        color: widget.color ?? AppColors.primary,
       ),
     );
   }
