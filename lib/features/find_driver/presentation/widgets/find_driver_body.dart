@@ -98,7 +98,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                         padding: EdgeInsets.only(bottom: 16.rH(context)),
                         child: SlideFromLeft(
                           child: RoundedBorderTimer(
-                            key: ValueKey('${request.id}_${negotiatingRequests.contains(requestId)}'),
+                            key: ValueKey('${request.id}_${negotiatingRequests.contains(requestId)}_${request.negotiation?.action ?? ''}_${request.negotiation?.driverPrice?.toString() ?? ''}'),
                             isPaused: requestId == pausedRequestId,
                             onComplete: () {
                               cubit.declineDriver(driverId: driverId);
