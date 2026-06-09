@@ -19,6 +19,7 @@ class FindDriverBody extends StatefulWidget {
 
 class _FindDriverBodyState extends State<FindDriverBody> {
   int? pausedRequestId;
+  Set<int> negotiatingRequests = {};
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +94,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                         padding: EdgeInsets.only(bottom: 16.rH(context)),
                         child: SlideFromLeft(
                           child: RoundedBorderTimer(
+                            key: ValueKey('${request.id}_${negotiatingRequests.contains(requestId)}'),
                             isPaused: requestId == pausedRequestId,
                             onComplete: () {
                               cubit.declineDriver(driverId: driverId);
@@ -311,90 +313,109 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                       ),
                                     ],
                                   ),
-                                  //! Button
-                                  Row(
-                                    children: [
-                                      //! Decline Button
-                                      Expanded(
-                                        child: CustomButton(
-                                          onPressed: () {
-                                            cubit.declineDriver(
-                                              driverId: driverId,
-                                            );
-                                            cubit.removeRequest(requestIdVal);
-                                          },
-                                          title: AppStrings.decline.tr(context),
-                                          color: AppColors.transparent,
-                                          textColor: AppColors.primary,
-                                          borderColor: AppColors.primary,
-                                        ),
+                                  //! Buttons or Waiting Message
+                                  if (negotiatingRequests.contains(requestId))
+                                    Container(
+                                      width: double.infinity,
+                                      padding: EdgeInsets.symmetric(vertical: 12.rH(context)),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.primary.withOpacity(0.08),
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
                                       ),
-                                      SizedBox(width: 8.rW(context)),
-                                      //! Negotiate Button
-                                      if (request.negotiation?.riderPrice ==
-                                          null)
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "في إنتظار رد السائق على عرضك...",
+                                        style: Styles.semibold14Primary(context),
+                                      ),
+                                    )
+                                  else
+                                    Row(
+                                      children: [
+                                        //! Decline Button
                                         Expanded(
                                           child: CustomButton(
-                                            onPressed: () async {
-                                              setState(() {
-                                                pausedRequestId = requestId;
-                                              });
-                                              await showModalBottomSheet(
-                                                context: context,
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                builder: (_) =>
-                                                    NegotiateBottomSheet(
-                                                      driverRequestId:
-                                                          requestId,
-                                                      initialPrice:
-                                                          requestPrice,
-                                                      onSubmit: (price, message) {
-                                                        cubit.negotiateDriver(
-                                                          driverRequestId:
-                                                              requestId,
-                                                          price: price,
-                                                          message: message,
-                                                        );
-                                                      },
-                                                    ),
+                                            onPressed: () {
+                                              cubit.declineDriver(
+                                                driverId: driverId,
                                               );
-                                              if (mounted) {
-                                                setState(() {
-                                                  pausedRequestId = null;
-                                                });
-                                              }
+                                              cubit.removeRequest(requestIdVal);
                                             },
-                                            title: AppStrings.negotiate.tr(
-                                              context,
-                                            ),
+                                            title: AppStrings.decline.tr(context),
                                             color: AppColors.transparent,
                                             textColor: AppColors.primary,
                                             borderColor: AppColors.primary,
                                           ),
                                         ),
-                                      SizedBox(width: 8.rW(context)),
-                                      //! Accept Button
-                                      Expanded(
-                                        child: CustomButton(
-                                          onPressed: () {
-                                            if (state
-                                                is! AcceptDriverLoadingState) {
-                                              cubit.acceptDriver(
-                                                driverId: driverId,
-                                                driverRequestId: requestId,
-                                              );
-                                            }
-                                          },
-                                          title:
-                                              state is AcceptDriverLoadingState
-                                              ? 'loading...'
-                                              : AppStrings.accept.tr(context),
+                                        SizedBox(width: 8.rW(context)),
+                                        //! Negotiate Button
+                                        if (request.negotiation?.riderPrice == null)
+                                          Expanded(
+                                            child: CustomButton(
+                                              onPressed: () async {
+                                                setState(() {
+                                                  pausedRequestId = requestId;
+                                                });
+                                                await showModalBottomSheet(
+                                                  context: context,
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  builder: (_) =>
+                                                      NegotiateBottomSheet(
+                                                        driverRequestId:
+                                                            requestId,
+                                                        initialPrice:
+                                                            requestPrice,
+                                                        onSubmit: (price, message) {
+                                                          // إضافة الـ ID لقائمة الانتظار لإيقاف الأزرار وتصفير العداد
+                                                          setState(() {
+                                                            negotiatingRequests.add(requestId);
+                                                          });
+                                                          cubit.negotiateDriver(
+                                                            driverRequestId:
+                                                                requestId,
+                                                            price: price,
+                                                            message: message,
+                                                          );
+                                                        },
+                                                      ),
+                                                );
+                                                if (mounted) {
+                                                  setState(() {
+                                                    pausedRequestId = null;
+                                                  });
+                                                }
+                                              },
+                                              title: AppStrings.negotiate.tr(
+                                                context,
+                                              ),
+                                              color: AppColors.transparent,
+                                              textColor: AppColors.primary,
+                                              borderColor: AppColors.primary,
+                                            ),
+                                          ),
+                                        SizedBox(width: 8.rW(context)),
+                                        //! Accept Button
+                                        Expanded(
+                                          child: CustomButton(
+                                            onPressed: () {
+                                              if (state
+                                                  is! AcceptDriverLoadingState) {
+                                                cubit.acceptDriver(
+                                                  driverId: driverId,
+                                                  driverRequestId: requestId,
+                                                );
+                                              }
+                                            },
+                                            title:
+                                                state is AcceptDriverLoadingState
+                                                ? 'loading...'
+                                                : AppStrings.accept.tr(context),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
+                                      ],
+                                    ),
                                 ],
                               ),
                             ),
