@@ -302,8 +302,9 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                         ),
                                       ),
                                       const SizedBox(width: 8),
+
                                       Text(
-                                        "${request.price?.toStringAsFixed(2) ?? ""} ${AppStrings.egp.tr(context)}",
+                                        "${request.negotiation?.riderPrice?.toStringAsFixed(2) ?? request.price?.toStringAsFixed(2) ?? ""} ${AppStrings.egp.tr(context)}",
                                         style: Styles.semibold20Primary(
                                           context,
                                         ).copyWith(color: AppColors.red),

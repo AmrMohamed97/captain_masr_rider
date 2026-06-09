@@ -24,8 +24,9 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
   void initState() {
     super.initState();
     // Pre-populate with the initial price suggested by the driver
-    _priceController =
-        TextEditingController(text: widget.initialPrice.toStringAsFixed(0));
+    _priceController = TextEditingController(
+      text: widget.initialPrice.toStringAsFixed(0),
+    );
   }
 
   @override
@@ -86,7 +87,9 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
               AppStrings.originalDriverOfferSub.tr(context),
               style: Styles.regular14(context).copyWith(
                 color: AppColors.greyText,
+                overflow: TextOverflow.ellipsis,
               ),
+              maxLines: 2,
             ),
             SizedBox(height: 20.rH(context)),
 
@@ -116,7 +119,7 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
                     onPressed: () {
                       final current =
                           double.tryParse(_priceController.text) ??
-                              widget.initialPrice;
+                          widget.initialPrice;
                       _updatePrice(current - 5);
                     },
                     icon: const Icon(Icons.remove_circle_outline),
@@ -129,8 +132,9 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
                       key: _formKey,
                       child: TextFormField(
                         controller: _priceController,
-                        keyboardType:
-                            const TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
                         textAlign: TextAlign.center,
                         style: Styles.bold28white(context).copyWith(
                           color: Theme.of(context).textTheme.bodyLarge?.color,
@@ -139,10 +143,9 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           suffixText: " ${AppStrings.egp.tr(context)}",
-                          suffixStyle:
-                              Styles.semibold16Primary(context).copyWith(
-                            color: AppColors.greyText,
-                          ),
+                          suffixStyle: Styles.semibold16Primary(
+                            context,
+                          ).copyWith(color: AppColors.greyText),
                         ),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -162,7 +165,7 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
                     onPressed: () {
                       final current =
                           double.tryParse(_priceController.text) ??
-                              widget.initialPrice;
+                          widget.initialPrice;
                       _updatePrice(current + 5);
                     },
                     icon: const Icon(Icons.add_circle_outline),
@@ -177,9 +180,9 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
             // Quick Discount Pills
             Text(
               AppStrings.quickDiscountFromOffer.tr(context),
-              style: Styles.medium12(context).copyWith(
-                color: AppColors.greyText,
-              ),
+              style: Styles.medium12(
+                context,
+              ).copyWith(color: AppColors.greyText),
             ),
             SizedBox(height: 10.rH(context)),
             Row(
@@ -208,9 +211,9 @@ class _NegotiateBottomSheetState extends State<NegotiateBottomSheet> {
                         child: Center(
                           child: Text(
                             "-$discount ${AppStrings.egp.tr(context)}",
-                            style: Styles.semibold12(context).copyWith(
-                              color: AppColors.primary,
-                            ),
+                            style: Styles.semibold12(
+                              context,
+                            ).copyWith(color: AppColors.primary),
                           ),
                         ),
                       ),

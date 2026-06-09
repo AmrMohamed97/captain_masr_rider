@@ -409,12 +409,12 @@ class Negotiation {
     return Negotiation(
       action: json['action'] as String?,
       createdAt: json['created_at'] as String?,
-      driverPrice: json['driver_price'] as num?,
-      driverRequestId: json['driver_request_id'] as int?,
-      id: json['id'] as int?,
-      isFinal: json['is_final'] as bool?,
-      price: json['price'] as num?,
-      riderPrice: json['rider_price'] as num?,
+      driverPrice: json['driver_price'] != null ? num.tryParse(json['driver_price'].toString()) : null,
+      driverRequestId: json['driver_request_id'] != null ? int.tryParse(json['driver_request_id'].toString()) : null,
+      id: json['id'] != null ? int.tryParse(json['id'].toString()) : null,
+      isFinal: json['is_final'] is bool ? json['is_final'] : (json['is_final'] == 'true' || json['is_final'] == 1),
+      price: json['price'] != null ? num.tryParse(json['price'].toString()) : null,
+      riderPrice: json['rider_price'] != null ? num.tryParse(json['rider_price'].toString()) : null,
       updatedAt: json['updated_at'] as String?,
     );
   }

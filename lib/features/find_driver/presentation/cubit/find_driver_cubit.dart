@@ -40,11 +40,13 @@ class FindDriverCubit extends Cubit<FindDriverState> {
   List<NotifiedDriverModel> notifiedDrivers = [];
 
   void initRealTime() {
-    db = FirebaseDatabase.instance
-        .ref("ride_requests/${tripDetails?.rideId ?? 0}/drivers");
+    db = FirebaseDatabase.instance.ref(
+      "ride_requests/${tripDetails?.rideId ?? 0}/drivers",
+    );
 
-    dbNotifiedDrivers = FirebaseDatabase.instance
-        .ref("trips/${tripDetails?.rideId ?? 0}/notified_drivers");
+    dbNotifiedDrivers = FirebaseDatabase.instance.ref(
+      "trips/${tripDetails?.rideId ?? 0}/notified_drivers",
+    );
 
     //! Request Added
     db!.onChildAdded.listen((event) {
@@ -52,9 +54,14 @@ class FindDriverCubit extends Cubit<FindDriverState> {
         final data = event.snapshot.value as Map?;
 
         if (data != null) {
-          requests.add(TripDetailsModel.fromJson(data));
-          SoundPlayer.alertSound();
-          emit(RecieveDriverRequestState());
+          final newRequest = TripDetailsModel.fromJson(data);
+          // التأكد من عدم إضافة السائق أكثر من مرة
+          final index = requests.indexWhere((element) => element.driverId == newRequest.driverId);
+          if (index == -1) {
+            requests.add(newRequest);
+            SoundPlayer.alertSound();
+            emit(RecieveDriverRequestState());
+          }
         }
       } catch (e) {
         if (!kReleaseMode) log("Error on Add: $e");
@@ -67,12 +74,19 @@ class FindDriverCubit extends Cubit<FindDriverState> {
         final data = event.snapshot.value as Map?;
 
         if (data != null) {
-          requests.add(TripDetailsModel.fromJson(data));
+          final updatedRequest = TripDetailsModel.fromJson(data);
+          // تحديث بيانات السائق الموجود بدلاً من إضافته كعنصر جديد
+          final index = requests.indexWhere((element) => element.driverId == updatedRequest.driverId);
+          if (index != -1) {
+            requests[index] = updatedRequest;
+          } else {
+            requests.add(updatedRequest); // إذا لم يكن موجوداً لسبب ما
+          }
           SoundPlayer.alertSound();
           emit(RecieveDriverRequestState());
         }
       } catch (e) {
-        if (!kReleaseMode) log("Error on Add: $e");
+        if (!kReleaseMode) log("Error on Change: $e");
       }
     });
 
@@ -83,9 +97,10 @@ class FindDriverCubit extends Cubit<FindDriverState> {
         if (!kReleaseMode) log("Removed: ${data.toString()}");
 
         if (data != null) {
-          // final removedRide = RideModel.fromJson(data);
-          // rideRequests.removeWhere((ride) => ride.id == removedRide.id);
-          // emit(RiderRemovedRecievedState());
+           final removedRequest = TripDetailsModel.fromJson(data);
+           // حذف السائق من القائمة عند إزالته من فايربيز
+           requests.removeWhere((element) => element.driverId == removedRequest.driverId);
+           emit(RecieveDriverRequestState()); // تحديث الواجهة بعد الحذف
         }
       } catch (e) {
         if (!kReleaseMode) log("Error on Remove: $e");
@@ -116,20 +131,22 @@ class FindDriverCubit extends Cubit<FindDriverState> {
   }
 
   //! Accept Ride
-  void acceptDriver({required int driverId,required int driverRequestId}) async {
+  void acceptDriver({
+    required int driverId,
+    required int driverRequestId,
+  }) async {
     emit(AcceptDriverLoadingState());
     final result = await sl<RiderTripRepo>().acceptDriver(
       tripId: tripDetails?.id ?? 0,
       driverId: driverId,
       driverRequestId: driverRequestId,
     );
-    result.fold(
-      (error) => emit(AcceptDriverErrorState(error: error)),
-      (message) {
-        removeDriverAssigned(driverId: driverId);
-        emit(AcceptDriverSuccessState(message: message, driverId: driverId));
-      },
-    );
+    result.fold((error) => emit(AcceptDriverErrorState(error: error)), (
+      message,
+    ) {
+      removeDriverAssigned(driverId: driverId);
+      emit(AcceptDriverSuccessState(message: message, driverId: driverId));
+    });
   }
 
   //! Negotiate Driver
@@ -144,23 +161,25 @@ class FindDriverCubit extends Cubit<FindDriverState> {
       price: price,
       message: message,
     );
-    result.fold(
-      (error) => emit(NegotiationErrorState(error: error)),
-      (successMessage) {
-        try {
-          final request = requests.firstWhere((e) => e.requestId == driverRequestId);
-          removeRequest(request.id);
-        } catch (_) {}
-        emit(NegotiationSuccessState(message: successMessage));
-      },
-    );
+    result.fold((error) => emit(NegotiationErrorState(error: error)), (
+      successMessage,
+    ) {
+      // try {
+      //   final request = requests.firstWhere(
+      //     (e) => e.requestId == driverRequestId,
+      //   );
+      //   removeRequest(request.id);
+      // } catch (_) {}
+      emit(NegotiationSuccessState(message: successMessage));
+    });
   }
 
   //! Cancel Trip
   Future<void> cancelTrip() async {
     emit(FindDriverCancelTripLoadingState());
-    final result =
-        await sl<RiderTripRepo>().cancelTrip(tripId: tripDetails?.rideId ?? 0);
+    final result = await sl<RiderTripRepo>().cancelTrip(
+      tripId: tripDetails?.rideId ?? 0,
+    );
     result.fold(
       (error) => emit(FindDriverCancelTripErrorState(error: error)),
       (message) => emit(FindDriverCancelTripSuccessState(message: message)),
@@ -193,7 +212,7 @@ class FindDriverCubit extends Cubit<FindDriverState> {
   //   });
   // }
 
-  removeRequest(tripId) {
+  void removeRequest(int? tripId) {
     if (isActive) {
       requests.removeWhere((e) => e.id == tripId);
       if (!isActive) return;
@@ -204,7 +223,7 @@ class FindDriverCubit extends Cubit<FindDriverState> {
   //! Dragable Container
   bool isBottomContainerExpanded = false;
 
-  bottomContainerExpandedToggle(bool value) {
+  void bottomContainerExpandedToggle(bool value) {
     if (!isActive) return;
     isBottomContainerExpanded = value;
     if (!isActive) return;
