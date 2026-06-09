@@ -55,13 +55,14 @@ class FindDriverCubit extends Cubit<FindDriverState> {
 
         if (data != null) {
           final newRequest = TripDetailsModel.fromJson(data);
-          // التأكد من عدم إضافة السائق أكثر من مرة
           final index = requests.indexWhere((element) => element.driverId == newRequest.driverId);
           if (index == -1) {
             requests.add(newRequest);
-            SoundPlayer.alertSound();
-            emit(RecieveDriverRequestState());
+          } else {
+            requests[index] = newRequest; // تحديث بيانات السائق إذا كان موجوداً مسبقاً
           }
+          SoundPlayer.alertSound();
+          emit(RecieveDriverRequestState());
         }
       } catch (e) {
         if (!kReleaseMode) log("Error on Add: $e");

@@ -89,6 +89,10 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                       final driverId = request.driverId ?? 0;
                       final requestPrice = request.price?.toDouble() ?? 0.0;
                       final requestIdVal = request.id;
+                      final bool isWaitingForDriver = negotiatingRequests.contains(requestId);
+                      final bool isDriverAccepted = request.negotiationStatus == "driver_accepted" &&
+                          request.negotiation?.action == "driver_accepted";
+                      final bool isDriverCounterOffer = request.negotiation?.action == "counter_offer";
 
                       return Padding(
                         padding: EdgeInsets.only(bottom: 16.rH(context)),
@@ -314,7 +318,67 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                     ],
                                   ),
                                   //! Buttons or Waiting Message
-                                  if (negotiatingRequests.contains(requestId))
+                                  if (isDriverAccepted)
+                                    // رد السائق بالموافقة - عرض سعر الموافقة وأزرار القبول أو الرفض
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          padding: EdgeInsets.all(10.rH(context)),
+                                          margin: EdgeInsets.only(bottom: 8.rH(context)),
+                                          decoration: BoxDecoration(
+                                            color: Colors.green.withOpacity(0.10),
+                                            borderRadius: BorderRadius.circular(12),
+                                            border: Border.all(color: Colors.green.withOpacity(0.3)),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.check_circle_outline, color: Colors.green, size: 18.rH(context)),
+                                              SizedBox(width: 6.rW(context)),
+                                              Text(
+                                                "وافق السائق على سعر ${request.negotiation?.riderPrice?.toStringAsFixed(0) ?? ""} جنيه",
+                                                style: Styles.semibold14Primary(context).copyWith(color: Colors.green),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: CustomButton(
+                                                onPressed: () {
+                                                  cubit.declineDriver(driverId: driverId);
+                                                  cubit.removeRequest(requestIdVal);
+                                                },
+                                                title: AppStrings.decline.tr(context),
+                                                color: AppColors.transparent,
+                                                textColor: AppColors.primary,
+                                                borderColor: AppColors.primary,
+                                              ),
+                                            ),
+                                            SizedBox(width: 8.rW(context)),
+                                            Expanded(
+                                              child: CustomButton(
+                                                onPressed: () {
+                                                  if (state is! AcceptDriverLoadingState) {
+                                                    cubit.acceptDriver(
+                                                      driverId: driverId,
+                                                      driverRequestId: requestId,
+                                                    );
+                                                  }
+                                                },
+                                                title: state is AcceptDriverLoadingState
+                                                    ? 'loading...'
+                                                    : AppStrings.accept.tr(context),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  else if (isWaitingForDriver && !isDriverCounterOffer)
+                                    // في انتظار رد السائق
                                     Container(
                                       width: double.infinity,
                                       padding: EdgeInsets.symmetric(vertical: 12.rH(context)),
@@ -330,6 +394,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                       ),
                                     )
                                   else
+                                    // الأزرار العادية (لم يتم التفاوض بعد أو السائق قدم عرضاً مضاداً)
                                     Row(
                                       children: [
                                         //! Decline Button
@@ -349,7 +414,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                         ),
                                         SizedBox(width: 8.rW(context)),
                                         //! Negotiate Button
-                                        if (request.negotiation?.riderPrice == null)
+                                        if (request.negotiation?.riderPrice == null || isDriverCounterOffer)
                                           Expanded(
                                             child: CustomButton(
                                               onPressed: () async {
@@ -365,10 +430,10 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                                       NegotiateBottomSheet(
                                                         driverRequestId:
                                                             requestId,
-                                                        initialPrice:
-                                                            requestPrice,
+                                                        initialPrice: isDriverCounterOffer
+                                                            ? (request.negotiation?.driverPrice?.toDouble() ?? requestPrice)
+                                                            : requestPrice,
                                                         onSubmit: (price, message) {
-                                                          // إضافة الـ ID لقائمة الانتظار لإيقاف الأزرار وتصفير العداد
                                                           setState(() {
                                                             negotiatingRequests.add(requestId);
                                                           });
@@ -387,9 +452,9 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                                                   });
                                                 }
                                               },
-                                              title: AppStrings.negotiate.tr(
-                                                context,
-                                              ),
+                                              title: isDriverCounterOffer
+                                                  ? "رد على العرض"
+                                                  : AppStrings.negotiate.tr(context),
                                               color: AppColors.transparent,
                                               textColor: AppColors.primary,
                                               borderColor: AppColors.primary,
