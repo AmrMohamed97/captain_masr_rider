@@ -23,7 +23,7 @@ class _RoundedBorderTimerState extends State<RoundedBorderTimer>
   late AnimationController _controller;
   final double borderWidth = 4;
   final double borderRadius = 20;
-  final Duration totalDuration = const Duration(seconds: 10);
+  final Duration totalDuration = const Duration(seconds: 20);
   final int sides = 4;
 
   int currentSide = 0;
