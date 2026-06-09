@@ -107,7 +107,6 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
                               width: 334.rW(context),
-                              height: 194.rH(context),
                               padding: EdgeInsets.only(
                                 top: 15.rH(context),
                                 bottom: 11.rH(context),
@@ -121,6 +120,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   //! User Details & Cost
                                   Row(
