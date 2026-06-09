@@ -8,11 +8,13 @@ class RoundedBorderTimer extends StatefulWidget {
     required this.child,
     required this.onComplete,
     this.isPaused = false,
+    this.totalDuration = const Duration(seconds: 20),
   });
 
   final Widget child;
   final Function() onComplete;
   final bool isPaused;
+  final Duration totalDuration;
 
   @override
   State<RoundedBorderTimer> createState() => _RoundedBorderTimerState();
@@ -23,7 +25,6 @@ class _RoundedBorderTimerState extends State<RoundedBorderTimer>
   late AnimationController _controller;
   final double borderWidth = 4;
   final double borderRadius = 20;
-  final Duration totalDuration = const Duration(seconds: 20);
   final int sides = 4;
 
   int currentSide = 0;
@@ -33,7 +34,7 @@ class _RoundedBorderTimerState extends State<RoundedBorderTimer>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: totalDuration ~/ sides,
+      duration: widget.totalDuration ~/ sides,
       vsync: this,
     )
       ..addListener(() {

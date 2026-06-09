@@ -100,6 +100,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
                           child: RoundedBorderTimer(
                             key: ValueKey('${request.id}_${negotiatingRequests.contains(requestId)}_${request.negotiation?.action ?? ''}_${request.negotiation?.driverPrice?.toString() ?? ''}'),
                             isPaused: requestId == pausedRequestId,
+                            totalDuration: isDriverCounterOffer ? const Duration(seconds: 30) : const Duration(seconds: 20),
                             onComplete: () {
                               cubit.declineDriver(driverId: driverId);
                               cubit.removeRequest(requestIdVal);
