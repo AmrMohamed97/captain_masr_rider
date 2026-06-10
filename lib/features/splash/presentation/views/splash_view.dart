@@ -1,3 +1,5 @@
+import 'package:captain_masr_rider/features/home/presentation/views/home_view.dart';
+
 import '../../../../core/imports/imports.dart';
 
 class SplashView extends StatefulWidget {
@@ -44,7 +46,7 @@ class _SplashViewState extends State<SplashView> {
                           ? const LoginView()
                           // : context.read<GlobalCubit>().isRider
                           // ?
-                          : const BaseView()
+                          : const HomeView()
                           // : const HomeView()
                     // : const OnboardingView(),
               );

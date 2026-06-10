@@ -4,9 +4,7 @@ import '../../../home/presentation/views/home_view.dart';
 import '../../../otp/presentation/views/otp_view.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({
-    super.key,
-  });
+  const LoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +18,11 @@ class LoginButton extends StatelessWidget {
               state: ToastStates.success,
             );
             context.read<GlobalCubit>().updateUserData();
-            navigateAndRemoveUntil(
-              context,
-              context.read<GlobalCubit>().isRider
-                  ? const BaseView()
-                  : const HomeView(),
-            );
+            navigateAndRemoveUntil(context, const HomeView());
           }
         }
         if (state is LoginErrorState) {
-          showToast(
-            context,
-            message: state.error,
-            state: ToastStates.error,
-          );
+          showToast(context, message: state.error, state: ToastStates.error);
           if (state.isVerified == false) {
             navigateReplacement(
               context,
@@ -41,7 +30,7 @@ class LoginButton extends StatelessWidget {
                 phone: context.read<LoginCubit>().phoneController.text,
                 countryCode:
                     context.read<LoginCubit>().selectedCountry?.dialCode ??
-                        "20",
+                    "20",
               ),
             );
           }
