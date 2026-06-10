@@ -17,7 +17,7 @@ class HomeHeader extends StatelessWidget {
               height:
                   state is SlidersLoadingState ||
                       (context.read<HomeCubit>().sliders?.isNotEmpty ?? false)
-                  ? 143.rH(context)
+                  ? 140.rH(context)
                   : 130.rH(context),
               decoration: BoxDecoration(
                 gradient: AppColors.primaryGradient,

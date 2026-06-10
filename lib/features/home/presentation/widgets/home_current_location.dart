@@ -104,66 +104,108 @@ class _HomeCurrentLocationState extends State<HomeCurrentLocation> {
                         SizedBox(height: 12.rH(context)),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 11.rW(context),
+                            horizontal: 8.rW(context),
                           ),
-                          child: InkWell(
-                            overlayColor: const WidgetStatePropertyAll(
-                              AppColors.transparent,
-                            ),
-                            onTap: () {
-                              navBarNavigate(
-                                context: context,
-                                widget: const SavedPlacesView(canChoose: true),
-                                then: (value) {
-                                  if (value != null &&
-                                      value is SavedPlaceModel) {
-                                    globalCubit.setRiderLoction(value).then((
-                                      value,
-                                    ) {
-                                      if (globalCubit.userLocation != null) {
-                                        mapController?.animateCamera(
-                                          CameraUpdate.newCameraPosition(
-                                            CameraPosition(
-                                              target: globalCubit.userLocation!,
-                                              zoom: 14.151926040649414,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    });
-                                  }
-                                },
-                              );
-                            },
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 10.rH(context),
-                                  backgroundColor: AppColors.grey3,
-                                  child: Icon(
-                                    Icons.star,
-                                    color: AppColors.primary,
-                                    size: 14.rH(context),
-                                  ),
-                                ),
-                                SizedBox(width: 10.rW(context)),
-                                Text(
-                                  AppStrings.chooseSavedPlace.tr(context),
-                                  style: Styles.medium14(context).copyWith(
-                                    color: Theme.of(
-                                      context,
-                                    ).textTheme.bodyLarge?.color,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  color: Theme.of(
-                                    context,
-                                  ).textTheme.bodyLarge?.color,
-                                  size: 14.rH(context),
+                          child: Container(
+                            height: 40.rH(context),
+                            decoration: BoxDecoration(
+                              // color: AppColors.grey.withOpacity(.15),
+                              color: Theme.of(
+                                context,
+                              ).cardColor.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: AppColors.grey.withOpacity(.15),
+                                width: 1,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.black.withOpacity(.06),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
+                            ),
+                            child: Material(
+                              color: AppColors.transparent,
+                              borderRadius: BorderRadius.circular(16),
+                              clipBehavior: Clip.antiAlias,
+                              child: InkWell(
+                                onTap: () {
+                                  navBarNavigate(
+                                    context: context,
+                                    widget: const SavedPlacesView(
+                                      canChoose: true,
+                                    ),
+                                    then: (value) {
+                                      if (value != null &&
+                                          value is SavedPlaceModel) {
+                                        globalCubit.setRiderLoction(value).then(
+                                          (value) {
+                                            if (globalCubit.userLocation !=
+                                                null) {
+                                              mapController?.animateCamera(
+                                                CameraUpdate.newCameraPosition(
+                                                  CameraPosition(
+                                                    target: globalCubit
+                                                        .userLocation!,
+                                                    zoom: 14.151926040649414,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        );
+                                      }
+                                    },
+                                  );
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 11.rW(context),
+                                    vertical: 0.rH(context),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(4.rH(context)),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.primary.withOpacity(
+                                            .1,
+                                          ),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Icon(
+                                          Icons.star_rounded,
+                                          color: AppColors.primary,
+                                          size: 15.rH(context),
+                                        ),
+                                      ),
+                                      SizedBox(width: 12.rW(context)),
+                                      Text(
+                                        AppStrings.chooseSavedPlace.tr(context),
+                                        style: Styles.medium14(context)
+                                            .copyWith(
+                                              color: Theme.of(
+                                                context,
+                                              ).textTheme.bodyLarge?.color,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                      const Spacer(),
+                                      Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.color
+                                            ?.withOpacity(.7),
+                                        size: 14.rH(context),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
