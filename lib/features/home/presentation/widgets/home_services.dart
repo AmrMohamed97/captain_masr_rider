@@ -1,3 +1,5 @@
+import 'package:captain_masr_rider/features/race_trip/presentation/views/racing_trip_view.dart';
+
 import '../../../../core/imports/imports.dart';
 import '../../../delivery/presentation/views/package_details_view.dart';
 import '../../../schedule_trip/presentation/views/schedule_trip_view.dart';
@@ -135,7 +137,7 @@ class _HomeServicesState extends State<HomeServices> {
                     case 4:
                       navBarNavigate(
                         context: context,
-                        widget: const StartTripView(),
+                        widget: const RacingTripView(),
                       );
                       break;
                     default:
