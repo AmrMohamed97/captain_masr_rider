@@ -31,7 +31,7 @@ class HomeServices extends StatefulWidget {
     ),
     ServicesModel(
       title: AppStrings.fastAndReliable,
-      type: "Racing",
+      type: AppStrings.race,
       image: Assets.racing,
     ),
   ];

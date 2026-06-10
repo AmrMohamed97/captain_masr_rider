@@ -209,6 +209,7 @@ abstract class AppStrings {
   static const String daysYouWant = "daysYouWant";
   static const String gatheringAndReturningTime = "gatheringAndReturningTime";
   static const String delivery = "delivery";
+  static const String race = "race";
   static const String deliveryTrips = "deliveryTrips";
   static const String packageDetails = "packageDetails";
   static const String deliveryImage = "deliveryImage";
