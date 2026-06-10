@@ -101,40 +101,42 @@ class HomeHeader extends StatelessWidget {
                               ),
                               SizedBox(height: 7.rH(context)),
                               //! Subtitle
-                              // BlocBuilder<HomeCubit, HomeState>(
-                              //   builder: (context, state) {
-                              //     return Text(
-                              // context
-                              //     .read<HomeCubit>()
-                              //           .checkTimeOfDay()
-                              //           .tr(context),
-                              //       style: Styles.regular14(
-                              //         context,
-                              //       ).copyWith(color: AppColors.white),
-                              //     );
-                              //   },
-                              // ),
-                              Row(
-                                children: [
-                                  const CustomSvgPicture(
-                                    svg: Assets.imagesPinLocation,
-                                    color: AppColors.yellow,
-                                  ),
-                                  SizedBox(width: 8.rW(context)),
-                                  Expanded(
-                                    child: Text(
-                                      context
-                                              .read<GlobalCubit>()
-                                              .userLocationName ??
-                                          "...",
-                                      style: Styles.regular12(
-                                        context,
-                                      ).copyWith(color: AppColors.greyText),
+                              context.read<GlobalCubit>().userLocation == null
+                                  ? BlocBuilder<HomeCubit, HomeState>(
+                                      builder: (context, state) {
+                                        return Text(
+                                          context
+                                              .read<HomeCubit>()
+                                              .checkTimeOfDay()
+                                              .tr(context),
+                                          style: Styles.regular14(
+                                            context,
+                                          ).copyWith(color: AppColors.white),
+                                        );
+                                      },
+                                    )
+                                  : Row(
+                                      children: [
+                                        const CustomSvgPicture(
+                                          svg: Assets.imagesPinLocation,
+                                          color: AppColors.yellow,
+                                        ),
+                                        SizedBox(width: 8.rW(context)),
+                                        Expanded(
+                                          child: Text(
+                                            context
+                                                    .read<GlobalCubit>()
+                                                    .userLocationName ??
+                                                "...",
+                                            style: Styles.regular12(context)
+                                                .copyWith(
+                                                  color: AppColors.greyText,
+                                                ),
+                                          ),
+                                        ),
+                                        // ),
+                                      ],
                                     ),
-                                  ),
-                                  // ),
-                                ],
-                              ),
                               // Column(
                               //   crossAxisAlignment: CrossAxisAlignment.start,
                               //   children: [
