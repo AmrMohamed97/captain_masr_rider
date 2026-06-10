@@ -190,12 +190,42 @@ class _HomeBodyState extends State<HomeBody> {
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black.withOpacity(.08),
+                      blurRadius: 15,
+                      spreadRadius: 1,
+                      offset: const Offset(0, -4),
+                    ),
+                  ],
                 ),
-                child: Column(children: [const HomeServices()]),
+                padding: EdgeInsets.only(
+                  bottom: 20.rH(context),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Center(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          top: 12.rH(context),
+                          bottom: 12.rH(context),
+                        ),
+                        width: 48.rW(context),
+                        height: 5.rH(context),
+                        decoration: BoxDecoration(
+                          color: AppColors.grey.withOpacity(.5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    const HomeServices(),
+                  ],
+                ),
               ),
             ),
           ],
