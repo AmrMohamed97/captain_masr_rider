@@ -62,7 +62,7 @@ class _HomeServicesState extends State<HomeServices> {
   void _updateCurrentIndex() {
     if (_scrollController.hasClients) {
       final double offset = _scrollController.offset;
-      final double itemWidth = 187.rW(context) + 16.rW(context);
+      final double itemWidth = 156.rW(context) + 16.rW(context);
       final int newIndex = (offset / itemWidth).round();
 
       if (newIndex != _currentIndex) {
@@ -79,21 +79,21 @@ class _HomeServicesState extends State<HomeServices> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //! Title
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.rW(context)),
-          child: Text(
-            AppStrings.services.tr(context),
-            style: Styles.semibold18Primary(
-              context,
-            ).copyWith(color: Theme.of(context).textTheme.bodyLarge?.color),
-          ),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(horizontal: 16.rW(context)),
+        //   child: Text(
+        //     AppStrings.services.tr(context),
+        //     style: Styles.semibold18Primary(
+        //       context,
+        //     ).copyWith(color: Theme.of(context).textTheme.bodyLarge?.color),
+        //   ),
+        // ),
 
         SizedBox(height: 16.rH(context)),
 
         SizedBox(
           width: double.infinity,
-          height: 163.rH(context),
+          height: 138.rH(context),
           child: ListView.separated(
             controller: _scrollController,
             shrinkWrap: true,
