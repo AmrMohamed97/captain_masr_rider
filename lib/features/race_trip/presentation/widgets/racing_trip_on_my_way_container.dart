@@ -14,7 +14,7 @@ class RacingTripOnMyWayContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RacingTripCubit, RacingTripState>(
       builder: (context, state) {
-        final cubit = context.read<RacingTripCubit>();
+        // final cubit = context.read<RacingTripCubit>();
         return Column(
           children: [
             //! Title

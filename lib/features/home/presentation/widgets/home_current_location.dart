@@ -1,3 +1,4 @@
+import 'package:captain_masr_rider/features/home/presentation/widgets/home_header.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../core/imports/imports.dart';
@@ -16,84 +17,159 @@ class _HomeCurrentLocationState extends State<HomeCurrentLocation> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 344.rW(context),
-      height: 266.rH(context),
-      margin: EdgeInsets.symmetric(horizontal: 16.rW(context)),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: AppColors.grey.withOpacity(.5),
-        ),
-      ),
+    return Expanded(
+      // width: 344.rW(context),
+      // height: 266.rH(context),
+      // margin: EdgeInsets.symmetric(horizontal: 16.rW(context)),
+      // decoration: BoxDecoration(
+      //   borderRadius: BorderRadius.circular(14),
+      //   border: Border.all(
+      //     color: AppColors.grey.withOpacity(.5),
+      //   ),
+      // ),
       child: BlocBuilder<GlobalCubit, GlobalState>(
         builder: (context, state) {
           final globalCubit = context.read<GlobalCubit>();
           return Column(
             children: [
-              //! Title & Location
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12.rW(context),
-                  vertical: 12.rH(context),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              // //! Title & Location
+              // Padding(
+              //   padding: EdgeInsets.symmetric(
+              //     horizontal: 12.rW(context),
+              //     vertical: 12.rH(context),
+              //   ),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       //* Title
+              //       Text(
+              //         AppStrings.yourCurrentLocations.tr(context),
+              //         style: Styles.regular12(context).copyWith(
+              //           color: AppColors.greyText,
+              //         ),
+              //       ),
+              //       SizedBox(height: 6.rH(context)),
+              //       //* Current Location
+              //       Row(
+              //         children: [
+              //           const CustomSvgPicture(
+              //             svg: Assets.imagesPinLocation,
+              //           ),
+              //           SizedBox(width: 8.rW(context)),
+              //           Expanded(
+              //             child: Text(
+              //               globalCubit.userLocationName ?? "...",
+              //               style: Styles.semibold14Primary(context).copyWith(
+              //                 color:
+              //                     Theme.of(context).textTheme.bodyLarge?.color,
+              //               ),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              // ),
+
+              //! Map
+              // if (globalCubit.userLocation != null)
+              Expanded(
+                child: Stack(
+                  alignment: Alignment.topCenter,
                   children: [
-                    //* Title
-                    Text(
-                      AppStrings.yourCurrentLocations.tr(context),
-                      style: Styles.regular12(context).copyWith(
-                        color: AppColors.greyText,
+                    GoogleMap(
+                      onMapCreated: (controller) {
+                        mapController = controller;
+                      },
+                      style: context.read<GlobalCubit>().isDarkMode
+                          ? context.read<GlobalCubit>().mapDarkStyle
+                          : null,
+                      zoomGesturesEnabled: false,
+                      scrollGesturesEnabled: false,
+                      zoomControlsEnabled: false,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                          globalCubit.userLocation?.latitude ?? 26.820553,
+                          globalCubit.userLocation?.longitude ?? 30.802498,
+                        ),
+                        zoom: 6.151926040649414,
                       ),
                     ),
-                    SizedBox(height: 6.rH(context)),
-                    //* Current Location
-                    Row(
+
+                    //! Title & Location
+                    //! Choose Saved Place
+                    Column(
                       children: [
-                        const CustomSvgPicture(
-                          svg: Assets.imagesPinLocation,
-                        ),
-                        SizedBox(width: 8.rW(context)),
-                        Expanded(
-                          child: Text(
-                            globalCubit.userLocationName ?? "...",
-                            style: Styles.semibold14Primary(context).copyWith(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge?.color,
+                        const HomeHeader(),
+                        SizedBox(height: 12.rH(context)),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 11.rW(context),
+                          ),
+                          child: InkWell(
+                            overlayColor: const WidgetStatePropertyAll(
+                              AppColors.transparent,
+                            ),
+                            onTap: () {
+                              navBarNavigate(
+                                context: context,
+                                widget: const SavedPlacesView(canChoose: true),
+                                then: (value) {
+                                  if (value != null &&
+                                      value is SavedPlaceModel) {
+                                    globalCubit.setRiderLoction(value).then((
+                                      value,
+                                    ) {
+                                      if (globalCubit.userLocation != null) {
+                                        mapController?.animateCamera(
+                                          CameraUpdate.newCameraPosition(
+                                            CameraPosition(
+                                              target: globalCubit.userLocation!,
+                                              zoom: 14.151926040649414,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    });
+                                  }
+                                },
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 10.rH(context),
+                                  backgroundColor: AppColors.grey3,
+                                  child: Icon(
+                                    Icons.star,
+                                    color: AppColors.primary,
+                                    size: 14.rH(context),
+                                  ),
+                                ),
+                                SizedBox(width: 10.rW(context)),
+                                Text(
+                                  AppStrings.chooseSavedPlace.tr(context),
+                                  style: Styles.medium14(context).copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge?.color,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
+                                  size: 14.rH(context),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-
-              //! Map
-              if (globalCubit.userLocation != null)
-                Expanded(
-                  child: Stack(
-                    children: [
-                      GoogleMap(
-                        onMapCreated: (controller) {
-                          mapController = controller;
-                        },
-                        style: context.read<GlobalCubit>().isDarkMode
-                            ? context.read<GlobalCubit>().mapDarkStyle
-                            : null,
-                        zoomGesturesEnabled: false,
-                        scrollGesturesEnabled: false,
-                        zoomControlsEnabled: false,
-                        initialCameraPosition: CameraPosition(
-                          target: LatLng(
-                            globalCubit.userLocation!.latitude,
-                            globalCubit.userLocation!.longitude,
-                          ),
-                          zoom: 14.151926040649414,
-                        ),
-                      ),
-
+                    if (globalCubit.userLocation != null)
                       //! Pin
                       Positioned.fill(
                         child: Center(
@@ -115,7 +191,8 @@ class _HomeCurrentLocationState extends State<HomeCurrentLocation> {
                                 ),
                                 Positioned(
                                   top: 0,
-                                  bottom: (63.rH(context) / 2) -
+                                  bottom:
+                                      (63.rH(context) / 2) -
                                       (27.rH(context) / 2),
                                   left: 0,
                                   right: 0,
@@ -131,73 +208,11 @@ class _HomeCurrentLocationState extends State<HomeCurrentLocation> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-
-              SizedBox(height: 12.rH(context)),
-
-              //! Choose Saved Place
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 11.rW(context)),
-                child: InkWell(
-                  overlayColor: const WidgetStatePropertyAll(
-                    AppColors.transparent,
-                  ),
-                  onTap: () {
-                    navBarNavigate(
-                      context: context,
-                      widget: const SavedPlacesView(
-                        canChoose: true,
-                      ),
-                      then: (value) {
-                        if (value != null && value is SavedPlaceModel) {
-                          globalCubit.setRiderLoction(value).then((value) {
-                            if (globalCubit.userLocation != null) {
-                              mapController?.animateCamera(
-                                CameraUpdate.newCameraPosition(
-                                  CameraPosition(
-                                    target: globalCubit.userLocation!,
-                                    zoom: 14.151926040649414,
-                                  ),
-                                ),
-                              );
-                            }
-                          });
-                        }
-                      },
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 10.rH(context),
-                        backgroundColor: AppColors.grey3,
-                        child: Icon(
-                          Icons.star,
-                          color: AppColors.primary,
-                          size: 14.rH(context),
-                        ),
-                      ),
-                      SizedBox(width: 10.rW(context)),
-                      Text(
-                        AppStrings.chooseSavedPlace.tr(context),
-                        style: Styles.medium14(context).copyWith(
-                          color: Theme.of(context).textTheme.bodyLarge?.color,
-                        ),
-                      ),
-                      const Spacer(),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Theme.of(context).textTheme.bodyLarge?.color,
-                        size: 14.rH(context),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
               ),
 
-              SizedBox(height: 16.rH(context)),
+              SizedBox(height: 12.rH(context)),
             ],
           );
         },

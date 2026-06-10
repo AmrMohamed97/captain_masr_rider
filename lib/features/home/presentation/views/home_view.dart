@@ -24,11 +24,12 @@ class _HomeViewState extends State<HomeView> {
     print('token=>${sl<Cache>().getStringData(AppConstants.token)}');
     print(sl<Cache>().getStringData(AppConstants.token));
     return BlocProvider(
-      create: (context) => HomeCubit(
-        isDriver: context.read<GlobalCubit>().isDriver,
-      ),
+      create: (context) =>
+          HomeCubit(isDriver: context.read<GlobalCubit>().isDriver),
       child: Scaffold(
         key: _scaffoldKey,
+        extendBody: true,
+        extendBodyBehindAppBar: true,
         drawer: const CustomDrawer(),
         body: BlocConsumer<HomeCubit, HomeState>(
           listener: (context, state) {
