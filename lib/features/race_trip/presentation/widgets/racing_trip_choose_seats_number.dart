@@ -14,7 +14,7 @@ class RacingTripChooseSeatsNumber extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RacingTripCubit, RacingTripState>(
       builder: (context, state) {
-        final cubit = context.read<RacingTripCubit>();
+        // final cubit = context.read<RacingTripCubit>();
         return Row(
           children: [
             CustomSvgPicture(
@@ -28,48 +28,48 @@ class RacingTripChooseSeatsNumber extends StatelessWidget {
                 color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
             ),
-            const Spacer(),
+            // const Spacer(),
             //! Decrease Buton
-            GestureDetector(
-              onTap: () => cubit.changeSeatsNum(increase: false),
-              child: CircleAvatar(
-                radius: 10.rH(context),
-                backgroundColor: cubit.seatsNum == 1
-                    ? AppColors.greyText.withOpacity(.5)
-                    : AppColors.primary,
-                child: Icon(
-                  Icons.remove,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  size: 14.rH(context),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 12.rW(context),
-              ),
-              child: Text(
-                cubit.seatsNum.toString(),
-                style: Styles.medium16Primary(context).copyWith(
-                  color: Theme.of(context).textTheme.bodyLarge?.color,
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () => cubit.changeSeatsNum(increase: false),
+            //   child: CircleAvatar(
+            //     radius: 10.rH(context),
+            //     backgroundColor: cubit.seatsNum == 1
+            //         ? AppColors.greyText.withOpacity(.5)
+            //         : AppColors.primary,
+            //     child: Icon(
+            //       Icons.remove,
+            //       color: Theme.of(context).scaffoldBackgroundColor,
+            //       size: 14.rH(context),
+            //     ),
+            //   ),
+            // ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(
+            //     horizontal: 12.rW(context),
+            //   ),
+            //   child: Text(
+            //     cubit.seatsNum.toString(),
+            //     style: Styles.medium16Primary(context).copyWith(
+            //       color: Theme.of(context).textTheme.bodyLarge?.color,
+            //     ),
+            //   ),
+            // ),
             //! Increase Buton
-            GestureDetector(
-              onTap: () => cubit.changeSeatsNum(increase: true),
-              child: CircleAvatar(
-                radius: 10.rH(context),
-                backgroundColor: cubit.seatsNum == 4
-                    ? AppColors.greyText.withOpacity(.5)
-                    : AppColors.primary,
-                child: Icon(
-                  Icons.add,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  size: 14.rH(context),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () => cubit.changeSeatsNum(increase: true),
+            //   child: CircleAvatar(
+            //     radius: 10.rH(context),
+            //     backgroundColor: cubit.seatsNum == 4
+            //         ? AppColors.greyText.withOpacity(.5)
+            //         : AppColors.primary,
+            //     child: Icon(
+            //       Icons.add,
+            //       color: Theme.of(context).scaffoldBackgroundColor,
+            //       size: 14.rH(context),
+            //     ),
+            //   ),
+            // ),
           ],
         );
       },

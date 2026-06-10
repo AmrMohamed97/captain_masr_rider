@@ -88,24 +88,24 @@ class RacingTripBottomSection extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
-                            if (!cubit.isShareRide)
-                              Text(
-                                "${cubit.promoCodeModel != null ? (cubit.discountPrice ?? (cubit.details?.price?.toStringAsFixed(2) ?? "??")) : (cubit.details?.price?.toStringAsFixed(2) ?? "??")} ${AppStrings.egp.tr(context)}",
-                                style:
-                                    Styles.semibold16Primary(context).copyWith(
-                                  color: AppColors.red,
-                                ),
-                              ),
-                            if (cubit.isShareRide)
-                              Text(
-                                 "${cubit.promoCodeModel != null ? (cubit.discountPrice ?? (cubit.details?.totalPrice?.toStringAsFixed(2) ?? "??")) : (cubit.details?.totalPrice?.toStringAsFixed(2) ?? "??")} ${AppStrings.egp.tr(context)}",
-                                // cubit.details?.totalPrice?.toStringAsFixed(2) ??
-                                //     '',
-                                style:
-                                    Styles.semibold16Primary(context).copyWith(
-                                  color: AppColors.red,
-                                ),
-                              ),
+                            // if (!cubit.isShareRide)
+                            //   Text(
+                            //     "${cubit.promoCodeModel != null ? (cubit.discountPrice ?? (cubit.details?.price?.toStringAsFixed(2) ?? "??")) : (cubit.details?.price?.toStringAsFixed(2) ?? "??")} ${AppStrings.egp.tr(context)}",
+                            //     style:
+                            //         Styles.semibold16Primary(context).copyWith(
+                            //       color: AppColors.red,
+                            //     ),
+                            //   ),
+                            // if (cubit.isShareRide)
+                            //   Text(
+                            //      "${cubit.promoCodeModel != null ? (cubit.discountPrice ?? (cubit.details?.totalPrice?.toStringAsFixed(2) ?? "??")) : (cubit.details?.totalPrice?.toStringAsFixed(2) ?? "??")} ${AppStrings.egp.tr(context)}",
+                            //     // cubit.details?.totalPrice?.toStringAsFixed(2) ??
+                            //     //     '',
+                            //     style:
+                            //         Styles.semibold16Primary(context).copyWith(
+                            //       color: AppColors.red,
+                            //     ),
+                            //   ),
                             // Text(
                             //   "${cubit.promoCodeModel != null ? ((cubit.details?.totalPrice ?? cubit.discountPrice ?? "??")) : (cubit.details?.totalPrice ?? cubit.details?.price ?? "??")} ${AppStrings.egp.tr(context)}",
                             //   style: Styles.semibold16Primary(context).copyWith(
@@ -151,7 +151,7 @@ class RacingTripBottomSection extends StatelessWidget {
                                 SizedBox(height: 16.rH(context)),
 
                                 //! Vehicle Categories
-                                if (!cubit.isDelivery)
+                                // if (!cubit.isDelivery)
                                   SizedBox(
                                     height: cubit.vehicleCategories.isEmpty
                                         ? 40.rH(context)
@@ -301,179 +301,179 @@ class RacingTripBottomSection extends StatelessWidget {
 
                                 SizedBox(height: 16.rH(context)),
 
-                                //! Female, Baby Carriage and Luggages Switches
-                                if (!cubit.isDelivery &&
-                                    !cubit.driverOnMyWay &&
-                                    !cubit.isShareRide)
-                                  Column(
-                                    children: [
-                                      //! Female
-                                      CustomSwitchListTile(
-                                        svg: Assets.imagesFemale,
-                                        title: AppStrings.female.tr(context),
-                                        value: cubit.isFemale,
-                                        onChanged: (value) =>
-                                            cubit.isFemaleToggle(value),
-                                      ),
+                                // //! Female, Baby Carriage and Luggages Switches
+                                // if (!cubit.isDelivery &&
+                                //     !cubit.driverOnMyWay &&
+                                //     !cubit.isShareRide)
+                                //   Column(
+                                //     children: [
+                                //       //! Female
+                                //       CustomSwitchListTile(
+                                //         svg: Assets.imagesFemale,
+                                //         title: AppStrings.female.tr(context),
+                                //         value: cubit.isFemale,
+                                //         onChanged: (value) =>
+                                //             cubit.isFemaleToggle(value),
+                                //       ),
 
-                                      SizedBox(height: 16.rH(context)),
+                                //       SizedBox(height: 16.rH(context)),
 
-                                      //! Baby Carriage
-                                      CustomSwitchListTile(
-                                        svg: Assets.imagesBabyCarriage,
-                                        title:
-                                            AppStrings.babyCarriage.tr(context),
-                                        value: cubit.hasBabyCarriage,
-                                        onChanged: (value) =>
-                                            cubit.hasBabyCarriageToggle(value),
-                                      ),
+                                //       //! Baby Carriage
+                                //       CustomSwitchListTile(
+                                //         svg: Assets.imagesBabyCarriage,
+                                //         title:
+                                //             AppStrings.babyCarriage.tr(context),
+                                //         value: cubit.hasBabyCarriage,
+                                //         onChanged: (value) =>
+                                //             cubit.hasBabyCarriageToggle(value),
+                                //       ),
 
-                                      SizedBox(height: 16.rH(context)),
+                                //       SizedBox(height: 16.rH(context)),
 
-                                      //! Luggages
-                                      CustomSwitchListTile(
-                                        svg: Assets.imagesLuggages,
-                                        title: AppStrings.luggages.tr(context),
-                                        value: cubit.hasLuggages,
-                                        onChanged: (value) =>
-                                            cubit.hasLuggagesToggle(value),
-                                      ),
+                                //       //! Luggages
+                                //       CustomSwitchListTile(
+                                //         svg: Assets.imagesLuggages,
+                                //         title: AppStrings.luggages.tr(context),
+                                //         value: cubit.hasLuggages,
+                                //         onChanged: (value) =>
+                                //             cubit.hasLuggagesToggle(value),
+                                //       ),
 
-                                      AnimatedCrossFade(
-                                        firstChild:
-                                            RacingSelectLuggagesNumberContainer(
-                                          smallValue: cubit.smallLuggaes,
-                                          mediumValue: cubit.mediumLuggaes,
-                                          largeValue: cubit.largeLuggaes,
-                                          increaseOnTap: (index) =>
-                                              cubit.changeLuggagesNumber(
-                                                  index: index, increase: true),
-                                          decreaseOnTap: (index) =>
-                                              cubit.changeLuggagesNumber(
-                                                  index: index,
-                                                  increase: false),
-                                        ),
-                                        secondChild: Container(),
-                                        crossFadeState: cubit.hasLuggages
-                                            ? CrossFadeState.showFirst
-                                            : CrossFadeState.showSecond,
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                      ),
+                                //       AnimatedCrossFade(
+                                //         firstChild:
+                                //             RacingSelectLuggagesNumberContainer(
+                                //           smallValue: cubit.smallLuggaes,
+                                //           mediumValue: cubit.mediumLuggaes,
+                                //           largeValue: cubit.largeLuggaes,
+                                //           increaseOnTap: (index) =>
+                                //               cubit.changeLuggagesNumber(
+                                //                   index: index, increase: true),
+                                //           decreaseOnTap: (index) =>
+                                //               cubit.changeLuggagesNumber(
+                                //                   index: index,
+                                //                   increase: false),
+                                //         ),
+                                //         secondChild: Container(),
+                                //         crossFadeState: cubit.hasLuggages
+                                //             ? CrossFadeState.showFirst
+                                //             : CrossFadeState.showSecond,
+                                //         duration:
+                                //             const Duration(milliseconds: 200),
+                                //       ),
 
-                                      SizedBox(height: 16.rH(context)),
-                                    ],
-                                  ),
+                                //       SizedBox(height: 16.rH(context)),
+                                //     ],
+                                //   ),
 
-                                //! Seats Number
-                                if ((cubit.isShareRide ||
-                                        cubit.driverOnMyWay) &&
-                                    cubit.seats.isNotEmpty &&
-                                    cubit.selectedVehicleCategoryId == 2)
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(bottom: 16.rH(context)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          AppStrings.selectSeatsYouWant
-                                              .tr(context),
-                                          style: Styles.regular14(context)
-                                              .copyWith(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge
-                                                ?.color,
-                                          ),
-                                        ),
-                                        SizedBox(height: 8.rH(context)),
-                                        Row(
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                FittedBox(
-                                                  fit: BoxFit.scaleDown,
-                                                  child: Text(
-                                                    AppStrings.availableSeatsNUM
-                                                        .tr(context)
-                                                        .replaceAll(
-                                                          "NUM",
-                                                          "${cubit.seats.length}",
-                                                        ),
-                                                    style: Styles.bold12primary(
-                                                            context)
-                                                        .copyWith(
-                                                      color: Colors.green,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Image.asset(
-                                                  Assets.imagesCarSeats,
-                                                  height: 120.rH(context),
-                                                  width: 120.rW(context),
-                                                  fit: BoxFit.contain,
-                                                  color: null,
-                                                ),
-                                              ],
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                children: List.generate(
-                                                  cubit.seats.length,
-                                                  (index) => Padding(
-                                                    padding: EdgeInsets.only(
-                                                      bottom: 8.rH(context),
-                                                    ),
-                                                    child: GestureDetector(
-                                                      onTap: () => cubit
-                                                          .selectSeat(index),
-                                                      child: Row(
-                                                        children: [
-                                                          CustomCheckBox(
-                                                            value: cubit
-                                                                .selectedSeatsIds
-                                                                .contains(cubit
-                                                                    .seats[
-                                                                        index]
-                                                                    .id),
-                                                            onTap: () => cubit
-                                                                .selectSeat(
-                                                                    index),
-                                                          ),
-                                                          SizedBox(
-                                                              width: 8
-                                                                  .rW(context)),
-                                                          Text(
-                                                            "(${index + 1}) ${cubit.seats[index].name ?? "??"}",
-                                                            style: Styles
-                                                                    .regular14(
-                                                                        context)
-                                                                .copyWith(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .bodyLarge
-                                                                  ?.color,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                // //! Seats Number
+                                // if ((cubit.isShareRide ||
+                                //         cubit.driverOnMyWay) &&
+                                //     cubit.seats.isNotEmpty &&
+                                //     cubit.selectedVehicleCategoryId == 2)
+                                //   Padding(
+                                //     padding:
+                                //         EdgeInsets.only(bottom: 16.rH(context)),
+                                //     child: Column(
+                                //       crossAxisAlignment:
+                                //           CrossAxisAlignment.start,
+                                //       children: [
+                                //         Text(
+                                //           AppStrings.selectSeatsYouWant
+                                //               .tr(context),
+                                //           style: Styles.regular14(context)
+                                //               .copyWith(
+                                //             color: Theme.of(context)
+                                //                 .textTheme
+                                //                 .bodyLarge
+                                //                 ?.color,
+                                //           ),
+                                //         ),
+                                //         SizedBox(height: 8.rH(context)),
+                                //         Row(
+                                //           children: [
+                                //             Column(
+                                //               mainAxisSize: MainAxisSize.min,
+                                //               children: [
+                                //                 FittedBox(
+                                //                   fit: BoxFit.scaleDown,
+                                //                   child: Text(
+                                //                     AppStrings.availableSeatsNUM
+                                //                         .tr(context)
+                                //                         .replaceAll(
+                                //                           "NUM",
+                                //                           "${cubit.seats.length}",
+                                //                         ),
+                                //                     style: Styles.bold12primary(
+                                //                             context)
+                                //                         .copyWith(
+                                //                       color: Colors.green,
+                                //                     ),
+                                //                   ),
+                                //                 ),
+                                //                 Image.asset(
+                                //                   Assets.imagesCarSeats,
+                                //                   height: 120.rH(context),
+                                //                   width: 120.rW(context),
+                                //                   fit: BoxFit.contain,
+                                //                   color: null,
+                                //                 ),
+                                //               ],
+                                //             ),
+                                //             Expanded(
+                                //               child: Column(
+                                //                 children: List.generate(
+                                //                   cubit.seats.length,
+                                //                   (index) => Padding(
+                                //                     padding: EdgeInsets.only(
+                                //                       bottom: 8.rH(context),
+                                //                     ),
+                                //                     child: GestureDetector(
+                                //                       onTap: () => cubit
+                                //                           .selectSeat(index),
+                                //                       child: Row(
+                                //                         children: [
+                                //                           CustomCheckBox(
+                                //                             value: cubit
+                                //                                 .selectedSeatsIds
+                                //                                 .contains(cubit
+                                //                                     .seats[
+                                //                                         index]
+                                //                                     .id),
+                                //                             onTap: () => cubit
+                                //                                 .selectSeat(
+                                //                                     index),
+                                //                           ),
+                                //                           SizedBox(
+                                //                               width: 8
+                                //                                   .rW(context)),
+                                //                           Text(
+                                //                             "(${index + 1}) ${cubit.seats[index].name ?? "??"}",
+                                //                             style: Styles
+                                //                                     .regular14(
+                                //                                         context)
+                                //                                 .copyWith(
+                                //                               color: Theme.of(
+                                //                                       context)
+                                //                                   .textTheme
+                                //                                   .bodyLarge
+                                //                                   ?.color,
+                                //                             ),
+                                //                           ),
+                                //                         ],
+                                //                       ),
+                                //                     ),
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //             )
+                                //           ],
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ),
 
                                 //! Prefernces
-                                if (!cubit.isDelivery)
+                                // if (!cubit.isDelivery)
                                   Padding(
                                     padding:
                                         EdgeInsets.only(bottom: 16.rH(context)),
@@ -672,12 +672,14 @@ class RacingTripBottomSection extends StatelessWidget {
                                 //! Confirm Button
                                 CustomButton(
                                   enabled: cubit.startLocation != null &&
-                                      cubit.endLocation != null &&
+                                      // cubit.endLocation != null &&
                                       (cubit.selectedVehicleCategoryId !=
-                                              null ||
-                                          cubit.deliveryDetailsModel
-                                                  ?.vehicleCategoryId !=
-                                              null),
+                                              null 
+                                          //     ||
+                                          // cubit.deliveryDetailsModel
+                                          //         ?.vehicleCategoryId !=
+                                          //     null
+                                              ),
                                   onPressed: () {
                                     cubit.details != null
                                         ? navigate(
@@ -693,9 +695,10 @@ class RacingTripBottomSection extends StatelessWidget {
                                                     value[0];
                                                 cubit.subPaymentMethodId =
                                                     value[1];
-                                                if (cubit.isDelivery) {
-                                                  cubit.requestDeliveryTrip();
-                                                } else if (cubit.isShareRide) {
+                                                // if (cubit.isDelivery) {
+                                                //   cubit.requestDeliveryTrip();
+                                                // }
+                                                //  else if (cubit.isShareRide) {
                                                   // navigate(
                                                   //   context,
                                                   //   AvailableShareTripsView(
@@ -746,9 +749,10 @@ class RacingTripBottomSection extends StatelessWidget {
                                                   //     ),
                                                   //   ),
                                                   // );
-                                                } else {
+                                                // } 
+                                                // else {
                                                   cubit.requestClassicTrip();
-                                                }
+                                                // }
                                               }
                                             },
                                           )

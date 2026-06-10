@@ -2,7 +2,6 @@ import 'package:captain_masr_rider/features/race_trip/presentation/cubit/start_t
 
 import '../../../../core/imports/imports.dart';
 import '../../../../core/widgets/custom_toast.dart';
-import '../../../delivery/data/models/delivery_details_model.dart';
 import '../../../driver_share_trip/presentation/views/driver_share_trip_view.dart';
 // import '../../../driver_trip/presentation/views/driver_trip_view.dart';
 import '../../../find_driver/presentation/views/find_driver_view.dart';
@@ -12,25 +11,25 @@ import '../widgets/racing_trip_body.dart';
 class RacingTripView extends StatelessWidget {
   const RacingTripView({
     super.key,
-    this.isShareRide = false,
-    this.isDelivery = false,
-    this.isDailyRideNow = false,
-    this.driverOnMyWay = false,
-    this.deliveryDetailsModel,
+    // this.isShareRide = false,
+    // this.isDelivery = false,
+    // this.isDailyRideNow = false,
+    // this.driverOnMyWay = false,
+    // this.deliveryDetailsModel,
   });
 
-  final bool isShareRide, isDelivery, isDailyRideNow, driverOnMyWay;
-  final DeliveryDetailsModel? deliveryDetailsModel;
+  // final bool isDelivery;
+  // final DeliveryDetailsModel? deliveryDetailsModel;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RacingTripCubit()
-        ..isShareRide = isShareRide
-        ..isDailyRideNow = isDailyRideNow
-        ..driverOnMyWay = driverOnMyWay
-        ..isDelivery = isDelivery
-        ..deliveryDetailsModel = deliveryDetailsModel
+        // ..isShareRide = isShareRide
+        // ..isDailyRideNow = isDailyRideNow
+        // ..driverOnMyWay = driverOnMyWay
+        // ..isDelivery = isDelivery
+        // ..deliveryDetailsModel = deliveryDetailsModel
         ..getVehicleCategories(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -56,8 +55,8 @@ class RacingTripView extends StatelessWidget {
               navigateReplacement(
                 context,
                 FindDriverView(
-                  isShareRide: context.read<RacingTripCubit>().isShareRide,
-                  isDelivery: context.read<RacingTripCubit>().isDelivery,
+                  isShareRide: false,
+                  isDelivery: true,
                   tripDetails: context.read<RacingTripCubit>().details!,
                 ),
               );

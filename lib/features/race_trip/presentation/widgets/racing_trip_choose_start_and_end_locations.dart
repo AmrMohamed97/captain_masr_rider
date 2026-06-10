@@ -35,8 +35,8 @@ class RacingTripChooseStartAndEndLocations extends StatelessWidget {
                               context,
                               ChooseLocationView(
                                 startLocation: cubit.startLocation,
-                                endLocation: cubit.endLocation,
-                                stops: cubit.stops,
+                                // endLocation: cubit.endLocation,
+                                // stops: cubit.stops,
                                 selectionMode: SelectionMode.pickup,
                               ),
                               then: (value) {
@@ -49,49 +49,49 @@ class RacingTripChooseStartAndEndLocations extends StatelessWidget {
                     icon: Container(),
                   ),
 
-                  if (cubit.stops.isNotEmpty)
-                    Padding(
-                      padding: EdgeInsets.only(top: 8.rH(context)),
-                      child: Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Text(
-                          "+${cubit.stops.length} ${AppStrings.stops.tr(context)} ...",
-                          style: Styles.regular14(context).copyWith(
-                            color: AppColors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                  // if (cubit.stops.isNotEmpty)
+                  //   Padding(
+                  //     padding: EdgeInsets.only(top: 8.rH(context)),
+                  //     child: Align(
+                  //       alignment: AlignmentDirectional.centerStart,
+                  //       child: Text(
+                  //         "+${cubit.stops.length} ${AppStrings.stops.tr(context)} ...",
+                  //         style: Styles.regular14(context).copyWith(
+                  //           color: AppColors.white,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
 
                   SizedBox(height: 8.rH(context)),
 
                   //! Destination
-                  CustomSelectContainer(
-                    value: cubit.endLocation?.address ??
-                        ((cubit.endLocation?.lat != null &&
-                                cubit.endLocation?.lon != null)
-                            ? "${cubit.endLocation!.lat}, ${cubit.endLocation!.lon}"
-                            : null),
-                    hint: AppStrings.whereTo.tr(context),
-                    onTap: cubit.details == null
-                        ? () {
-                            navigate(
-                              context,
-                              ChooseLocationView(
-                                startLocation: cubit.startLocation,
-                                endLocation: cubit.endLocation,
-                                stops: cubit.stops,
-                                selectionMode: SelectionMode.destination,
-                              ),
-                              then: (value) {
-                                FocusScope.of(context).unfocus();
-                                cubit.selectLocations(value);
-                              },
-                            );
-                          }
-                        : () {},
-                    icon: Container(),
-                  ),
+                  // CustomSelectContainer(
+                  //   value: cubit.endLocation?.address ??
+                  //       ((cubit.endLocation?.lat != null &&
+                  //               cubit.endLocation?.lon != null)
+                  //           ? "${cubit.endLocation!.lat}, ${cubit.endLocation!.lon}"
+                  //           : null),
+                  //   hint: AppStrings.whereTo.tr(context),
+                  //   onTap: cubit.details == null
+                  //       ? () {
+                  //           navigate(
+                  //             context,
+                  //             ChooseLocationView(
+                  //               startLocation: cubit.startLocation,
+                  //               endLocation: cubit.endLocation,
+                  //               stops: cubit.stops,
+                  //               selectionMode: SelectionMode.destination,
+                  //             ),
+                  //             then: (value) {
+                  //               FocusScope.of(context).unfocus();
+                  //               cubit.selectLocations(value);
+                  //             },
+                  //           );
+                  //         }
+                  //       : () {},
+                  //   icon: Container(),
+                  // ),
                 ],
               ),
             ),

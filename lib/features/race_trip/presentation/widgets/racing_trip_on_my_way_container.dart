@@ -32,100 +32,98 @@ class RacingTripOnMyWayContainer extends StatelessWidget {
             SizedBox(height: 16.rH(context)),
 
             //! Seats Number
-            if (cubit.seats.isNotEmpty)
-              Padding(
-                padding: EdgeInsets.only(bottom: 16.rH(context)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppStrings.selectAvailableSeats.tr(context),
-                      style: Styles.regular14(context).copyWith(
-                        color: Theme.of(context).textTheme.bodyLarge?.color,
-                      ),
-                    ),
-                    SizedBox(height: 8.rH(context)),
-                    Row(
-                      children: [
-                        Image.asset(
-                          Assets.imagesCarSeats,
-                          height: 120.rH(context),
-                          width: 120.rW(context),
-                          fit: BoxFit.contain,
-                          color: null,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: List.generate(
-                              cubit.seats.length,
-                              (index) => Padding(
-                                padding: EdgeInsets.only(
-                                  bottom: 8.rH(context),
-                                ),
-                                child: GestureDetector(
-                                  onTap: () => cubit.selectSeat(index),
-                                  child: Row(
-                                    children: [
-                                      CustomCheckBox(
-                                        value: cubit.selectedSeatsIds
-                                            .contains(cubit.seats[index].id),
-                                        onTap: () => cubit.selectSeat(index),
-                                      ),
-                                      SizedBox(width: 8.rW(context)),
-                                      Text(
-                                        "(${index + 1}) ${cubit.seats[index].name ?? "??"}",
-                                        style:
-                                            Styles.regular14(context).copyWith(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.color,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+            // if (cubit.seats.isNotEmpty)
+            //   Padding(
+            //     padding: EdgeInsets.only(bottom: 16.rH(context)),
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Text(
+            //           AppStrings.selectAvailableSeats.tr(context),
+            //           style: Styles.regular14(context).copyWith(
+            //             color: Theme.of(context).textTheme.bodyLarge?.color,
+            //           ),
+            //         ),
+            //         SizedBox(height: 8.rH(context)),
+            //         Row(
+            //           children: [
+            //             Image.asset(
+            //               Assets.imagesCarSeats,
+            //               height: 120.rH(context),
+            //               width: 120.rW(context),
+            //               fit: BoxFit.contain,
+            //               color: null,
+            //             ),
+            //             Expanded(
+            //               child: Column(
+            //                 children: List.generate(
+            //                   cubit.seats.length,
+            //                   (index) => Padding(
+            //                     padding: EdgeInsets.only(
+            //                       bottom: 8.rH(context),
+            //                     ),
+            //                     child: GestureDetector(
+            //                       onTap: () => cubit.selectSeat(index),
+            //                       child: Row(
+            //                         children: [
+            //                           CustomCheckBox(
+            //                             value: cubit.selectedSeatsIds
+            //                                 .contains(cubit.seats[index].id),
+            //                             onTap: () => cubit.selectSeat(index),
+            //                           ),
+            //                           SizedBox(width: 8.rW(context)),
+            //                           Text(
+            //                             "(${index + 1}) ${cubit.seats[index].name ?? "??"}",
+            //                             style:
+            //                                 Styles.regular14(context).copyWith(
+            //                               color: Theme.of(context)
+            //                                   .textTheme
+            //                                   .bodyLarge
+            //                                   ?.color,
+            //                             ),
+            //                           ),
+            //                         ],
+            //                       ),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //   ),
 
             SizedBox(height: 16.rH(context)),
 
             //! Buttons
             Row(
               children: [
-                Expanded(
-                  child: CustomButton(
-                    onPressed: () {
-                      cubit.driverPostShareTrip();
-                      // navigateReplacement(
-                      //   context,
-                      //   DriverTripView(
-                      //     isOnMyWay: true,
-                      //     riderPosition: LatLng(
-                      //       cubit.endLocation!.lat ?? 0,
-                      //       cubit.endLocation!.lon ?? 0,
-                      //     ),
-                      //     driverPosition: LatLng(
-                      //       cubit.startLocation!.lat ?? 0,
-                      //       cubit.startLocation!.lon ?? 0,
-                      //     ),
-                      //   ),
-                      // );
-                    },
-                    title: AppStrings.startTrip.tr(context),
-                    enabled: cubit.startLocation != null &&
-                        cubit.endLocation != null &&
-                        cubit.selectedSeatsIds.isNotEmpty,
-                  ),
-                ),
-                SizedBox(width: 8.rW(context)),
+                // Expanded(
+                //   child: CustomButton(
+                //     onPressed: () {
+                //       cubit.driverPostShareTrip();
+                //       // navigateReplacement(
+                //       //   context,
+                //       //   DriverTripView(
+                //       //     isOnMyWay: true,
+                //       //     riderPosition: LatLng(
+                //       //       cubit.endLocation!.lat ?? 0,
+                //       //       cubit.endLocation!.lon ?? 0,
+                //       //     ),
+                //       //     driverPosition: LatLng(
+                //       //       cubit.startLocation!.lat ?? 0,
+                //       //       cubit.startLocation!.lon ?? 0,
+                //       //     ),
+                //       //   ),
+                //       // );
+                //     },
+                //     title: AppStrings.startTrip.tr(context),
+                //     enabled: cubit.startLocation != null  ,
+                //   ),
+                // ),
+                // SizedBox(width: 8.rW(context)),
                 //! Later Button
                 CustomButton(
                   onPressed: () {

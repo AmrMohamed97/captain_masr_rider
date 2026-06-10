@@ -1,3 +1,4 @@
+import 'package:captain_masr_rider/features/race_trip/data/repo/race_trip_repo.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -46,6 +47,7 @@ void initServiceLocator() {
   sl.registerLazySingleton(() => SavedPlacesRepo(sl<DioConsumer>()));
   sl.registerLazySingleton(() => HomeRepo(sl<DioConsumer>()));
   sl.registerLazySingleton(() => RiderTripRepo(sl<DioConsumer>()));
+  sl.registerLazySingleton(() => RaceTripRepo(sl<DioConsumer>()));
   sl.registerLazySingleton(() => RiderShareTripRepo(sl<DioConsumer>()));
   sl.registerLazySingleton(() => DriverTripRepo(sl<DioConsumer>()));
   sl.registerLazySingleton(() => DriverShareTripRepo(sl<DioConsumer>()));

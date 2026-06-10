@@ -42,7 +42,7 @@ class RacingTripBody extends StatelessWidget {
                         zoom: 14,
                       ),
                       markers: cubit.markers ?? {},
-                      polylines: cubit.polylines,
+                      // polylines: cubit.polylines,
                     ),
                   ),
 
