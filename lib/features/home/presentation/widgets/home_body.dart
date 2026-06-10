@@ -1,5 +1,5 @@
-
 import 'package:captain_masr_rider/features/home/presentation/widgets/home_header.dart';
+import 'package:captain_masr_rider/features/home/presentation/widgets/home_services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../core/imports/imports.dart';
@@ -21,7 +21,7 @@ class _HomeBodyState extends State<HomeBody> {
     return BlocBuilder<GlobalCubit, GlobalState>(
       builder: (context, state) {
         final globalCubit = context.read<GlobalCubit>();
-        return  Stack(
+        return Stack(
           alignment: Alignment.topCenter,
           children: [
             GoogleMap(
@@ -42,7 +42,7 @@ class _HomeBodyState extends State<HomeBody> {
                 zoom: 6.151926040649414,
               ),
             ),
-            
+
             //! Title & Location
             //! Choose Saved Place
             Column(
@@ -50,16 +50,12 @@ class _HomeBodyState extends State<HomeBody> {
                 const HomeHeader(),
                 SizedBox(height: 12.rH(context)),
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.rW(context),
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.rW(context)),
                   child: Container(
                     height: 40.rH(context),
                     decoration: BoxDecoration(
                       // color: AppColors.grey.withOpacity(.15),
-                      color: Theme.of(
-                        context,
-                      ).cardColor.withValues(alpha: 0.2),
+                      color: Theme.of(context).cardColor.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color: AppColors.grey.withOpacity(.15),
@@ -81,28 +77,23 @@ class _HomeBodyState extends State<HomeBody> {
                         onTap: () {
                           navBarNavigate(
                             context: context,
-                            widget: const SavedPlacesView(
-                              canChoose: true,
-                            ),
+                            widget: const SavedPlacesView(canChoose: true),
                             then: (value) {
-                              if (value != null &&
-                                  value is SavedPlaceModel) {
-                                globalCubit.setRiderLoction(value).then(
-                                  (value) {
-                                    if (globalCubit.userLocation !=
-                                        null) {
-                                      mapController?.animateCamera(
-                                        CameraUpdate.newCameraPosition(
-                                          CameraPosition(
-                                            target: globalCubit
-                                                .userLocation!,
-                                            zoom: 14.151926040649414,
-                                          ),
+                              if (value != null && value is SavedPlaceModel) {
+                                globalCubit.setRiderLoction(value).then((
+                                  value,
+                                ) {
+                                  if (globalCubit.userLocation != null) {
+                                    mapController?.animateCamera(
+                                      CameraUpdate.newCameraPosition(
+                                        CameraPosition(
+                                          target: globalCubit.userLocation!,
+                                          zoom: 14.151926040649414,
                                         ),
-                                      );
-                                    }
-                                  },
-                                );
+                                      ),
+                                    );
+                                  }
+                                });
                               }
                             },
                           );
@@ -117,9 +108,7 @@ class _HomeBodyState extends State<HomeBody> {
                               Container(
                                 padding: EdgeInsets.all(4.rH(context)),
                                 decoration: BoxDecoration(
-                                  color: AppColors.primary.withOpacity(
-                                    .1,
-                                  ),
+                                  color: AppColors.primary.withOpacity(.1),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Icon(
@@ -131,22 +120,19 @@ class _HomeBodyState extends State<HomeBody> {
                               SizedBox(width: 12.rW(context)),
                               Text(
                                 AppStrings.chooseSavedPlace.tr(context),
-                                style: Styles.medium14(context)
-                                    .copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).textTheme.bodyLarge?.color,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                style: Styles.medium14(context).copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const Spacer(),
                               Icon(
                                 Icons.arrow_forward_ios_rounded,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.color
-                                    ?.withOpacity(.7),
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.bodyLarge?.color?.withOpacity(.7),
                                 size: 14.rH(context),
                               ),
                             ],
@@ -180,9 +166,7 @@ class _HomeBodyState extends State<HomeBody> {
                         ),
                         Positioned(
                           top: 0,
-                          bottom:
-                              (63.rH(context) / 2) -
-                              (27.rH(context) / 2),
+                          bottom: (63.rH(context) / 2) - (27.rH(context) / 2),
                           left: 0,
                           right: 0,
                           child: Center(
@@ -197,8 +181,25 @@ class _HomeBodyState extends State<HomeBody> {
                   ),
                 ),
               ),
+            //----------------------------------------------------------------
+            ///services
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                child: Column(children: [const HomeServices()]),
+              ),
+            ),
           ],
-        ) ;
+        );
       },
     );
   }
