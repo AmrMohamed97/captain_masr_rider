@@ -11,6 +11,8 @@ class Assets {
   /// assets/images/air_conditioner.svg
   static const String imagesAirConditioner =
       "assets/images/air_conditioner.svg";
+  static const String racing =
+      "assets/images/racing_trip_card.png";
 
   /// Assets for imagesAirplane
   /// assets/images/airplane.svg

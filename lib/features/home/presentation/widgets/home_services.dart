@@ -29,6 +29,11 @@ class HomeServices extends StatefulWidget {
       type: AppStrings.delivery,
       image: Assets.imagesDeliveryPng,
     ),
+    ServicesModel(
+      title: AppStrings.fastAndReliable,
+      type: "Racing",
+      image: Assets.racing,
+    ),
   ];
 
   @override
@@ -76,9 +81,9 @@ class _HomeServicesState extends State<HomeServices> {
           padding: EdgeInsets.symmetric(horizontal: 16.rW(context)),
           child: Text(
             AppStrings.services.tr(context),
-            style: Styles.semibold18Primary(context).copyWith(
-              color: Theme.of(context).textTheme.bodyLarge?.color,
-            ),
+            style: Styles.semibold18Primary(
+              context,
+            ).copyWith(color: Theme.of(context).textTheme.bodyLarge?.color),
           ),
         ),
 
@@ -107,9 +112,7 @@ class _HomeServicesState extends State<HomeServices> {
                     case 0:
                       navBarNavigate(
                         context: context,
-                        widget: const StartTripView(
-                          isShareRide: true,
-                        ),
+                        widget: const StartTripView(isShareRide: true),
                       );
                       break;
                     case 1:
@@ -129,6 +132,12 @@ class _HomeServicesState extends State<HomeServices> {
                         widget: const PackageDetailsView(),
                       );
                       break;
+                    case 4:
+                      navBarNavigate(
+                        context: context,
+                        widget: const StartTripView(),
+                      );
+                      break;
                     default:
                   }
                 },
@@ -137,7 +146,7 @@ class _HomeServicesState extends State<HomeServices> {
               );
             },
           ),
-        )
+        ),
       ],
     );
   }

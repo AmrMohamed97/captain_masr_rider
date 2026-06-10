@@ -143,12 +143,15 @@ class AvailableShareTripsCubit extends Cubit<AvailableShareTripsState> {
   //! Rider Request Share Trip
   Future<void> riderRequestShareTrip({required int id,required List<int> availableSeatIds}) async {
     print("================request data======================================");
-    print(shareTripData.pickupLatitude);
-    print(shareTripData.pickupLongitude);
-    print(shareTripData.dropoffLatitude);
-    print(shareTripData.dropoffLongitude);
-    print(shareTripData.seatsCount);
-    print(shareTripData.dates);
+    print("pickBookingTripPickState:${shareTripData.pickupLatitude}");
+    print("pickupLongitude:${shareTripData.pickupLongitude}");
+    print("dropoffLatitude:${shareTripData.dropoffLatitude}");
+    print("dropoffLongitude:${shareTripData.dropoffLongitude}");
+    print("seatsCount:${shareTripData.seatsCount}");
+    print("dates:${shareTripData.dates}");
+    print("vehicleCategoryId:${shareTripData.vehicleCategoryId}");
+    print("promoCode:${shareTripData.promoCode}");
+    print("seatsIds:${shareTripData.seatsIds}");
     print("================request data end==================================");
     
     emit(AvailableShareTripsLoadingState());
