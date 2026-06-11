@@ -392,6 +392,8 @@ abstract class AppStrings {
       "areYouSureYouWantToCancelThisBooking";
   static const String selectStartHour = "selectStartHour";
   static const String selectReturntHour = "selectReturntHour";
+  static const String selectTripDuration = "selectTripDuration";
+  static const String tripDuration = "tripDuration";
   static const String tripDetails = "tripDetails";
   static const String apply = "apply";
   static const String choosePayment = "choosePayment";

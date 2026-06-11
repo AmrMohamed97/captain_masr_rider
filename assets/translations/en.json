@@ -253,6 +253,8 @@
     "areYouSureYouWantToCancelThisBooking": "Are you sure you want to cancel this booking?",
     "selectStartHour": "Select start hour",
     "selectReturntHour": "Select return hour",
+    "selectTripDuration": "Select Trip Duration",
+    "tripDuration": "Trip Duration",
     "lookingForDrivers": "Looking For Drivers",
     "seenByNUM": "Seen by NUM",
     "yourTrip": "Your Trip",

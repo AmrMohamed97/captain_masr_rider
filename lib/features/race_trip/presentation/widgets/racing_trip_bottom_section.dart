@@ -59,9 +59,41 @@ class RacingTripBottomSection extends StatelessWidget {
                         ),
                         SizedBox(height: 18.rH(context)),
                         //! Distance & Duration
-                        DistanceAndDuration(
-                          distance: "~${cubit.details?.distanceKm ?? "??"}",
-                          duration: "~${cubit.details?.timeMinutes ?? "??"}",
+                        // DistanceAndDuration(
+                        //   distance: "~${cubit.details?.distanceKm ?? "??"}",
+                        //   duration: "~${cubit.details?.timeMinutes ?? "??"}",
+                        // ),
+                        Row(
+                          children: [
+                            CustomSvgPicture(
+                              svg: Assets.imagesTime,
+                              color: AppColors.yellow,
+                              height: 13.rH(context),
+                            ),
+                            SizedBox(width: 8.rW(context)),
+                            Text(
+                              AppStrings.duration.tr(context),
+                              style: Styles.regular14(
+                                context,
+                              ).copyWith(color: AppColors.greyText),
+                            ),
+                            SizedBox(width: 8.rW(context)),
+                            Expanded(
+                              child: FittedBox(
+                                alignment: AlignmentDirectional.centerStart,
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  "${cubit.details?.timeMinutes ?? ''} ${AppStrings.min.tr(context)}",
+                                  style: Styles.semibold14Primary(context)
+                                      .copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).textTheme.bodyLarge?.color,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(height: 18.rH(context)),
                         //! Estimated Cost
@@ -98,12 +130,12 @@ class RacingTripBottomSection extends StatelessWidget {
                             //       color: AppColors.red,
                             //     ),
                             //   ),
-                            // Text(
-                            //   "${cubit.promoCodeModel != null ? ((cubit.details?.totalPrice ?? cubit.discountPrice ?? "??")) : (cubit.details?.totalPrice ?? cubit.details?.price ?? "??")} ${AppStrings.egp.tr(context)}",
-                            //   style: Styles.semibold16Primary(context).copyWith(
-                            //     color: AppColors.red,
-                            //   ),
-                            // ),
+                            Text(
+                              "${cubit.promoCodeModel != null ? ((cubit.details?.totalPrice?.toStringAsFixed(2) ?? cubit.discountPrice?.toStringAsFixed(2) ?? "??")) : (cubit.details?.totalPrice?.toStringAsFixed(2) ?? cubit.details?.price?.toStringAsFixed(2) ?? "??")} ${AppStrings.egp.tr(context)}",
+                              style: Styles.semibold16Primary(
+                                context,
+                              ).copyWith(color: AppColors.red),
+                            ),
                           ],
                         ),
                       ],
@@ -275,6 +307,27 @@ class RacingTripBottomSection extends StatelessWidget {
 
                           //! Start & End Location
                           const RacingTripChooseStartAndEndLocations(),
+                          SizedBox(height: 16.rH(context)),
+
+                          //! Trip Duration Selection
+                          CustomSelectContainer(
+                            value: cubit.raceDuration != null
+                                ? "${cubit.raceDuration!.inMinutes} ${AppStrings.min.tr(context)}"
+                                : null,
+                            hint: AppStrings.selectTripDuration.tr(context),
+                            svg: Assets.imagesTime,
+                            onTap: () async {
+                              final int? minutes =
+                                  await customDurationPickerBottomSheet(
+                                    context,
+                                    initialDuration:
+                                        cubit.raceDuration?.inMinutes ?? 30,
+                                  );
+                              if (minutes != null) {
+                                cubit.chooseRaceDuration(minutes);
+                              }
+                            },
+                          ),
                           SizedBox(height: 16.rH(context)),
 
                           // //! Female, Baby Carriage and Luggages Switches

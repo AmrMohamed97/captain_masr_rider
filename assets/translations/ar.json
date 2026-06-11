@@ -253,6 +253,8 @@
     "areYouSureYouWantToCancelThisBooking": "هل أنت متأكد أنك تريد إلغاء هذا الحجز؟",
     "selectStartHour": "اختر وقت البدء",
     "selectReturntHour": "اختر وقت العودة",
+    "selectTripDuration": "اختر مدة الرحلة",
+    "tripDuration": "مدة الرحلة",
     "lookingForDrivers": "جارٍ البحث عن سائقين",
     "seenByNUM": "تمت المشاهدة بواسطة NUM",
     "yourTrip": "رحلتك",

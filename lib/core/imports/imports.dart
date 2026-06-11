@@ -28,6 +28,7 @@ export 'package:captain_masr_rider/core/widgets/custom_loading_indicator.dart';
 export 'package:captain_masr_rider/core/widgets/custom_modal_progress_indicator.dart';
 export 'package:captain_masr_rider/core/widgets/custom_pop_button.dart';
 export 'package:captain_masr_rider/core/widgets/custom_select_container.dart';
+export 'package:captain_masr_rider/core/widgets/custom_duration_picker_bottom_sheet.dart';
 export 'package:captain_masr_rider/core/widgets/custom_svg_picture.dart';
 export 'package:captain_masr_rider/core/widgets/custom_switch.dart';
 export 'package:captain_masr_rider/core/widgets/custom_text_field.dart';

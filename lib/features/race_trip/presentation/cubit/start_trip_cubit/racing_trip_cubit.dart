@@ -407,4 +407,9 @@ class RacingTripCubit extends Cubit<RacingTripState> {
     }
     emit(RacingTripSuccessState());
   }
+
+  void chooseRaceDuration(int minutes) {
+    raceDuration = Duration(minutes: minutes);
+    emit(RacingTripToggleState());
+  }
 }
