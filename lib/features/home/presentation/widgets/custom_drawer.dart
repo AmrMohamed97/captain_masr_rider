@@ -1,16 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:captain_masr_rider/features/learning/presentation/helper_page.dart';
+import 'package:captain_masr_rider/features/learning/presentation/learning_page.dart';
+import 'package:captain_masr_rider/features/preferences/presentation/views/preferences_view.dart';
+import 'package:captain_masr_rider/features/promo_code/presentation/views/promo_code_view.dart';
+import 'package:captain_masr_rider/features/saved_places/presentation/views/saved_places_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/imports/imports.dart';
 import '../../../../core/widgets/partial_star.dart';
 import '../../../become_rider_or_driver/presentation/views/become_rider_or_driver_view.dart';
-import '../../../earnings/presentation/views/earnings_view.dart';
 import '../../../edit_profile/presentation/views/edit_profile_view.dart';
 import '../../../find_riders/presentation/views/find_riders_view.dart';
-import '../../../my_vehicle/presentation/views/my_vehicle_view.dart';
 import '../../../profile/presentation/widgets/logout_alert_dialog.dart';
-import '../../../schedule_trip/presentation/views/schedule_trip_view.dart';
-import '../../../start_trip/presentation/views/start_trip_view.dart';
 import '../../../trips/presentation/views/trips_view.dart';
 import '../../../wallet/presentation/views/wallet_view.dart';
 import '../cubit/home_cubit.dart';
@@ -164,15 +165,14 @@ class CustomDrawer extends StatelessWidget {
                   //* Rider Mode
                   drawerListTile(
                     context,
-                    title: AppStrings.riderMode.tr(context),
-                    svg: Assets.imagesPerson,
+                    title: AppStrings.driverMode.tr(context),
+                    svg: Assets.imagesDriverMode,
                     onTap: () {},
                     trailing: BlocBuilder<HomeCubit, HomeState>(
                       builder: (context, state) {
                         return CustomSwitch(
                           value: false,
-                          onChanged: (value) {
-                            Scaffold.of(context).closeDrawer();
+                          onChanged: (onChanged) {
                             navBarNavigate(
                               context: context,
                               widget: const BecomeRiderOrDriverView(),
@@ -182,59 +182,59 @@ class CustomDrawer extends StatelessWidget {
                       },
                     ),
                   ),
-                  //* On My Way
+                  //* Preferences
                   drawerListTile(
                     context,
-                    title: AppStrings.onMyWay.tr(context),
-                    svg: Assets.imagesStart,
+                    svg: Assets.imagesPreferences,
+                    title: AppStrings.preferences.tr(context),
                     onTap: () {
-                      Navigator.pop(context);
-                      navigate(
-                        context,
-                        const StartTripView(
-                          driverOnMyWay: true,
-                          isShareRide: true,
-                        ),
+                      navBarNavigate(
+                        context: context,
+                        widget: const PreferencesView(isEdit: true),
                       );
                     },
                   ),
-                  //* Schedule Trip
+                  //* SavedPlaces
                   drawerListTile(
                     context,
-                    title: AppStrings.scheduleTrip.tr(context),
-                    svg: Assets.imagesCalender,
+                    svg: Assets.imagesSavedPlaces,
+                    title: AppStrings.savedPlaces.tr(context),
                     onTap: () {
-                      Navigator.pop(context);
-                      navigate(context, const ScheduleTripView());
-                    },
-                  ),
-                  //* My Vehicles
-                  drawerListTile(
-                    context,
-                    title: AppStrings.myVehicle.tr(context),
-                    svg: Assets.imagesCarSvg,
-                    onTap: () {
-                      Navigator.pop(context);
-                      navigate(context, const MyVehicleView());
-                    },
-                  ),
-                  //* Requests
-                  drawerListTile(
-                    context,
-                    title: AppStrings.requests.tr(context),
-                    svg: Assets.imagesRequests,
-                    onTap: () {
-                      Navigator.pop(context);
-                      navigate(
-                        context,
-                        FindRidersView(
-                          acceptedTripTypeIds: context
-                              .read<HomeCubit>()
-                              .driverTripTypes,
-                        ),
+                      navBarNavigate(
+                        context: context,
+                        widget: const SavedPlacesView(),
                       );
                     },
                   ),
+                  //* PromoCode
+                  drawerListTile(
+                    context,
+                    svg: Assets.imagesPromoCode,
+                    title: AppStrings.promoCode.tr(context),
+                    onTap: () {
+                      navBarNavigate(
+                        context: context,
+                        widget: const PromoCodeView(),
+                      );
+                    },
+                  ),
+                  // //* Requests
+                  // drawerListTile(
+                  //   context,
+                  //   title: AppStrings.requests.tr(context),
+                  //   svg: Assets.imagesRequests,
+                  //   onTap: () {
+                  //     Navigator.pop(context);
+                  //     navigate(
+                  //       context,
+                  //       FindRidersView(
+                  //         acceptedTripTypeIds: context
+                  //             .read<HomeCubit>()
+                  //             .driverTripTypes,
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                   //* Trips
                   drawerListTile(
                     context,
@@ -243,16 +243,6 @@ class CustomDrawer extends StatelessWidget {
                     onTap: () {
                       Navigator.pop(context);
                       navigate(context, const TripsView());
-                    },
-                  ),
-                  //* Earnings
-                  drawerListTile(
-                    context,
-                    title: AppStrings.earnings.tr(context),
-                    svg: Assets.imagesEarnings,
-                    onTap: () {
-                      Navigator.pop(context);
-                      navigate(context, const EarningsView());
                     },
                   ),
                   //* Wallet
@@ -296,6 +286,30 @@ class CustomDrawer extends StatelessWidget {
                     },
                   ),
 
+                  //* help
+                  drawerListTile(
+                    context,
+                    svg: Assets.imagesHelp,
+                    title: AppStrings.help.tr(context),
+                    onTap: () {
+                      navBarNavigate(
+                        context: context,
+                        widget: const HelperPage(),
+                      );
+                    },
+                  ),
+                  //* Learning Center
+                  drawerListTile(
+                    context,
+                    svg: Assets.imagesLearningCenter,
+                    title: AppStrings.learningCenter.tr(context),
+                    onTap: () {
+                      navBarNavigate(
+                        context: context,
+                        widget: const LearningPage(),
+                      );
+                    },
+                  ),
                   const Spacer(),
 
                   //* Logout
