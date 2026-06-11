@@ -55,7 +55,7 @@ class _HomeBodyState extends State<HomeBody> {
                     height: 40.rH(context),
                     decoration: BoxDecoration(
                       // color: AppColors.grey.withOpacity(.15),
-                      color: Theme.of(context).cardColor.withValues(alpha: 0.2),
+                      color: Theme.of(context).cardColor.withValues(alpha: 0.7),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color: AppColors.grey.withOpacity(.15),
