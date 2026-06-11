@@ -14,8 +14,9 @@ class RacingTripChooseStartAndEndLocations extends StatelessWidget {
         return Row(
           children: [
             CustomSvgPicture(
-              svg: Assets.imagesFromToSvg,
-              height: 82.rH(context),
+              svg: Assets.imagesPinLocation,
+              height: 30.rH(context),
+              color: AppColors.primary,
             ),
             SizedBox(width: 8.rW(context)),
             Expanded(
@@ -23,7 +24,8 @@ class RacingTripChooseStartAndEndLocations extends StatelessWidget {
                 children: [
                   //! Start
                   CustomSelectContainer(
-                    value: cubit.startLocation?.address ??
+                    value:
+                        cubit.startLocation?.address ??
                         ((cubit.startLocation?.lat != null &&
                                 cubit.startLocation?.lon != null)
                             ? "${cubit.startLocation!.lat}, ${cubit.startLocation!.lon}"
@@ -62,7 +64,6 @@ class RacingTripChooseStartAndEndLocations extends StatelessWidget {
                   //       ),
                   //     ),
                   //   ),
-
                   SizedBox(height: 8.rH(context)),
 
                   //! Destination
