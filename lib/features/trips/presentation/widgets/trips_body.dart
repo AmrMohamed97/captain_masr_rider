@@ -26,11 +26,11 @@ class TripsBody extends StatelessWidget {
           child: CustomAppBar(
             title: AppStrings.trips.tr(context),
             popOnTap: () {
-              if (context.read<GlobalCubit>().isDriver) {
+              // if (context.read<GlobalCubit>().isDriver) {
                 Navigator.pop(context);
-              } else {
-                context.read<GlobalCubit>().navBarController.jumpToTab(0);
-              }
+              // } else {
+              //   context.read<GlobalCubit>().navBarController.jumpToTab(0);
+              // }
             },
           ),
         ),

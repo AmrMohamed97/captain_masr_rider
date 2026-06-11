@@ -241,7 +241,7 @@ class CustomDrawer extends StatelessWidget {
                     title: AppStrings.trips.tr(context),
                     svg: Assets.imagesHistory,
                     onTap: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                       navigate(context, const TripsView());
                     },
                   ),
@@ -251,7 +251,7 @@ class CustomDrawer extends StatelessWidget {
                     title: AppStrings.wallet.tr(context),
                     svg: Assets.imagesWalletActive,
                     onTap: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                       navigate(context, const WalletView());
                     },
                   ),

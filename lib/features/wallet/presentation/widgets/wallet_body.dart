@@ -15,9 +15,7 @@ class WalletBody extends StatelessWidget {
           CustomAppBar(
             title: AppStrings.wallet.tr(context),
             popOnTap: () {
-              context.read<GlobalCubit>().isDriver
-                  ? Navigator.pop(context)
-                  : context.read<GlobalCubit>().navBarController.jumpToTab(0);
+              Navigator.pop(context);
             },
           ),
 
