@@ -62,7 +62,7 @@ class _HomeServicesState extends State<HomeServices> {
   void _updateCurrentIndex() {
     if (_scrollController.hasClients) {
       final double offset = _scrollController.offset;
-      final double itemWidth = 156.rW(context) + 16.rW(context);
+      final double itemWidth = 136.rW(context) + 16.rW(context);
       final int newIndex = (offset / itemWidth).round();
 
       if (newIndex != _currentIndex) {
@@ -88,24 +88,23 @@ class _HomeServicesState extends State<HomeServices> {
         //     ).copyWith(color: Theme.of(context).textTheme.bodyLarge?.color),
         //   ),
         // ),
-
         SizedBox(height: 16.rH(context)),
 
         SizedBox(
           width: double.infinity,
-          height: 138.rH(context),
+          height: 118.rH(context),
           child: ListView.separated(
             controller: _scrollController,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 16.rW(context)),
+            padding: EdgeInsets.symmetric(horizontal: 12.rW(context)),
             itemCount: HomeServices.services.length + 1,
             separatorBuilder: (context, index) {
-              return SizedBox(width: 12.rW(context));
+              return SizedBox(width: 8.rW(context));
             },
             itemBuilder: (context, index) {
               if (index == HomeServices.services.length) {
-                return SizedBox(width: 80.rW(context));
+                return SizedBox(width: 200.rW(context));
               }
               return HomeServiceCard(
                 model: HomeServices.services[index],
