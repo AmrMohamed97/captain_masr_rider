@@ -97,10 +97,10 @@ class _HomeServicesState extends State<HomeServices> {
             controller: _scrollController,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 12.rW(context)),
+            padding: EdgeInsets.symmetric(horizontal: 10.rW(context)),
             itemCount: HomeServices.services.length + 1,
             separatorBuilder: (context, index) {
-              return SizedBox(width: 8.rW(context));
+              return SizedBox(width: 4.rW(context));
             },
             itemBuilder: (context, index) {
               if (index == HomeServices.services.length) {
