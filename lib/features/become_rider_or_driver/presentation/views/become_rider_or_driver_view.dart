@@ -13,13 +13,12 @@ class BecomeRiderOrDriverView extends StatelessWidget {
       create: (context) => BecomeRiderOrDriverCubit(
         isConvertedBefore:
             context.read<GlobalCubit>().userModel?.isConvertedToDriverBefore ??
-                false,
+            false,
       ),
       child: BlocConsumer<BecomeRiderOrDriverCubit, BecomeRiderOrDriverState>(
         listener: (context, state) {
           //! Become Rider Success
           if (state is BecomeRiderSuccessState) {
-            context.read<GlobalCubit>().navBarController.jumpToTab(0);
             context.read<GlobalCubit>().stopUpdatingDriverLocation();
             context.read<GlobalCubit>().driverOnline = false;
             showToast(
@@ -28,11 +27,13 @@ class BecomeRiderOrDriverView extends StatelessWidget {
               state: ToastStates.success,
             );
             context.read<GlobalCubit>().selectRole(AppConstants.rider);
-            context.read<GlobalCubit>().init();
-            navigateAndRemoveUntil(
-              context,
-              const SplashView(),
-            );
+            // logout
+            sl<Cache>().removeKey(AppConstants.token);
+            sl<Cache>().removeKey(AppConstants.role);
+            sl<Cache>().removeKey(AppConstants.user);
+
+            // context.read<GlobalCubit>().init();
+            navigateAndRemoveUntil(context, const SplashView());
           }
           //! Become Driver Success
           if (state is BecomeDriverSuccessState) {
@@ -41,7 +42,7 @@ class BecomeRiderOrDriverView extends StatelessWidget {
               message: state.message,
               state: ToastStates.success,
             );
-            context.read<GlobalCubit>().navBarController.jumpToTab(0);
+            // context.read<GlobalCubit>().navBarController.jumpToTab(0);
             //------------------------------------------------------------------
             if (context
                     .read<GlobalCubit>()
@@ -50,24 +51,36 @@ class BecomeRiderOrDriverView extends StatelessWidget {
                 true) {
               context.read<GlobalCubit>().stopUpdatingDriverLocation();
               context.read<GlobalCubit>().driverOnline = false;
-              // if (context.read<GlobalCubit>().isRider) {
-              //   context.read<GlobalCubit>().navBarController.jumpToTab(0);
-              // }
+              // // if (context.read<GlobalCubit>().isRider) {
+              // //   context.read<GlobalCubit>().navBarController.jumpToTab(0);
+              // // }
               sl<Cache>().removeKey(AppConstants.token);
               sl<Cache>().removeKey(AppConstants.role);
               sl<Cache>().removeKey(AppConstants.user);
+              // // context.read<GlobalCubit>().selectRole(AppConstants.driver);
+              // // context.read<GlobalCubit>().init();
+              // context.read<GlobalCubit>().getUserData();
+              // context.read<GlobalCubit>().selectRole(AppConstants.driver);
+              // navigate(context, const LoginView());
+              navigateAndRemoveUntil(context, const SplashView());
+            } else {
+              context.read<GlobalCubit>().stopUpdatingDriverLocation();
+              context.read<GlobalCubit>().driverOnline = false;
+              // // if (context.read<GlobalCubit>().isRider) {
+              // //   context.read<GlobalCubit>().navBarController.jumpToTab(0);
+              // // }
+              sl<Cache>().removeKey(AppConstants.token);
+              sl<Cache>().removeKey(AppConstants.role);
+              sl<Cache>().removeKey(AppConstants.user);
+              // // context.read<GlobalCubit>().selectRole(AppConstants.driver);
+              // // context.read<GlobalCubit>().init();
+              // context.read<GlobalCubit>().getUserData();
+              // context.read<GlobalCubit>().selectRole(AppConstants.driver);
+              // navigate(context, const LoginView());
+              navigateAndRemoveUntil(context, const SplashView());
               // context.read<GlobalCubit>().selectRole(AppConstants.driver);
               // context.read<GlobalCubit>().init();
-              context.read<GlobalCubit>().getUserData();
-              context.read<GlobalCubit>().selectRole(AppConstants.driver);
-              navigate(context, const LoginView());
-            } else {
-              context.read<GlobalCubit>().selectRole(AppConstants.driver);
-              context.read<GlobalCubit>().init();
-              navigateAndRemoveUntil(
-                context,
-                const SplashView(),
-              );
+              // navigateAndRemoveUntil(context, const SplashView());
             }
             // navigateAndRemoveUntil(
             //   context,
@@ -77,11 +90,7 @@ class BecomeRiderOrDriverView extends StatelessWidget {
           }
           //! Become Rider Or Driver Error
           if (state is BecomeRiderOrDriverErrorState) {
-            showToast(
-              context,
-              message: state.error,
-              state: ToastStates.error,
-            );
+            showToast(context, message: state.error, state: ToastStates.error);
           }
         },
         builder: (context, state) {

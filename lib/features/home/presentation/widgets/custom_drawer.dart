@@ -10,7 +10,6 @@ import '../../../../core/imports/imports.dart';
 import '../../../../core/widgets/partial_star.dart';
 import '../../../become_rider_or_driver/presentation/views/become_rider_or_driver_view.dart';
 import '../../../edit_profile/presentation/views/edit_profile_view.dart';
-import '../../../find_riders/presentation/views/find_riders_view.dart';
 import '../../../profile/presentation/widgets/logout_alert_dialog.dart';
 import '../../../trips/presentation/views/trips_view.dart';
 import '../../../wallet/presentation/views/wallet_view.dart';
@@ -107,33 +106,33 @@ class CustomDrawer extends StatelessWidget {
                                       ),
                                 ),
                                 SizedBox(height: 4.rH(context)),
-                                //! Rating
-                                Row(
-                                  children: [
-                                    SinglePartialStar(
-                                      value:
-                                          double.tryParse(
-                                            globalCubit.userModel?.rating
-                                                    ?.toString() ??
-                                                "0.0",
-                                          ) ??
-                                          0.0,
-                                      starSize: 20.rH(context),
-                                    ),
-                                    SizedBox(width: 5.rW(context)),
-                                    Text(
-                                      double.tryParse(
-                                            globalCubit.userModel?.rating
-                                                    ?.toString() ??
-                                                "0.0",
-                                          )?.toStringAsFixed(3) ??
-                                          "0.0",
-                                      style: Styles.regular16(
-                                        context,
-                                      ).copyWith(color: AppColors.greyText),
-                                    ),
-                                  ],
-                                ),
+                                // //! Rating
+                                // Row(
+                                //   children: [
+                                //     SinglePartialStar(
+                                //       value:
+                                //           double.tryParse(
+                                //             globalCubit.userModel?.rating
+                                //                     ?.toString() ??
+                                //                 "0.0",
+                                //           ) ??
+                                //           0.0,
+                                //       starSize: 20.rH(context),
+                                //     ),
+                                //     SizedBox(width: 5.rW(context)),
+                                //     Text(
+                                //       double.tryParse(
+                                //             globalCubit.userModel?.rating
+                                //                     ?.toString() ??
+                                //                 "0.0",
+                                //           )?.toStringAsFixed(3) ??
+                                //           "0.0",
+                                //       style: Styles.regular16(
+                                //         context,
+                                //       ).copyWith(color: AppColors.greyText),
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),

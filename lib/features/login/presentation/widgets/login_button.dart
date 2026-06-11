@@ -1,6 +1,7 @@
+import 'package:captain_masr_rider/features/home/presentation/views/home_view.dart';
+
 import '../../../../core/imports/imports.dart';
 import '../../../../core/widgets/custom_toast.dart';
-import '../../../home/presentation/views/home_view.dart';
 import '../../../otp/presentation/views/otp_view.dart';
 
 class LoginButton extends StatelessWidget {
@@ -18,7 +19,23 @@ class LoginButton extends StatelessWidget {
               state: ToastStates.success,
             );
             context.read<GlobalCubit>().updateUserData();
-            navigateAndRemoveUntil(context, const HomeView());
+            if (context.read<GlobalCubit>().isRider) {
+              navigateAndRemoveUntil(context, const HomeView());
+            } else {
+              showToast(
+                context,
+                message: "Authorized Riders Access Only, ❌",
+                state: ToastStates.success,
+              );
+            }
+            print("Login successful=========================================");
+            print("User data: ${context.read<GlobalCubit>().isRider}");
+            // navigateAndRemoveUntil(
+            //   context,
+            //   context.read<GlobalCubit>().isRider
+            //       ? const HomeView()
+            //       : const SizedBox(),
+            // );
           }
         }
         if (state is LoginErrorState) {

@@ -2,7 +2,7 @@ import 'package:captain_masr_rider/features/race_trip/presentation/cubit/start_t
 
 import '../../../../core/imports/imports.dart';
 import '../../../../core/widgets/custom_toast.dart';
-import '../../../driver_share_trip/presentation/views/driver_share_trip_view.dart';
+// import '../../../driver_share_trip/presentation/views/driver_share_trip_view.dart';
 // import '../../../driver_trip/presentation/views/driver_trip_view.dart';
 import '../../../find_driver/presentation/views/find_driver_view.dart';
 import '../cubit/start_trip_cubit/racing_trip_cubit.dart';
@@ -35,22 +35,22 @@ class RacingTripView extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         body: BlocConsumer<RacingTripCubit, RacingTripState>(
           listener: (context, state) {
-            if (state is RacingDriverPostShareTripSuccessState) {
-              showToast(
-                context,
-                message: state.message,
-                state: ToastStates.success,
-              );
-              navigate(
-                //ToDo
-                context,
-                DriverShareTripView(
-                  tripId: state.tripId,
-                  // isShareTrip: true,
-                  // isOnMyWay: true,
-                ),
-              );
-            }
+            // if (state is RacingDriverPostShareTripSuccessState) {
+            //   showToast(
+            //     context,
+            //     message: state.message,
+            //     state: ToastStates.success,
+            //   );
+            //   navigate(
+            //     //ToDo
+            //     context,
+            //     DriverShareTripView(
+            //       tripId: state.tripId,
+            //       // isShareTrip: true,
+            //       // isOnMyWay: true,
+            //     ),
+            //   );
+            // }
             if (state is RacingRiderRequestTripSuccessState) {
               navigateReplacement(
                 context,
