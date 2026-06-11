@@ -203,7 +203,7 @@ class _HomeBodyState extends State<HomeBody> {
                     ),
                   ],
                 ),
-                padding: EdgeInsets.only(bottom: 20.rH(context)),
+                padding: EdgeInsets.only(bottom: 35.rH(context)),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
