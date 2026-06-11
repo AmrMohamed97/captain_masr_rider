@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/imports/imports.dart';
 import '../../../../core/widgets/custom_bottom_dragable_container.dart';
 import '../../../../core/widgets/custom_shimmer.dart';
-import '../../../preferences/presentation/widgets/preferences_alert_dialog.dart';
 import '../../../promo_code/data/models/promo_code_model.dart';
 import '../../../wallet/presentation/views/payment_methods_view.dart';
 import '../cubit/start_trip_cubit/racing_trip_cubit.dart';
@@ -277,7 +276,6 @@ class RacingTripBottomSection extends StatelessWidget {
                           //! Start & End Location
                           const RacingTripChooseStartAndEndLocations(),
                           SizedBox(height: 16.rH(context)),
-                          
 
                           // //! Female, Baby Carriage and Luggages Switches
                           // if (!cubit.isDelivery &&
@@ -452,36 +450,36 @@ class RacingTripBottomSection extends StatelessWidget {
 
                           //! Prefernces
                           // if (!cubit.isDelivery)
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 16.rH(context)),
-                            child: GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      const PreferencesAlertDialog(
-                                        canEdit: true,
-                                        getPreferences: true,
-                                      ),
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  CustomSvgPicture(
-                                    svg: Assets.imagesPreferences,
-                                    height: 24.rH(context),
-                                  ),
-                                  SizedBox(width: 6.rW(context)),
-                                  Text(
-                                    AppStrings.preferences.tr(context),
-                                    style: Styles.regular14(
-                                      context,
-                                    ).copyWith(color: AppColors.primary),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.only(bottom: 16.rH(context)),
+                          //   child: GestureDetector(
+                          //     onTap: () {
+                          //       showDialog(
+                          //         context: context,
+                          //         builder: (context) =>
+                          //             const PreferencesAlertDialog(
+                          //               canEdit: true,
+                          //               getPreferences: true,
+                          //             ),
+                          //       );
+                          //     },
+                          //     child: Row(
+                          //       children: [
+                          //         CustomSvgPicture(
+                          //           svg: Assets.imagesPreferences,
+                          //           height: 24.rH(context),
+                          //         ),
+                          //         SizedBox(width: 6.rW(context)),
+                          //         Text(
+                          //           AppStrings.preferences.tr(context),
+                          //           style: Styles.regular14(
+                          //             context,
+                          //           ).copyWith(color: AppColors.primary),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
 
                           //! Promo Code
                           if (cubit.details != null)
@@ -638,13 +636,14 @@ class RacingTripBottomSection extends StatelessWidget {
                           CustomButton(
                             enabled:
                                 cubit.startLocation != null &&
-                                // cubit.endLocation != null &&
-                                (cubit.selectedVehicleCategoryId != null
-                                //     ||
-                                // cubit.deliveryDetailsModel
-                                //         ?.vehicleCategoryId !=
-                                //     null
-                                ),
+                                cubit.raceDuration != null &&
+                                // (
+                                cubit.selectedVehicleCategoryId != null,
+                            //     ||
+                            // cubit.deliveryDetailsModel
+                            //         ?.vehicleCategoryId !=
+                            //     null
+                            // )
                             onPressed: () {
                               cubit.details != null
                                   ? navigate(
