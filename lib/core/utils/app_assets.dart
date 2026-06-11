@@ -375,6 +375,7 @@ class Assets {
   /// Assets for imagesPinLocation
   /// assets/images/pin_location.svg
   static const String imagesPinLocation = "assets/images/pin_location.svg";
+  static const String imagesPinLocationMap = "assets/images/pin_location_map.svg";
 
   /// Assets for imagesPinLocationPng
   /// assets/images/pin_location_png.png

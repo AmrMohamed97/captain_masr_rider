@@ -171,7 +171,7 @@ class _HomeBodyState extends State<HomeBody> {
                           right: 0,
                           child: Center(
                             child: CustomSvgPicture(
-                              svg: Assets.imagesPinLocation,
+                              svg: Assets.imagesPinLocationMap,
                               height: 27.rH(context),
                             ),
                           ),
