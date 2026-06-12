@@ -40,9 +40,7 @@ class RiderTripBottomContainer extends StatelessWidget {
                         width: 74.rW(context),
                         height: 4.rH(context),
                         margin: EdgeInsets.symmetric(vertical: 11.rH(context)),
-                        decoration: const BoxDecoration(
-                          color: AppColors.white,
-                        ),
+                        decoration: const BoxDecoration(color: AppColors.white),
                       ),
                     ),
 
@@ -64,8 +62,9 @@ class RiderTripBottomContainer extends StatelessWidget {
                           Text(
                             AppStrings.yourTrip.tr(context),
                             style: Styles.semibold16Primary(context).copyWith(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge?.color,
+                              color: Theme.of(
+                                context,
+                              ).textTheme.bodyLarge?.color,
                             ),
                           ),
                           SizedBox(height: 8.rH(context)),
@@ -85,9 +84,9 @@ class RiderTripBottomContainer extends StatelessWidget {
                                     errorBuilder:
                                         (context, error, stackTrace) =>
                                             SvgPicture.asset(
-                                      Assets.imagesPersonSvg,
-                                      color: AppColors.grey,
-                                    ),
+                                              Assets.imagesPersonSvg,
+                                              color: AppColors.grey,
+                                            ),
                                   ),
                                 ),
                               ),
@@ -101,18 +100,18 @@ class RiderTripBottomContainer extends StatelessWidget {
                                       cubit.tripDetails!.driverName ?? "",
                                       style: Styles.semibold14Primary(context)
                                           .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge
-                                            ?.color,
-                                      ),
+                                            color: Theme.of(
+                                              context,
+                                            ).textTheme.bodyLarge?.color,
+                                          ),
                                     ),
                                     SizedBox(height: 2.rH(context)),
                                     //! Rate
                                     Row(
                                       children: [
                                         SinglePartialStar(
-                                          value: cubit.tripDetails!.driverRating
+                                          value:
+                                              cubit.tripDetails!.driverRating
                                                   ?.toDouble() ??
                                               0,
                                           starSize: 16.rH(context),
@@ -122,10 +121,9 @@ class RiderTripBottomContainer extends StatelessWidget {
                                           cubit.tripDetails!.driverRating
                                                   ?.toStringAsFixed(1) ??
                                               "0.0",
-                                          style: Styles.regular12(context)
-                                              .copyWith(
-                                            color: AppColors.greyText,
-                                          ),
+                                          style: Styles.regular12(
+                                            context,
+                                          ).copyWith(color: AppColors.greyText),
                                         ),
                                       ],
                                     ),
@@ -149,7 +147,7 @@ class RiderTripBottomContainer extends StatelessWidget {
                                           cubit.tripDetails!.driverImage ?? '',
                                       resolvedRequestType:
                                           cubit.tripDetails!.tripType ??
-                                              'classic',
+                                          'classic',
                                     ),
                                   );
                                 },
@@ -161,11 +159,12 @@ class RiderTripBottomContainer extends StatelessWidget {
                                 svg: Assets.imagesPhoneCall,
                                 onTap: () {
                                   context.read<GlobalCubit>().phoneLinkLauncher(
-                                      ((cubit.tripDetails!.driverPhoneCode ??
-                                                  "") +
-                                              (cubit.tripDetails!.driverPhone ??
-                                                  ""))
-                                          .toString());
+                                    ((cubit.tripDetails!.driverPhoneCode ??
+                                                "") +
+                                            (cubit.tripDetails!.driverPhone ??
+                                                ""))
+                                        .toString(),
+                                  );
                                 },
                                 color: AppColors.red.withOpacity(.15),
                               ),
@@ -198,21 +197,20 @@ class RiderTripBottomContainer extends StatelessWidget {
                                     //! Vehicle Brand & Model
                                     Text(
                                       "${cubit.tripDetails!.vehicleBrand ?? ""} ${cubit.tripDetails!.vehicleModel ?? ""}",
-                                      style:
-                                          Styles.semibold12(context).copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge
-                                            ?.color,
-                                      ),
+                                      style: Styles.semibold12(context)
+                                          .copyWith(
+                                            color: Theme.of(
+                                              context,
+                                            ).textTheme.bodyLarge?.color,
+                                          ),
                                     ),
                                     SizedBox(height: 1.rH(context)),
                                     //! Vehicle Color & Plate
                                     Text(
                                       "${cubit.tripDetails!.vehicleColor ?? ""} - ${cubit.tripDetails!.vehiclePlats ?? ""}",
-                                      style: Styles.regular12(context).copyWith(
-                                        color: AppColors.greyText,
-                                      ),
+                                      style: Styles.regular12(
+                                        context,
+                                      ).copyWith(color: AppColors.greyText),
                                     ),
                                   ],
                                 ),
@@ -221,10 +219,9 @@ class RiderTripBottomContainer extends StatelessWidget {
                               //! Cost
                               Text(
                                 "${cubit.tripDetails!.price?.toStringAsFixed(2) ?? "??"} ${AppStrings.egp.tr(context)}",
-                                style:
-                                    Styles.semibold20Primary(context).copyWith(
-                                  color: AppColors.red,
-                                ),
+                                style: Styles.semibold20Primary(
+                                  context,
+                                ).copyWith(color: AppColors.red),
                               ),
                             ],
                           ),
@@ -237,13 +234,12 @@ class RiderTripBottomContainer extends StatelessWidget {
                                 cubit.isTripStarted
                                     ? AppStrings.tripStarted.tr(context)
                                     : cubit.isDriverWaiting
-                                        ? AppStrings.imWatingYou.tr(context)
-                                        : AppStrings.arrivesIn.tr(context),
+                                    ? AppStrings.imWatingYou.tr(context)
+                                    : AppStrings.arrivesIn.tr(context),
                                 style: Styles.regular16(context).copyWith(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.color,
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
                                 ),
                               ),
                               const Spacer(),
@@ -257,31 +253,41 @@ class RiderTripBottomContainer extends StatelessWidget {
                                       future: FirebaseDatabase.instance
                                           .ref()
                                           .child(
-                                              'driver_locations/${cubit.tripDetails!.driverId}')
+                                            'driver_locations/${cubit.tripDetails!.driverId}',
+                                          )
                                           .get(),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData &&
                                             snapshot.data!.value != null) {
-                                          final data = snapshot.data!.value
-                                              as Map<dynamic, dynamic>;
-                                          final lat = double.tryParse(
-                                                  data['latitude']
-                                                      .toString()) ??
+                                          final data =
+                                              snapshot.data!.value
+                                                  as Map<dynamic, dynamic>;
+                                          final lat =
+                                              double.tryParse(
+                                                data['latitude'].toString(),
+                                              ) ??
                                               0.0;
-                                          final lng = double.tryParse(
-                                                  data['longitude']
-                                                      .toString()) ??
+                                          final lng =
+                                              double.tryParse(
+                                                data['longitude'].toString(),
+                                              ) ??
                                               0.0;
 
                                           return ArrivalDownTimeTimer(
                                             origin: LatLng(lat, lng),
                                             destination: LatLng(
-                                              double.parse(cubit
-                                                  .tripDetails!.dropoffLatitude
-                                                  .toString()),
-                                              double.parse(cubit
-                                                  .tripDetails!.dropoffLongitude
-                                                  .toString()),
+                                              double.parse(
+                                                cubit
+                                                    .tripDetails!
+                                                    .dropoffLatitude
+                                                    .toString(),
+                                              ),
+                                              double.parse(
+                                                cubit
+                                                    .tripDetails!
+                                                    .dropoffLongitude
+                                                    .toString(),
+                                              ),
                                             ),
                                           );
                                         }
@@ -290,79 +296,81 @@ class RiderTripBottomContainer extends StatelessWidget {
                                           width: 15.rH(context),
                                           child:
                                               const CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                          ),
+                                                strokeWidth: 2,
+                                              ),
                                         );
                                       },
                                     )
                                   : cubit.isDriverWaiting
-                                      ? UpTimeTimer(
-                                          arrivedTime:
-                                              cubit.tripDetails!.arrivedAt !=
-                                                      null
-                                                  ? DateTime.parse(cubit
-                                                          .tripDetails!
-                                                          .arrivedAt!)
-                                                      .toLocal()
-                                                  : DateTime.now(),
-                                        )
-                                      : cubit.tripDetails!.driverId != null
-                                          ? FutureBuilder<DataSnapshot>(
-                                              future: FirebaseDatabase.instance
-                                                  .ref()
-                                                  .child(
-                                                      'driver_locations/${cubit.tripDetails!.driverId}')
-                                                  .get(),
-                                              builder: (context, snapshot) {
-                                                if (snapshot.hasData &&
-                                                    snapshot.data!.value !=
-                                                        null) {
-                                                  final data = snapshot
-                                                          .data!.value
-                                                      as Map<dynamic, dynamic>;
-                                                  final lat = double.tryParse(
-                                                          data['latitude']
-                                                              .toString()) ??
-                                                      0.0;
-                                                  final lng = double.tryParse(
-                                                          data['longitude']
-                                                              .toString()) ??
-                                                      0.0;
+                                  ? UpTimeTimer(
+                                      arrivedTime:
+                                          cubit.tripDetails!.arrivedAt != null
+                                          ? DateTime.parse(
+                                              cubit.tripDetails!.arrivedAt!,
+                                            ).toLocal()
+                                          : DateTime.now(),
+                                    )
+                                  : cubit.tripDetails!.driverId != null
+                                  ? FutureBuilder<DataSnapshot>(
+                                      future: FirebaseDatabase.instance
+                                          .ref()
+                                          .child(
+                                            'driver_locations/${cubit.tripDetails!.driverId}',
+                                          )
+                                          .get(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData &&
+                                            snapshot.data!.value != null) {
+                                          final data =
+                                              snapshot.data!.value
+                                                  as Map<dynamic, dynamic>;
+                                          final lat =
+                                              double.tryParse(
+                                                data['latitude'].toString(),
+                                              ) ??
+                                              0.0;
+                                          final lng =
+                                              double.tryParse(
+                                                data['longitude'].toString(),
+                                              ) ??
+                                              0.0;
 
-                                                  return ArrivalDownTimeTimer(
-                                                    origin: LatLng(lat, lng),
-                                                    destination: LatLng(
-                                                      double.parse(cubit
-                                                          .tripDetails!
-                                                          .pickupLatitude
-                                                          .toString()),
-                                                      double.parse(cubit
-                                                          .tripDetails!
-                                                          .pickupLongitude
-                                                          .toString()),
-                                                    ),
-                                                  );
-                                                }
-                                                return SizedBox(
-                                                  height: 15.rH(context),
-                                                  width: 15.rH(context),
-                                                  child:
-                                                      const CircularProgressIndicator(
-                                                    strokeWidth: 2,
-                                                  ),
-                                                );
-                                              },
-                                            )
-                                          : Text(
-                                              cubit.formatDuration(),
-                                              style: Styles.medium15(context)
-                                                  .copyWith(
-                                                color: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.color,
+                                          return ArrivalDownTimeTimer(
+                                            origin: LatLng(lat, lng),
+                                            destination: LatLng(
+                                              double.parse(
+                                                cubit
+                                                    .tripDetails!
+                                                    .pickupLatitude
+                                                    .toString(),
+                                              ),
+                                              double.parse(
+                                                cubit
+                                                    .tripDetails!
+                                                    .pickupLongitude
+                                                    .toString(),
                                               ),
                                             ),
+                                          );
+                                        }
+                                        return SizedBox(
+                                          height: 15.rH(context),
+                                          width: 15.rH(context),
+                                          child:
+                                              const CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                              ),
+                                        );
+                                      },
+                                    )
+                                  : Text(
+                                      cubit.formatDuration(),
+                                      style: Styles.medium15(context).copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).textTheme.bodyLarge?.color,
+                                      ),
+                                    ),
                             ],
                           ),
                           SizedBox(height: 8.rH(context)),
@@ -371,8 +379,9 @@ class RiderTripBottomContainer extends StatelessWidget {
                             LinearProgressIndicator(
                               value: cubit.calculateRemainigArrivalTimeValue(),
                               minHeight: 8.rH(context),
-                              valueColor:
-                                  const AlwaysStoppedAnimation(AppColors.grey),
+                              valueColor: const AlwaysStoppedAnimation(
+                                AppColors.grey,
+                              ),
                               backgroundColor: AppColors.grey,
                               borderRadius: BorderRadius.circular(6),
                             ),
@@ -383,12 +392,12 @@ class RiderTripBottomContainer extends StatelessWidget {
                             //       cubit.tripDetails!.timeMinutes ?? 0,
                             // ),
                             CarMovementView(
-                              dropoffLat: double.parse(cubit
-                                  .tripDetails!.dropoffLatitude
-                                  .toString()),
-                              dropoffLng: double.parse(cubit
-                                  .tripDetails!.dropoffLongitude
-                                  .toString()),
+                              dropoffLat: double.parse(
+                                cubit.tripDetails!.dropoffLatitude.toString(),
+                              ),
+                              dropoffLng: double.parse(
+                                cubit.tripDetails!.dropoffLongitude.toString(),
+                              ),
                               driverId: cubit.tripDetails!.driverId!,
                             ),
                           // if (!cubit.isTripStarted)
@@ -436,22 +445,21 @@ class RiderTripBottomContainer extends StatelessWidget {
                                     children: [
                                       Text(
                                         "${AppStrings.tripCode.tr(context)}:",
-                                        style:
-                                            Styles.regular16(context).copyWith(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.color,
-                                        ),
+                                        style: Styles.regular16(context)
+                                            .copyWith(
+                                              color: Theme.of(
+                                                context,
+                                              ).textTheme.bodyLarge?.color,
+                                            ),
                                       ),
                                       SizedBox(width: 9.rW(context)),
                                       Text(
                                         cubit.tripDetails?.tripCode
                                                 ?.toString() ??
                                             "??",
-                                        style: Styles.bold16(context).copyWith(
-                                          color: AppColors.primary,
-                                        ),
+                                        style: Styles.bold16(
+                                          context,
+                                        ).copyWith(color: AppColors.primary),
                                       ),
                                     ],
                                   ),
@@ -461,9 +469,9 @@ class RiderTripBottomContainer extends StatelessWidget {
                                     AppStrings
                                         .shareThisCodeWithYourDriverWhenTheyArive
                                         .tr(context),
-                                    style: Styles.regular14(context).copyWith(
-                                      color: AppColors.greyText,
-                                    ),
+                                    style: Styles.regular14(
+                                      context,
+                                    ).copyWith(color: AppColors.greyText),
                                     overflow: TextOverflow.clip,
                                     textAlign: TextAlign.center,
                                   ),
@@ -490,14 +498,46 @@ class RiderTripBottomContainer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           //! Distance & Duration
-                          DistanceAndDuration(
-                            distance:
-                                cubit.tripDetails!.distanceKm?.toString() ??
-                                    "??",
-                            duration:
-                                cubit.tripDetails!.timeMinutes?.toString() ??
-                                    "??",
-                          ),
+                          cubit.tripDetails!.raceDuration != null
+                              ? Row(
+                                  children: [
+                                    Text(
+                                      AppStrings.duration.tr(context),
+                                      style: Styles.regular14(
+                                        context,
+                                      ).copyWith(color: AppColors.greyText),
+                                    ),
+                                    SizedBox(width: 8.rW(context)),
+                                    Expanded(
+                                      child: FittedBox(
+                                        alignment:
+                                            AlignmentDirectional.centerStart,
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          "${cubit.tripDetails!.raceDuration ?? ''} ${AppStrings.min.tr(context)}",
+                                          style:
+                                              Styles.semibold14Primary(
+                                                context,
+                                              ).copyWith(
+                                                color: Theme.of(
+                                                  context,
+                                                ).textTheme.bodyLarge?.color,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : DistanceAndDuration(
+                                  distance:
+                                      cubit.tripDetails!.distanceKm
+                                          ?.toString() ??
+                                      "??",
+                                  duration:
+                                      cubit.tripDetails!.timeMinutes
+                                          ?.toString() ??
+                                      "??",
+                                ),
                           //! Divider
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -511,7 +551,7 @@ class RiderTripBottomContainer extends StatelessWidget {
                           StartAndEndPoint(
                             startValue:
                                 cubit.tripDetails!.pickupAddress ?? "??",
-                            endValue: cubit.tripDetails!.dropoffAddress ?? "??",
+                            endValue: cubit.tripDetails!.dropoffAddress ?? "",
                           ),
                           SizedBox(height: 12.rH(context)),
                           //! Prefernces
@@ -524,10 +564,10 @@ class RiderTripBottomContainer extends StatelessWidget {
                                       context: context,
                                       builder: (context) =>
                                           PreferencesAlertDialog(
-                                        canEdit: false,
-                                        preferencesModel:
-                                            cubit.tripDetails?.preferences,
-                                      ),
+                                            canEdit: false,
+                                            preferencesModel:
+                                                cubit.tripDetails?.preferences,
+                                          ),
                                     );
                                   },
                                   child: Row(
@@ -539,10 +579,9 @@ class RiderTripBottomContainer extends StatelessWidget {
                                       SizedBox(width: 6.rW(context)),
                                       Text(
                                         AppStrings.preferences.tr(context),
-                                        style:
-                                            Styles.regular14(context).copyWith(
-                                          color: AppColors.primary,
-                                        ),
+                                        style: Styles.regular14(
+                                          context,
+                                        ).copyWith(color: AppColors.primary),
                                       ),
                                     ],
                                   ),

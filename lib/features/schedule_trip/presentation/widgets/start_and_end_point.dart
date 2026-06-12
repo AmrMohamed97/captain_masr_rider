@@ -44,6 +44,7 @@ class StartAndEndPoint extends StatelessWidget {
               ),
               SizedBox(height: 12.rH(context)),
               //! End
+              if(endValue.isNotEmpty)
               Text(
                 endTitle ?? AppStrings.endPoint.tr(context),
                 style: Styles.regular12(context).copyWith(
@@ -51,6 +52,7 @@ class StartAndEndPoint extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 2.rH(context)),
+              if(endValue.isNotEmpty)
               Text(
                 endValue,
                 style: Styles.regular14(context).copyWith(

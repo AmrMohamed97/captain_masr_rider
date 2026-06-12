@@ -22,7 +22,7 @@ class TripDetailsModel {
       shareRideId;
   final String? riderName,
       riderImage,
-negotiationStatus,
+      negotiationStatus,
       riderPhone,
       riderPhoneCode,
       pickupAddress,
@@ -60,6 +60,7 @@ negotiationStatus,
       seatsAvailable,
       type;
   final num? driverEarnings;
+  final num? raceDuration;
   final num? tip;
   final double? pickupLatitude,
       pickupLongitude,
@@ -159,6 +160,7 @@ negotiationStatus,
     this.completedAt,
     this.todayStatus,
     this.driverEarnings,
+    this.raceDuration,
     this.negotiation,
   });
 
@@ -191,34 +193,46 @@ negotiationStatus,
       startedAt: json["started_at"]?.toString(),
       createdAt: json["created_at"],
       arrivedAt: json["arrived_at"],
-      pickupLatitude:
-          double.tryParse(json["pickup_latitude"]?.toString() ?? "0.0"),
-      pickupLongitude:
-          double.tryParse(json["pickup_longitude"]?.toString() ?? "0.0"),
-      dropoffLatitude:
-          double.tryParse(json["dropoff_latitude"]?.toString() ?? "0.0"),
-      dropoffLongitude:
-          double.tryParse(json["dropoff_longitude"]?.toString() ?? "0.0"),
+      pickupLatitude: double.tryParse(
+        json["pickup_latitude"]?.toString() ?? "0.0",
+      ),
+      pickupLongitude: double.tryParse(
+        json["pickup_longitude"]?.toString() ?? "0.0",
+      ),
+      dropoffLatitude: double.tryParse(
+        json["dropoff_latitude"]?.toString() ?? "0.0",
+      ),
+      dropoffLongitude: double.tryParse(
+        json["dropoff_longitude"]?.toString() ?? "0.0",
+      ),
       riderRating: json["rider_rating"],
       distanceKm: json["distance_km"],
       timeMinutes: json["time_minutes"],
       totalPrice: num.tryParse(json["total_price"]?.toString() ?? "0.0"),
+      raceDuration: json["race_duration"] == null
+          ? null
+          : num.tryParse(json["race_duration"]!.toString()),
       price: num.tryParse(
-          (json["price"]?.toString() ?? json["cost"])?.toString() ?? "0.0"),
+        (json["price"]?.toString() ?? json["cost"])?.toString() ?? "0.0",
+      ),
       driverEarnings: num.tryParse(
-          (json["driverEarnings"]?.toString() ?? json["cost"])?.toString() ??
-              "0.0"),
+        (json["driverEarnings"]?.toString() ?? json["cost"])?.toString() ??
+            "0.0",
+      ),
       // totalPrice: num.tryParse(
       //     (json["total_price"]?.toString() ?? json["cost"])?.toString() ?? "0.0"),
       // stops: (json["stops"] as List?)
       //         ?.map((e) => LatLng(e["latitude"], e["longitude"]))
       //         .toList() ??
       //     <LatLng>[],
-      stops: (json["stops"] as List?)
-              ?.map((e) => LatLng(
-                    double.parse(e["latitude"]),
-                    double.parse(e["longitude"]),
-                  ))
+      stops:
+          (json["stops"] as List?)
+              ?.map(
+                (e) => LatLng(
+                  double.parse(e["latitude"]),
+                  double.parse(e["longitude"]),
+                ),
+              )
               .toList() ??
           <LatLng>[],
       femaleDriver: json["female_driver"],
@@ -252,27 +266,31 @@ negotiationStatus,
       deliverType: json["deliver_type"],
       paymentOfDeliverType: json["payment_of_deliver_type"],
       notes: json["notes"],
-      requests: (json["requests"] as Map?)
-              ?.map((key, value) =>
-                  MapEntry(key, TripDetailsModel.fromJson(value)))
+      requests:
+          (json["requests"] as Map?)
+              ?.map(
+                (key, value) => MapEntry(key, TripDetailsModel.fromJson(value)),
+              )
               .values
               .toList() ??
           [],
       shareRideId: int.tryParse(json["share_ride_id"]?.toString() ?? "0"),
       riders: json["riders"] is Map
           ? (json["riders"] as Map?)
-                  ?.map((key, value) =>
-                      MapEntry(key, TripDetailsModel.fromJson(value)))
-                  .values
-                  .toList() ??
-              []
+                    ?.map(
+                      (key, value) =>
+                          MapEntry(key, TripDetailsModel.fromJson(value)),
+                    )
+                    .values
+                    .toList() ??
+                []
           : json["riders"] is List
-              ? (json["riders"] as List?)
-                      ?.where((element) => element != null)
-                      .map((element) => TripDetailsModel.fromJson(element))
-                      .toList() ??
-                  []
-              : [],
+          ? (json["riders"] as List?)
+                    ?.where((element) => element != null)
+                    .map((element) => TripDetailsModel.fromJson(element))
+                    .toList() ??
+                []
+          : [],
       updatedAt: json["updated_at"],
       deliveryImage: json["delivery_image"],
       deliveryImageDriver: json["delivery_image_driver"],
@@ -293,10 +311,8 @@ negotiationStatus,
           ? Negotiation.fromJson(json['negotiation'] as Map)
           : null,
       negotiations: (json['negotiations'] as Map?)?.map(
-        (key, value) => MapEntry(
-          key.toString(),
-          Negotiation.fromJson(value as Map),
-        ),
+        (key, value) =>
+            MapEntry(key.toString(), Negotiation.fromJson(value as Map)),
       ),
     );
   }
@@ -376,12 +392,13 @@ negotiationStatus,
       "today_status": todayStatus,
       "negotiation_status": negotiationStatus,
       'negotiation': negotiation?.toJson(),
-      'negotiations':
-          negotiations?.map((k, v) => MapEntry(k, v.toJson())),
+      'negotiations': negotiations?.map((k, v) => MapEntry(k, v.toJson())),
     };
   }
+
   // Map<String, dynamic> toJson() => toMap();
 }
+
 class Negotiation {
   final String? action;
   final String? createdAt;
@@ -409,12 +426,22 @@ class Negotiation {
     return Negotiation(
       action: json['action'] as String?,
       createdAt: json['created_at'] as String?,
-      driverPrice: json['driver_price'] != null ? num.tryParse(json['driver_price'].toString()) : null,
-      driverRequestId: json['driver_request_id'] != null ? int.tryParse(json['driver_request_id'].toString()) : null,
+      driverPrice: json['driver_price'] != null
+          ? num.tryParse(json['driver_price'].toString())
+          : null,
+      driverRequestId: json['driver_request_id'] != null
+          ? int.tryParse(json['driver_request_id'].toString())
+          : null,
       id: json['id'] != null ? int.tryParse(json['id'].toString()) : null,
-      isFinal: json['is_final'] is bool ? json['is_final'] : (json['is_final'] == 'true' || json['is_final'] == 1),
-      price: json['price'] != null ? num.tryParse(json['price'].toString()) : null,
-      riderPrice: json['rider_price'] != null ? num.tryParse(json['rider_price'].toString()) : null,
+      isFinal: json['is_final'] is bool
+          ? json['is_final']
+          : (json['is_final'] == 'true' || json['is_final'] == 1),
+      price: json['price'] != null
+          ? num.tryParse(json['price'].toString())
+          : null,
+      riderPrice: json['rider_price'] != null
+          ? num.tryParse(json['rider_price'].toString())
+          : null,
       updatedAt: json['updated_at'] as String?,
     );
   }

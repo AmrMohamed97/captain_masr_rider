@@ -57,6 +57,7 @@ class RacingTripView extends StatelessWidget {
                 FindDriverView(
                   isShareRide: false,
                   isDelivery: true,
+                  raceDuration: context.read<RacingTripCubit>().raceDuration,
                   tripDetails: context.read<RacingTripCubit>().details!,
                 ),
               );

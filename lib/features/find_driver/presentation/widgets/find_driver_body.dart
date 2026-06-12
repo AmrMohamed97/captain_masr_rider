@@ -11,8 +11,8 @@ import 'looking_for_drivers_card.dart';
 import 'negotiate_bottom_sheet.dart';
 
 class FindDriverBody extends StatefulWidget {
-  const FindDriverBody({super.key});
-
+  const FindDriverBody({super.key,   this.raceDuration});
+  final Duration? raceDuration;
   @override
   State<FindDriverBody> createState() => _FindDriverBodyState();
 }
@@ -494,7 +494,7 @@ class _FindDriverBodyState extends State<FindDriverBody> {
               ),
 
               //! Bottom Section
-              const FindDriverBottomContainer(),
+              FindDriverBottomContainer(raceDuration: widget.raceDuration,),
             ],
           ),
         );

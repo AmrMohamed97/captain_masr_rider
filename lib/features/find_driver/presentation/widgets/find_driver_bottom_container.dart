@@ -4,8 +4,8 @@ import '../../../preferences/presentation/widgets/preferences_alert_dialog.dart'
 import '../../../trips/presentation/widgets/cancel_trip_alert_dialog.dart';
 
 class FindDriverBottomContainer extends StatelessWidget {
-  const FindDriverBottomContainer({super.key});
-
+  const FindDriverBottomContainer({super.key,   this.raceDuration});
+  final Duration? raceDuration;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FindDriverCubit, FindDriverState>(
@@ -24,9 +24,7 @@ class FindDriverBottomContainer extends StatelessWidget {
                   width: 74.rW(context),
                   height: 4.rH(context),
                   margin: EdgeInsets.symmetric(vertical: 11.rH(context)),
-                  decoration: const BoxDecoration(
-                    color: AppColors.white,
-                  ),
+                  decoration: const BoxDecoration(color: AppColors.white),
                 ),
               ),
 
@@ -54,55 +52,86 @@ class FindDriverBottomContainer extends StatelessWidget {
                     ),
                     SizedBox(height: 18.rH(context)),
                     //! Distance & Duration
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        children: [
-                          CustomSvgPicture(
-                            svg: Assets.imagesPinLocation,
-                            color: AppColors.greyText,
-                            height: 13.rH(context),
-                          ),
-                          SizedBox(width: 6),
-                          Text(
-                            AppStrings.distance.tr(context),
-                            style: Styles.regular14(context).copyWith(
-                              color: AppColors.greyText,
+                    raceDuration != null
+                        ? Row(
+                            children: [
+                              CustomSvgPicture(
+                                svg: Assets.imagesTime,
+                                color: AppColors.greyText,
+                                height: 13.rH(context),
+                              ),
+                              SizedBox(width: 6),
+                              Text(
+                                AppStrings.duration.tr(context),
+                                style: Styles.regular14(
+                                  context,
+                                ).copyWith(color: AppColors.greyText),
+                              ),
+                              SizedBox(width: 6),
+                              Text(
+                                "${raceDuration?.inMinutes.toString() ?? "??"} ${AppStrings.min.tr(context)}",
+                                style: Styles.semibold14Primary(context)
+                                    .copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).textTheme.bodyLarge?.color,
+                                    ),
+                              ),
+                            ],
+                          )
+                        : FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Row(
+                              children: [
+                                CustomSvgPicture(
+                                  svg: Assets.imagesPinLocation,
+                                  color: AppColors.greyText,
+                                  height: 13.rH(context),
+                                ),
+                                SizedBox(width: 6),
+                                Text(
+                                  AppStrings.distance.tr(context),
+                                  style: Styles.regular14(
+                                    context,
+                                  ).copyWith(color: AppColors.greyText),
+                                ),
+                                SizedBox(width: 6),
+                                Text(
+                                  "${cubit.tripDetails?.distanceKm ?? "??"} ${AppStrings.km.tr(context)}",
+                                  style: Styles.semibold14Primary(context)
+                                      .copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).textTheme.bodyLarge?.color,
+                                      ),
+                                ),
+                                // const Spacer(),
+                                SizedBox(width: 12),
+                                CustomSvgPicture(
+                                  svg: Assets.imagesTime,
+                                  color: AppColors.greyText,
+                                  height: 13.rH(context),
+                                ),
+                                SizedBox(width: 6),
+                                Text(
+                                  AppStrings.duration.tr(context),
+                                  style: Styles.regular14(
+                                    context,
+                                  ).copyWith(color: AppColors.greyText),
+                                ),
+                                SizedBox(width: 6),
+                                Text(
+                                  "${cubit.tripDetails?.timeMinutes ?? "??"} ${AppStrings.min.tr(context)}",
+                                  style: Styles.semibold14Primary(context)
+                                      .copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).textTheme.bodyLarge?.color,
+                                      ),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(width: 6),
-                          Text(
-                            "${cubit.tripDetails?.distanceKm ?? "??"} ${AppStrings.km.tr(context)}",
-                            style: Styles.semibold14Primary(context).copyWith(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge?.color,
-                            ),
-                          ),
-                          // const Spacer(),
-                          SizedBox(width: 12),
-                          CustomSvgPicture(
-                            svg: Assets.imagesTime,
-                            color: AppColors.greyText,
-                            height: 13.rH(context),
-                          ),
-                          SizedBox(width: 6),
-                          Text(
-                            AppStrings.duration.tr(context),
-                            style: Styles.regular14(context).copyWith(
-                              color: AppColors.greyText,
-                            ),
-                          ),
-                          SizedBox(width: 6),
-                          Text(
-                            "${cubit.tripDetails?.timeMinutes ?? "??"} ${AppStrings.min.tr(context)}",
-                            style: Styles.semibold14Primary(context).copyWith(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge?.color,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                     SizedBox(height: 18.rH(context)),
                     //! Estimated Cost
                     Row(
@@ -114,16 +143,16 @@ class FindDriverBottomContainer extends StatelessWidget {
                         SizedBox(width: 6.rW(context)),
                         Text(
                           AppStrings.estimatedCost.tr(context),
-                          style: Styles.regular14(context).copyWith(
-                            color: AppColors.greyText,
-                          ),
+                          style: Styles.regular14(
+                            context,
+                          ).copyWith(color: AppColors.greyText),
                         ),
                         const Spacer(),
                         Text(
                           "${cubit.tripDetails?.price ?? "??"} ${AppStrings.egp.tr(context)}",
-                          style: Styles.semibold16Primary(context).copyWith(
-                            color: AppColors.red,
-                          ),
+                          style: Styles.semibold16Primary(
+                            context,
+                          ).copyWith(color: AppColors.red),
                         ),
                       ],
                     ),
@@ -148,8 +177,8 @@ class FindDriverBottomContainer extends StatelessWidget {
                   children: [
                     //! Start & End Point
                     StartAndEndPoint(
-                      startValue: cubit.tripDetails?.pickupAddress ?? "??",
-                      endValue: cubit.tripDetails?.dropoffAddress ?? "??",
+                      startValue: cubit.tripDetails?.pickupAddress ?? "",
+                      endValue: cubit.tripDetails?.dropoffAddress ?? "",
                     ),
                     SizedBox(height: 16.rH(context)),
                     //! Prefernces
@@ -173,9 +202,9 @@ class FindDriverBottomContainer extends StatelessWidget {
                             SizedBox(width: 6.rW(context)),
                             Text(
                               AppStrings.preferences.tr(context),
-                              style: Styles.regular14(context).copyWith(
-                                color: AppColors.primary,
-                              ),
+                              style: Styles.regular14(
+                                context,
+                              ).copyWith(color: AppColors.primary),
                             ),
                           ],
                         ),

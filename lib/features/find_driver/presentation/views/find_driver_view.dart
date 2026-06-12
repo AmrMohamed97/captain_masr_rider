@@ -11,11 +11,13 @@ class FindDriverView extends StatelessWidget {
     this.isDelivery = false,
     required this.tripDetails,
     this.createdAt,
+    this.raceDuration,
   });
 
   final bool isShareRide, isDelivery;
   final TripDetailsModel tripDetails;
   final String? createdAt;
+  final Duration? raceDuration;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +39,7 @@ class FindDriverView extends StatelessWidget {
             Navigator.pop(context);
           }
           if (state is FindDriverCancelTripErrorState) {
-            showToast(
-              context,
-              message: state.error,
-              state: ToastStates.error,
-            );
+            showToast(context, message: state.error, state: ToastStates.error);
           }
           if (state is AcceptDriverSuccessState) {
             showToast(
@@ -51,19 +49,16 @@ class FindDriverView extends StatelessWidget {
             );
             final cubit = context.read<FindDriverCubit>();
             navigateReplacement(
-                context,
-                RiderTripView(
-                  isShareRide: cubit.isShareRide,
-                  isDelivery: cubit.isDelivery,
-                  tripId: cubit.tripDetails?.rideId ?? 0,
-                ));
+              context,
+              RiderTripView(
+                isShareRide: cubit.isShareRide,
+                isDelivery: cubit.isDelivery,
+                tripId: cubit.tripDetails?.rideId ?? 0,
+              ),
+            );
           }
           if (state is AcceptDriverErrorState) {
-            showToast(
-              context,
-              message: state.error,
-              state: ToastStates.error,
-            );
+            showToast(context, message: state.error, state: ToastStates.error);
           }
           if (state is NegotiationSuccessState) {
             showToast(
@@ -73,21 +68,18 @@ class FindDriverView extends StatelessWidget {
             );
           }
           if (state is NegotiationErrorState) {
-            showToast(
-              context,
-              message: state.error,
-              state: ToastStates.error,
-            );
+            showToast(context, message: state.error, state: ToastStates.error);
           }
         },
         builder: (context, state) {
           return Scaffold(
             body: CustomModalProgressIndicator(
-              inAsyncCall: state is FindDriverCancelTripLoadingState ||
+              inAsyncCall:
+                  state is FindDriverCancelTripLoadingState ||
                   state is AcceptRequestLoadingState ||
                   state is AcceptDriverLoadingState ||
                   state is NegotiationLoadingState,
-              child: const FindDriverBody(),
+              child: FindDriverBody(raceDuration: raceDuration),
             ),
           );
         },
