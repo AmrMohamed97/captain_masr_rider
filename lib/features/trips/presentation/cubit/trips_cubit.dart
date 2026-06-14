@@ -52,20 +52,33 @@ class TripsCubit extends Cubit<TripsState> {
         }
 
         if (data != null && data is List) {
-          ongoingTrips = data
-              .where((tripData) => tripData != null)
-              .map((tripData) => TripDetailsModel.fromJson(tripData as Map))
-              .toList();
+          final List<TripDetailsModel> tempTrips = [];
+          for (var tripData in data) {
+            if (tripData != null && tripData is Map) {
+              try {
+                tempTrips.add(TripDetailsModel.fromJson(tripData));
+              } catch (e) {
+                if (!kReleaseMode) log("Error parsing trip (List): $e");
+              }
+            }
+          }
+          ongoingTrips = tempTrips;
 
           emit(TripsSuccessState());
         }
 
         if (data != null && data is Map) {
-          ongoingTrips = data
-              .map((key, value) =>
-                  MapEntry(key, TripDetailsModel.fromJson(value as Map)))
-              .values
-              .toList();
+          final List<TripDetailsModel> tempTrips = [];
+          data.forEach((key, value) {
+            if (value != null && value is Map) {
+              try {
+                tempTrips.add(TripDetailsModel.fromJson(value));
+              } catch (e) {
+                if (!kReleaseMode) log("Error parsing trip (Map) key $key: $e");
+              }
+            }
+          });
+          ongoingTrips = tempTrips;
 
           emit(TripsSuccessState());
         }

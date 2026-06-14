@@ -225,16 +225,26 @@ class TripDetailsModel {
       //         ?.map((e) => LatLng(e["latitude"], e["longitude"]))
       //         .toList() ??
       //     <LatLng>[],
-      stops:
-          (json["stops"] as List?)
-              ?.map(
+      stops: json["stops"] is Map
+          ? (json["stops"] as Map)
+              .values
+              .map(
                 (e) => LatLng(
-                  double.parse(e["latitude"]),
-                  double.parse(e["longitude"]),
+                  double.parse(e["latitude"].toString()),
+                  double.parse(e["longitude"].toString()),
                 ),
               )
-              .toList() ??
-          <LatLng>[],
+              .toList()
+          : json["stops"] is List
+              ? (json["stops"] as List)
+                  .map(
+                    (e) => LatLng(
+                      double.parse(e["latitude"].toString()),
+                      double.parse(e["longitude"].toString()),
+                    ),
+                  )
+                  .toList()
+              : <LatLng>[],
       femaleDriver: json["female_driver"],
       babyCarriage: json["baby_carriage"],
       luggages: json["luggages"],
@@ -266,14 +276,17 @@ class TripDetailsModel {
       deliverType: json["deliver_type"],
       paymentOfDeliverType: json["payment_of_deliver_type"],
       notes: json["notes"],
-      requests:
-          (json["requests"] as Map?)
-              ?.map(
-                (key, value) => MapEntry(key, TripDetailsModel.fromJson(value)),
-              )
+      requests: json["requests"] is Map
+          ? (json["requests"] as Map)
               .values
-              .toList() ??
-          [],
+              .map((e) => TripDetailsModel.fromJson(e as Map))
+              .toList()
+          : json["requests"] is List
+              ? (json["requests"] as List)
+                  .where((e) => e != null)
+                  .map((e) => TripDetailsModel.fromJson(e as Map))
+                  .toList()
+              : <TripDetailsModel>[],
       shareRideId: int.tryParse(json["share_ride_id"]?.toString() ?? "0"),
       riders: json["riders"] is Map
           ? (json["riders"] as Map?)
@@ -304,9 +317,16 @@ class TripDetailsModel {
       days: json["days"] is List
           ? (json["days"] as List).map((e) => e.toString()).toList()
           : (json["days"] != null ? [json["days"].toString()] : null),
-      seatsIds: (json["seats_ids"] as List?)
-          ?.map((e) => int.tryParse(e.toString()) ?? 0)
-          .toList(),
+      seatsIds: json["seats_ids"] is Map
+          ? (json["seats_ids"] as Map)
+              .values
+              .map((e) => int.tryParse(e.toString()) ?? 0)
+              .toList()
+          : json["seats_ids"] is List
+              ? (json["seats_ids"] as List)
+                  .map((e) => int.tryParse(e.toString()) ?? 0)
+                  .toList()
+              : null,
       negotiation: json['negotiation'] != null
           ? Negotiation.fromJson(json['negotiation'] as Map)
           : null,

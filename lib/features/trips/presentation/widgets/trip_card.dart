@@ -1,8 +1,8 @@
+import 'package:captain_masr_rider/core/widgets/partial_star.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/imports/imports.dart';
-import '../../../../core/widgets/partial_star.dart';
 import '../../../driver_trip/presentation/widgets/prefernces_items_wrap.dart';
 import '../../../rider_trip/data/models/trip_details_model.dart';
 
@@ -25,8 +25,10 @@ class TripCard extends StatelessWidget {
 
   String formatDateTime(String dateTimeString, String locale) {
     final DateTime dateTime = DateTime.parse(dateTimeString);
-    final String formatted =
-        DateFormat("EEE, d MMMM | h:mm a", locale).format(dateTime);
+    final String formatted = DateFormat(
+      "EEE, d MMMM | h:mm a",
+      locale,
+    ).format(dateTime);
     return formatted;
   }
 
@@ -63,18 +65,19 @@ class TripCard extends StatelessWidget {
                   if (model.type != "round_trip")
                     Text(
                       tripTitle ??
-                          (model.tripType == "classic trip"
+                          (model.tripType == "classic trip" ||
+                                  model.tripType == "Racing"
                               ? AppStrings.classicRide.tr(context)
                               : model.tripType == "group"
-                                  ? AppStrings.groupRide.tr(context)
-                                  : model.tripType == "share"
-                                      ? AppStrings.shareRide.tr(context)
-                                      : model.tripType == "delivery"
-                                          ? AppStrings.delivery.tr(context)
-                                          : ""),
-                      style: Styles.semibold16Primary(context).copyWith(
-                        color: AppColors.white,
-                      ),
+                              ? AppStrings.groupRide.tr(context)
+                              : model.tripType == "share"
+                              ? AppStrings.shareRide.tr(context)
+                              : model.tripType == "delivery"
+                              ? AppStrings.delivery.tr(context)
+                              : ""),
+                      style: Styles.semibold16Primary(
+                        context,
+                      ).copyWith(color: AppColors.white),
                     ),
                   if (!isOngoing && model.type != "round_trip")
                     SizedBox(width: 8.rW(context)),
@@ -88,9 +91,9 @@ class TripCard extends StatelessWidget {
                                 context.read<GlobalCubit>().language,
                               )
                             : "",
-                        style: Styles.semibold14Primary(context).copyWith(
-                          color: AppColors.white,
-                        ),
+                        style: Styles.semibold14Primary(
+                          context,
+                        ).copyWith(color: AppColors.white),
                         textAlign: model.type != "round_trip"
                             ? TextAlign.center
                             : TextAlign.end,
@@ -102,9 +105,7 @@ class TripCard extends StatelessWidget {
             //! Content
             Container(
               width: double.infinity,
-              margin: EdgeInsets.only(
-                bottom: 1.rH(context),
-              ),
+              margin: EdgeInsets.only(bottom: 1.rH(context)),
               padding: EdgeInsets.symmetric(
                 vertical: 17.rH(context),
                 horizontal: 16.rW(context),
@@ -140,10 +141,10 @@ class TripCard extends StatelessWidget {
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) =>
                                   SvgPicture.asset(
-                                Assets.imagesPersonSvg,
-                                color: AppColors.grey,
-                                height: 46.rH(context),
-                              ),
+                                    Assets.imagesPersonSvg,
+                                    color: AppColors.grey,
+                                    height: 46.rH(context),
+                                  ),
                             ),
                           ),
 
@@ -206,45 +207,46 @@ class TripCard extends StatelessWidget {
 
                         //! Name & (Rating Or Preferences)
                         if (!(model.tripType == "share" ||
-                            model.tripType == "group" ||
-                            model.tripType == "school"))
+                                model.tripType == "group" ||
+                                model.tripType == "school") &&
+                            !isOngoing)
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 //! Name
-                                if (model.driverName == null &&
+                                if (model.driverName != null &&
                                     context.read<GlobalCubit>().isRider)
                                   Text(
                                     context.read<GlobalCubit>().isRider
-                                        ? model.driverName ?? "??"
-                                        : model.riderName ?? "??",
+                                        ? model.driverName ?? ""
+                                        : model.riderName ?? "",
                                     style: Styles.semibold16Primary(context)
                                         .copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.color,
-                                    ),
+                                          color: Theme.of(
+                                            context,
+                                          ).textTheme.bodyLarge?.color,
+                                        ),
                                   ),
                                 SizedBox(height: 2.rH(context)),
                                 //! Rating
-                                if (context.read<GlobalCubit>().isRider)
+                                if (context.read<GlobalCubit>().isRider &&
+                                    !isOngoing)
                                   Row(
                                     children: [
                                       SinglePartialStar(
-                                        value: model.driverRating?.toDouble() ??
+                                        value:
+                                            model.driverRating?.toDouble() ??
                                             0.0,
                                         starSize: 18.rH(context),
                                       ),
                                       SizedBox(width: 7.rW(context)),
                                       Text(
                                         "${model.driverRating?.toStringAsFixed(3) ?? 0.0}",
-                                        style:
-                                            Styles.regular14(context).copyWith(
-                                          color: AppColors.greyText,
-                                        ),
+                                        style: Styles.regular14(
+                                          context,
+                                        ).copyWith(color: AppColors.greyText),
                                       ),
                                     ],
                                   ),
@@ -271,32 +273,30 @@ class TripCard extends StatelessWidget {
                                         model.deliverType == "sending"
                                             ? AppStrings.sending.tr(context)
                                             : AppStrings.receiving.tr(context),
-                                        style:
-                                            Styles.medium14(context).copyWith(
-                                          color: AppColors.greyText,
-                                        ),
+                                        style: Styles.medium14(
+                                          context,
+                                        ).copyWith(color: AppColors.greyText),
                                       ),
                                     ],
                                   ),
                               ],
                             ),
                           ),
-
-                        SizedBox(width: 9.rW(context)),
+                        if (!isOngoing) SizedBox(width: 9.rW(context)),
 
                         //! Cost
-                        if (context.read<GlobalCubit>().isRider)
+                        if (context.read<GlobalCubit>().isRider && !isOngoing)
                           Text(
                             "${model.price ?? 0} ${AppStrings.egp.tr(context)}",
-                            style: Styles.semibold20Primary(context).copyWith(
-                              color: AppColors.red,
-                            ),
+                            style: Styles.semibold20Primary(
+                              context,
+                            ).copyWith(color: AppColors.red),
                           ),
                       ],
                     ),
 
                   //! Divider
-                  if (model.status != "pending")
+                  if (model.status != "pending" && !isOngoing)
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 16.rH(context)),
                       child: Divider(
@@ -306,11 +306,10 @@ class TripCard extends StatelessWidget {
 
                   //! Car Details
                   if (context.read<GlobalCubit>().isRider &&
-                      model.status != "pending")
+                      model.status != "pending" &&
+                      !isOngoing)
                     Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 16.rH(context),
-                      ),
+                      padding: EdgeInsets.only(bottom: 16.rH(context)),
                       child: Row(
                         children: [
                           //! Car Image
@@ -328,17 +327,16 @@ class TripCard extends StatelessWidget {
                                 Text(
                                   "${model.vehicleBrand ?? "??"} ${model.vehicleModel ?? "??"}",
                                   style: Styles.semibold12(context).copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.color,
+                                    color: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge?.color,
                                   ),
                                 ),
                                 Text(
                                   "${model.vehicleColor ?? "??"} - ${model.vehiclePlats ?? "??"}",
-                                  style: Styles.regular14(context).copyWith(
-                                    color: AppColors.greyText,
-                                  ),
+                                  style: Styles.regular14(
+                                    context,
+                                  ).copyWith(color: AppColors.greyText),
                                 ),
                               ],
                             ),
@@ -374,7 +372,7 @@ class TripCard extends StatelessWidget {
                   //! Start & End Point
                   StartAndEndPoint(
                     startValue: model.pickupAddress ?? "??",
-                    endValue: model.dropoffAddress ?? "??",
+                    endValue: model.dropoffAddress ?? "",
                     startTitle: AppStrings.startPoint.tr(context),
                   ),
 
@@ -394,23 +392,26 @@ class TripCard extends StatelessWidget {
                           Text(
                             model.dateFrom ?? "???",
                             style: Styles.regular14(context).copyWith(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge?.color,
+                              color: Theme.of(
+                                context,
+                              ).textTheme.bodyLarge?.color,
                             ),
                           ),
                           Text(
                             AppStrings.to.tr(context),
                             style: Styles.regular14(context).copyWith(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge?.color,
+                              color: Theme.of(
+                                context,
+                              ).textTheme.bodyLarge?.color,
                             ),
                           ),
                           //! Date To
                           Text(
                             model.dateTo ?? "???",
                             style: Styles.regular14(context).copyWith(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge?.color,
+                              color: Theme.of(
+                                context,
+                              ).textTheme.bodyLarge?.color,
                             ),
                           ),
                         ],
@@ -436,8 +437,9 @@ class TripCard extends StatelessWidget {
                               context.read<GlobalCubit>().language,
                             ).split("|")[1],
                             style: Styles.regular14(context).copyWith(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge?.color,
+                              color: Theme.of(
+                                context,
+                              ).textTheme.bodyLarge?.color,
                             ),
                           ),
                         ],
@@ -453,9 +455,9 @@ class TripCard extends StatelessWidget {
                         children: [
                           Text(
                             AppStrings.lookingForDrivers.tr(context),
-                            style: Styles.bold16(context).copyWith(
-                              color: AppColors.primary,
-                            ),
+                            style: Styles.bold16(
+                              context,
+                            ).copyWith(color: AppColors.primary),
                           ),
                           SizedBox(
                             height: 24.rH(context),

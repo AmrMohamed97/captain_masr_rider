@@ -26,7 +26,7 @@ class _SendRequestSuccessAlertDialogState
         navigateAndRemoveUntil(
           context,
           context.read<GlobalCubit>().isRider
-              ? const BaseView()
+              ? const HomeView()
               : const HomeView(),
         );
       },

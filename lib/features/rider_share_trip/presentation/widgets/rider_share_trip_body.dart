@@ -76,7 +76,7 @@ class RiderShareTripBody extends StatelessWidget {
           navigateAndRemoveUntil(
             context,
             context.read<GlobalCubit>().isRider
-                ? const BaseView()
+                ? const HomeView()
                 : const HomeView(),
           );
         }
@@ -99,7 +99,7 @@ class RiderShareTripBody extends StatelessWidget {
           navigateAndRemoveUntil(
             context,
             context.read<GlobalCubit>().isRider
-                ? const BaseView()
+                ? const HomeView()
                 : const HomeView(),
           );
         }

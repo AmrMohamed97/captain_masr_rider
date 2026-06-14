@@ -1,3 +1,5 @@
+import 'package:captain_masr_rider/features/home/presentation/views/home_view.dart';
+
 import '../../../../core/imports/imports.dart';
 
 class RiderRegisterCongratulationAlertDialog extends StatefulWidget {
@@ -18,7 +20,7 @@ class _RiderRegisterCongratulationAlertDialogState
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        navigateAndRemoveUntil(context, const BaseView());
+        navigateAndRemoveUntil(context, const HomeView());
       },
     );
   }

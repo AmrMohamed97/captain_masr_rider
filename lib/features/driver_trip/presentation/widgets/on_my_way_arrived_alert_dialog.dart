@@ -23,7 +23,7 @@ class _OnMyWayArrivedAlertDialogState extends State<OnMyWayArrivedAlertDialog> {
         navigateAndRemoveUntil(
           context,
           context.read<GlobalCubit>().isRider
-              ? const BaseView()
+              ? const HomeView()
               : const HomeView(),
         );
       },

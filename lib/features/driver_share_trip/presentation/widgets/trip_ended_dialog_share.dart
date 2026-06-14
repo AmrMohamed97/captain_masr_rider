@@ -1,3 +1,5 @@
+import 'package:captain_masr_rider/features/home/presentation/views/home_view.dart';
+
 import '../../../../core/imports/imports.dart';
 
 class TripEndedDialogShare extends StatelessWidget {
@@ -54,7 +56,7 @@ class TripEndedDialogShare extends StatelessWidget {
                   globalCubit.navBarController.jumpToTab(0);
                   navigateAndRemoveUntil(
                     context,
-                    const BaseView(),
+                    const HomeView(),
                   );
                 },
                 title: AppStrings.goBack.tr(context),
